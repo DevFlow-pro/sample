@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты и отзывы — Сайт-Шаблон</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-info-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: var(--card-radius);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-section h2 {
+            color: #111827;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-address-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .contact-phones-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .phone-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: #f9fafb;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .phone-label {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .phone-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .phone-number {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111827;
+            text-decoration: none;
+        }
+
+        .phone-number:hover {
+            color: #4b5563;
+        }
+
+        .wa-mini-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #374151;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+        }
+
+        .wa-mini-btn:hover {
+            background-color: #111827;
+            transform: scale(1.05);
+        }
+
+        .map-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: var(--card-radius);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 280px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f9fafb;
+        }
+
+        .reviews-section {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: var(--card-radius);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            margin-bottom: 40px;
+        }
+
+        .reviews-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .reviews-header-row h2 {
+            color: #111827;
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .reviews-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f9fafb;
+            padding: 8px 15px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+        }
+
+        .summary-stars {
+            color: #4b5563;
+            letter-spacing: 2px;
+        }
+
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 30px;
+        }
+
+        .rating-select-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rating-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .rating-stars span {
+            font-size: 26px;
+            color: #d1d5db;
+            transition: color 0.2s;
+        }
+
+        .rating-stars span.active,
+        .rating-stars span:hover {
+            color: #4b5563;
+        }
+
+        .review-input, .review-textarea {
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: #ffffff;
+            color: #111827;
+            font-family: inherit;
+        }
+
+        .review-input:focus, .review-textarea:focus {
+            border-color: #4b5563;
+            box-shadow: 0 0 5px rgba(75, 85, 99, 0.2);
+        }
+
+        .review-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-review-btn {
+            background-color: #4b5563;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            align-self: flex-start;
+        }
+
+        .submit-review-btn:hover {
+            background-color: #111827;
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .no-reviews-msg {
+            text-align: center;
+            color: #6b7280;
+            font-style: italic;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 10px;
+            border: 1px dashed #d1d5db;
+        }
+
+        .review-card {
+            background: #f9fafb;
+            padding: 18px 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .review-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .review-author-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #111827;
+        }
+
+        .review-card-stars {
+            color: #4b5563;
+            font-size: 15px;
+        }
+
+        .review-card-text {
+            font-size: 15px;
+            color: #374151;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .playmarket-reply-box {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid #4b5563;
+            padding: 12px 15px;
+            margin-top: 8px;
+            margin-left: 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .playmarket-reply-author {
+            font-weight: 800;
+            color: #111827;
+            font-size: 13px;
+        }
+
+        .playmarket-reply-text {
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .delete-btn { color: #ffffff; background: #ef4444; }
+        .reply-admin-btn { color: #ffffff; background: #3b82f6; }
+        .edit-btn { color: #ffffff; background: #f59e0b; }
+
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .admin-modal.active { display: flex; }
+        .admin-modal-content {
+            background: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 450px;
+            border: 2px solid #4b5563;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .profanity-error-msg {
+            color: #dc2626;
+            background-color: #fee2e2;
+            border: 1px solid #fecaca;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .contacts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <header>
+            <div class="header-top">
+                <div class="header-center-brand">
+                    <span class="header-emoji">📞</span>
+                    <a href="index.html" class="site-title">Сайт-Шаблон (Контакты)</a>
+                </div>
+                <div class="header-right-action">
+                    <div class="fav-btn-wrapper">
+                        <button id="favorites-toggle-btn" class="fav-icon-btn" title="Избранные наборы">
+                            🔖 <span id="fav-badge" class="fav-badge hidden">0</span>
+                        </button>
+                        <span class="fav-label-sub">избранное</span>
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Каталог</a></li>
+                    <li><a href="about.html">О нас / Секции</a></li>
+                    <li><a href="contact.html" class="active">Контакты и отзывы</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h1 class="page-heading">Контакты и обратная связь</h1>
+            
+            <div class="client-hint-banner">
+                📍 <strong>Описание блока контактов:</strong> Здесь размещается актуальный номер телефона с быстрой кнопкой перехода в WhatsApp, а также интерактивная карта. В данном шаблоне карта настроена на отображение планеты/всего мира.
+            </div>
+
+            <div class="contacts-grid">
+                <div class="contact-info-card">
+                    <div class="contact-section">
+                        <h2>Адрес компании</h2>
+                        <p class="contact-address-text">[ Здесь будет указан ваш реальный адрес или город обслуживания клиентов ]</p>
+                    </div>
+
+                    <div class="contact-section">
+                        <h2>Телефоны</h2>
+                        <div class="contact-phones-list">
+                            <div class="phone-item">
+                                <span class="phone-label">Основной контакт</span>
+                                <div class="phone-row">
+                                    <a href="tel:+77086229735" class="phone-number">+7 (708) 622-9735</a>
+                                    <a href="https://wa.me/77086229735" target="_blank" class="wa-mini-btn">
+                                        💬 WhatsApp
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-card">
+                    <h2>Геолокация / Карта мира</h2>
+                    <div class="map-container">
+                        <!-- Яндекс.Карта с общим видом мира (координаты 0,0 или общий обзор) -->
+                        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A3a7e3d8c5432...&amp;width=100%25&amp;height=280&amp;lang=ru_RU&amp;scroll=true"></script>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15588329.839!2d48.0!3d48.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2skz!4v1!5m2!1sru!2skz" width="100%" height="280" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок отзывов с новым Apps Script URL -->
+            <div class="reviews-section">
+                <div class="reviews-header-row">
+                    <h2>Отзывы клиентов</h2>
+                    <div class="reviews-summary" id="reviewsSummary">
+                        <span>Рейтинг:</span>
+                        <span class="summary-stars" id="summaryStars">★★★★★</span>
+                        <span id="summaryCount">(0 отзывов)</span>
+                    </div>
+                </div>
+
+                <form class="review-form" id="reviewForm">
+                    <div class="rating-select-group">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-stars" id="starContainer">
+                            <span data-value="1">★</span>
+                            <span data-value="2">★</span>
+                            <span data-value="3">★</span>
+                            <span data-value="4">★</span>
+                            <span data-value="5">★</span>
+                        </div>
+                        <input type="hidden" id="reviewRating" value="5">
+                    </div>
+                    <input type="text" id="reviewAuthor" class="review-input" placeholder="Ваше имя" required>
+                    <textarea id="reviewText" class="review-textarea" placeholder="Ваш отзыв о работе сервиса..." required></textarea>
+                    
+                    <div id="profanityError" class="profanity-error-msg">⚠️ Запрещены нецензурные выражения и оскорбления.</div>
+
+                    <button type="submit" class="submit-review-btn" id="submitBtn">Оставить отзыв</button>
+                </form>
+
+                <div class="reviews-list" id="reviewsList">
+                    <div class="no-reviews-msg">Загрузка отзывов...</div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Сайт-шаблон. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно администратора -->
+    <div id="adminModal" class="admin-modal">
+        <div class="admin-modal-content">
+            <h3 id="modalTitle">Управление отзывом</h3>
+            <input type="hidden" id="replyRowId" value="">
+            <input type="hidden" id="modalMode" value="reply">
+            
+            <div id="editAuthorWrapper" style="display:none; flex-direction:column; gap:5px;">
+                <span class="rating-label">Имя:</span>
+                <input type="text" id="editReviewAuthor" class="review-input">
+            </div>
+
+            <div id="editRatingWrapper" style="display:none; align-items:center; gap:10px;">
+                <span class="rating-label">Оценка:</span>
+                <div class="rating-stars" id="modalStarContainer">
+                    <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
+                </div>
+                <input type="hidden" id="editReviewRating" value="5">
+            </div>
+            
+            <textarea id="adminModalText" class="review-textarea" placeholder="Введите ответ..."></textarea>
+            <div id="modalProfanityError" class="profanity-error-msg">⚠️ Обнаружены запрещенные слова!</div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="action-btn delete-btn" id="closeAdminModal" style="background:#6b7280;">Отмена</button>
+                <button type="button" class="action-btn reply-admin-btn" id="sendAdminReplyBtn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Общие элементы корзины -->
+    <div id="favorites-popup" class="cart-popup hidden">
+        <div class="cart-popup-header"><h3>🔖 Сохраненные наборы</h3><button id="close-favorites-popup" class="close-popup-btn">&times;</button></div>
+        <div style="margin-bottom: 12px; display: flex; gap: 8px;"><input type="text" id="fav-name-input" placeholder="Название набора" class="fav-input"><button id="save-current-fav-btn" class="fav-save-btn">Сохранить текущий</button></div>
+        <div id="favorites-popup-items" class="cart-popup-items"></div>
+    </div>
+    <div id="cart-popup" class="cart-popup hidden">
+        <div class="cart-popup-header"><h3>Состав вашего заказа</h3><button id="close-cart-popup" class="close-popup-btn">&times;</button></div>
+        <div id="cart-popup-items" class="cart-popup-items"></div>
+    </div>
+    <div id="order-bar" class="order-bar hidden">
+        <div class="order-bar-content">
+            <div id="order-bar-toggle" class="order-info"><div class="order-title-row"><span class="order-heading">ЗАКАЗ <span class="order-edit-hint">(изменить)</span></span><span class="order-total">Итого: <strong id="bar-total-price">0 ₸</strong></span></div><div id="bar-items-text" class="order-items-preview">пусто</div></div>
+            <button id="whatsapp-send-btn" class="whatsapp-btn" title="Отправить в WhatsApp"><span class="wa-text">в WhatsApp</span><span class="wa-icon">➔</span></button>
+        </div>
+    </div>
+
+    <!-- Скрипт с вашим НОВЫМ Apps Script URL -->
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzdAiuPdXkKeJkeCyLcwVwMuzxSjef5zUtGgqytKxuF5xvhbiyqkxnUpQtgzxk0YkXf/exec";
+        const ADMIN_PASSWORD = "honey123";
+        // (Остальная логика отзывов сохранена полностью в cart.js)
+    </script>
+    <script src="cart.js"></script>
+    <script>
+        // Дополнительный код для обработки отзывов на странице
+        const stars = document.querySelectorAll('#starContainer span');
+        const ratingInput = document.getElementById('reviewRating');
+        function updateStars(val, container = stars) {
+            container.forEach(s => {
+                if (s.getAttribute('data-value') <= val) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+        }
+        updateStars(5, stars);
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const val = star.getAttribute('data-value');
+                ratingInput.value = val;
+                updateStars(val, stars);
+            });
+        });
+    </script>
+</body>
+</html>
