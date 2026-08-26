@@ -74,6 +74,7 @@
             width: 100%;
             aspect-ratio: 600 / 650;
             object-fit: cover;
+            display: block;
         }
 
         .to-top-btn {
@@ -108,21 +109,6 @@
             transform: scale(1.1);
         }
 
-        .functional-note {
-            font-size: 14px;
-            color: #6b7280;
-            background: #f3f4f6;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            border-left: 4px solid #9ca3af;
-            line-height: 1.5;
-        }
-
-        .functional-note strong {
-            color: #1e1e1e;
-        }
-
         .page-description {
             font-size: 15px;
             color: var(--text-muted);
@@ -132,6 +118,155 @@
             margin-bottom: 30px;
             border-left: 4px solid #9ca3af;
             line-height: 1.6;
+        }
+
+        /* Стили для эффекта туманности */
+        .product-description-wrapper {
+            position: relative;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            max-height: 72px;
+            line-height: 1.6;
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+
+        .product-description-wrapper.expanded {
+            max-height: 2000px;
+        }
+
+        .product-description-wrapper .fade-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(transparent, #ffffff);
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-description-wrapper.expanded .fade-overlay {
+            opacity: 0;
+        }
+
+        .read-more-btn {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 16px;
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            color: var(--text-dark);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            background: #f9fafb;
+        }
+
+        .read-more-btn:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        /* ПОРЯДОК В КАРТОЧКЕ: НАЗВАНИЕ → ФОТО → ВЫБОР КОЛИЧЕСТВА → ОПИСАНИЕ */
+        .info-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-card h3 {
+            order: 1;
+        }
+
+        .info-card .product-image {
+            order: 2;
+        }
+
+        .info-card .meta.weight-meta {
+            order: 3;
+        }
+
+        .info-card .description-section {
+            order: 4;
+        }
+
+        /* Стили для блока выбора количества */
+        .weight-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .weight-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: #f9fafb;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .weight-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .weight-label .desc-hint {
+            font-size: 11px;
+            color: #9ca3af;
+            font-weight: 400;
+            margin-left: 6px;
+        }
+
+        .counter-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cnt-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+        }
+
+        .cnt-btn:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        .cnt-value {
+            font-weight: 700;
+            font-size: 16px;
+            min-width: 24px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .meta.weight-meta {
+            margin-top: 12px;
+        }
+
+        .description-section {
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -183,49 +318,283 @@
             <!-- СЕКЦИЯ 1 — 5 карточек -->
             <h2 id="section1" class="section-title section-anchor">📦 Карточки товаров</h2>
             <div class="honey-grid">
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+                <article class="info-card section-anchor" id="product1" data-id="1" data-name="Пример товара #1">
                     <h3>Пример товара #1</h3>
-                    <p>Карточка товара с возможностью выбора опций (вес, объём, размер) и количества.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Кнопки «+» и «-» управляют количеством. 
-                        Автоматическое добавление в корзину.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 кг <span class="desc-hint">(вес)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 кг <span class="desc-hint">(вес)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="3" data-price="0">
+                                <span class="weight-label">3 кг <span class="desc-hint">(вес)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="4" data-price="0">
+                                <span class="weight-label">4 кг <span class="desc-hint">(вес)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="5" data-price="0">
+                                <span class="weight-label">5 кг <span class="desc-hint">(вес)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-1">
+                            <p>Карточка товара с возможностью выбора опций (вес, объём, размер) и количества. Это длинное описание, которое демонстрирует эффект туманности. Первые несколько строк видны полностью, а остальной текст плавно затухает градиентом. Нажмите "Читать далее", чтобы увидеть полный текст.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-1">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product2" data-id="2" data-name="Пример товара #2">
                     <h3>Пример товара #2</h3>
-                    <p>Универсальная карточка для любых товаров: цветы, меню, услуги автосервиса.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Возможность добавить несколько вариантов товара 
-                        с разными ценами и характеристиками.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="3" data-price="0">
+                                <span class="weight-label">3 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="4" data-price="0">
+                                <span class="weight-label">4 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="5" data-price="0">
+                                <span class="weight-label">5 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-2">
+                            <p>Универсальная карточка для любых товаров: цветы, меню, услуги автосервиса. Здесь можно разместить подробное описание товара, его характеристики и преимущества. Текст будет красиво обрезаться эффектом туманности.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-2">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product3" data-id="3" data-name="Пример товара #3">
                     <h3>Пример товара #3</h3>
-                    <p>Настраиваемое описание, изображение и варианты товара под ваш бизнес.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Полная кастомизация — меняйте текст, фото, цены 
-                        и названия опций.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 л <span class="desc-hint">(объём)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 л <span class="desc-hint">(объём)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="3" data-price="0">
+                                <span class="weight-label">3 л <span class="desc-hint">(объём)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="4" data-price="0">
+                                <span class="weight-label">4 л <span class="desc-hint">(объём)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="5" data-price="0">
+                                <span class="weight-label">5 л <span class="desc-hint">(объём)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-3">
+                            <p>Настраиваемое описание, изображение и варианты товара под ваш бизнес. Полная кастомизация — меняйте текст, фото, цены и названия опций. Описание будет сворачиваться с эффектом туманности.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-3">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product4" data-id="4" data-name="Пример товара #4">
                     <h3>Пример товара #4</h3>
-                    <p>Адаптивный дизайн карточек для мобильных устройств.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Отлично смотрится на телефонах, планшетах и 
-                        компьютерах. Автоматическая подстройка под экран.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="3" data-price="0">
+                                <span class="weight-label">3 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="4" data-price="0">
+                                <span class="weight-label">4 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="5" data-price="0">
+                                <span class="weight-label">5 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-4">
+                            <p>Адаптивный дизайн карточек для мобильных устройств. Отлично смотрится на телефонах, планшетах и компьютерах. Автоматическая подстройка под экран. Описание сворачивается с эффектом туманности.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-4">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product5" data-id="5" data-name="Пример товара #5">
                     <h3>Пример товара #5</h3>
-                    <p>Поддержка Lightbox — увеличение фото при клике.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Нажмите на изображение, чтобы увидеть его 
-                        в увеличенном виде с затемнением фона.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="3" data-price="0">
+                                <span class="weight-label">3 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="4" data-price="0">
+                                <span class="weight-label">4 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="5" data-price="0">
+                                <span class="weight-label">5 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-5">
+                            <p>Поддержка Lightbox — увеличение фото при клике. Нажмите на изображение, чтобы увидеть его в увеличенном виде с затемнением фона. Это описание демонстрирует эффект туманности.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-5">Читать далее</button>
                     </div>
                 </article>
             </div>
@@ -233,49 +602,171 @@
             <!-- СЕКЦИЯ 2 — 5 карточек -->
             <h2 id="section2" class="section-title section-anchor">🛒 Корзина и избранное</h2>
             <div class="honey-grid">
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+                <article class="info-card section-anchor" id="product6" data-id="6" data-name="Корзина заказов">
                     <h3>Корзина заказов</h3>
-                    <p>Автоматическое суммирование товаров в нижней панели.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Все выбранные товары отображаются в панели 
-                        «ЗАКАЗ» внизу экрана. Можно редактировать количество прямо в корзине.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="3" data-price="0">
+                                <span class="weight-label">3 шт <span class="desc-hint">(количество)</span></span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-6">
+                            <p>Автоматическое суммирование товаров в нижней панели. Все выбранные товары отображаются в панели «ЗАКАЗ» внизу экрана. Можно редактировать количество прямо в корзине.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-6">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product7" data-id="7" data-name="Избранное">
                     <h3>Избранное</h3>
-                    <p>Сохранение наборов товаров для быстрого заказа.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Нажмите на иконку ⭐, чтобы открыть избранное. 
-                        Сохраняйте текущий заказ, чтобы быстро повторить его позже.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 набор</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 набора</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-7">
+                            <p>Сохранение наборов товаров для быстрого заказа. Нажмите на иконку ⭐, чтобы открыть избранное. Сохраняйте текущий заказ, чтобы быстро повторить его позже.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-7">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product8" data-id="8" data-name="Отправка в WhatsApp">
                     <h3>Отправка в WhatsApp</h3>
-                    <p>Мгновенная отправка заказа в мессенджер.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Нажмите «в Ватсап», чтобы открыть модальное окно 
-                        с проверкой заказа и отправкой в WhatsApp.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 заказ</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 заказа</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-8">
+                            <p>Мгновенная отправка заказа в мессенджер. Нажмите «в Ватсап», чтобы открыть модальное окно с проверкой заказа и отправкой в WhatsApp.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-8">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product9" data-id="9" data-name="Управление заказом">
                     <h3>Управление заказом</h3>
-                    <p>Редактирование количества товаров прямо из корзины.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> В попапе корзины можно менять количество 
-                        каждого товара с помощью кнопок «+» и «-».
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 позиция</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 позиции</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-9">
+                            <p>Редактирование количества товаров прямо из корзины. В попапе корзины можно менять количество каждого товара с помощью кнопок «+» и «-».</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-9">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product10" data-id="10" data-name="История заказов">
                     <h3>История заказов</h3>
-                    <p>Сохранение истории заказов для повторного использования.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Сохраняйте заказы в избранное с названием, 
-                        чтобы быстро повторить их позже.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 заказ</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 заказа</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-10">
+                            <p>Сохранение истории заказов для повторного использования. Сохраняйте заказы в избранное с названием, чтобы быстро повторить их позже.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-10">Читать далее</button>
                     </div>
                 </article>
             </div>
@@ -283,49 +774,163 @@
             <!-- СЕКЦИЯ 3 — 5 карточек -->
             <h2 id="section3" class="section-title section-anchor">⭐ Отзывы и рейтинг</h2>
             <div class="honey-grid">
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+                <article class="info-card section-anchor" id="product11" data-id="11" data-name="Система отзывов">
                     <h3>Система отзывов</h3>
-                    <p>Полноценная система отзывов с рейтингом и администрированием.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Пользователи могут оставлять отзывы с оценкой 
-                        от 1 до 5 звёзд. Реализована защита от мата и оскорблений.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 отзыв</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 отзыва</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-11">
+                            <p>Полноценная система отзывов с рейтингом и администрированием. Пользователи могут оставлять отзывы с оценкой от 1 до 5 звёзд. Реализована защита от мата и оскорблений.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-11">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product12" data-id="12" data-name="Администрирование">
                     <h3>Администрирование</h3>
-                    <p>Управление отзывами через Google Sheets.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Администратор может отвечать на отзывы, 
-                        редактировать и удалять их. Пароль администратора: <strong>honey123</strong>
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 запись</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 записи</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-12">
+                            <p>Управление отзывами через Google Sheets. Администратор может отвечать на отзывы, редактировать и удалять их. Пароль администратора: honey123</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-12">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product13" data-id="13" data-name="Рейтинг товаров">
                     <h3>Рейтинг товаров</h3>
-                    <p>Автоматический подсчёт среднего рейтинга.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> На странице контактов отображается общий рейтинг 
-                        и количество отзывов. Звёзды отображаются динамически.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 оценка</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 оценки</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-13">
+                            <p>Автоматический подсчёт среднего рейтинга. На странице контактов отображается общий рейтинг и количество отзывов. Звёзды отображаются динамически.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-13">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product14" data-id="14" data-name="Модерация отзывов">
                     <h3>Модерация отзывов</h3>
-                    <p>Фильтрация нецензурной лексики.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Встроенный фильтр мата и оскорблений 
-                        автоматически блокирует неприемлемые отзывы.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 запрос</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 запроса</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-14">
+                            <p>Фильтрация нецензурной лексики. Встроенный фильтр мата и оскорблений автоматически блокирует неприемлемые отзывы.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-14">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product15" data-id="15" data-name="Ответы на отзывы">
                     <h3>Ответы на отзывы</h3>
-                    <p>Возможность отвечать на отзывы от имени администратора.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Администратор может оставлять ответы на отзывы, 
-                        которые отображаются прямо под отзывом.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 ответ</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 ответа</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-15">
+                            <p>Возможность отвечать на отзывы от имени администратора. Администратор может оставлять ответы на отзывы, которые отображаются прямо под отзывом.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-15">Читать далее</button>
                     </div>
                 </article>
             </div>
@@ -333,49 +938,163 @@
             <!-- СЕКЦИЯ 4 — 5 карточек -->
             <h2 id="section4" class="section-title section-anchor">📍 Карта и контакты</h2>
             <div class="honey-grid">
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+                <article class="info-card section-anchor" id="product16" data-id="16" data-name="Интерактивная карта">
                     <h3>Интерактивная карта</h3>
-                    <p>Карта мира для демонстрации интерактивности.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Вы можете заменить карту мира на карту с вашим 
-                        адресом. Используйте Яндекс.Карты или 2GIS.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 точка</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 точки</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-16">
+                            <p>Карта мира для демонстрации интерактивности. Вы можете заменить карту мира на карту с вашим адресом. Используйте Яндекс.Карты или 2GIS.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-16">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product17" data-id="17" data-name="Контакты">
                     <h3>Контакты</h3>
-                    <p>Настраиваемые контактные данные.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Вы можете изменить номера телефонов, адрес и 
-                        добавить свои контакты. В адресе указано, что ставится адрес точки.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 контакт</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 контакта</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-17">
+                            <p>Настраиваемые контактные данные. Вы можете изменить номера телефонов, адрес и добавить свои контакты. В адресе указано, что ставится адрес точки.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-17">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product18" data-id="18" data-name="Навигация">
                     <h3>Навигация</h3>
-                    <p>Кнопки маршрута в Яндекс и 2GIS.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Кнопки навигации можно настроить под ваш 
-                        реальный адрес. Сейчас они отображаются как пример.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 маршрут</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 маршрута</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-18">
+                            <p>Кнопки маршрута в Яндекс и 2GIS. Кнопки навигации можно настроить под ваш реальный адрес. Сейчас они отображаются как пример.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-18">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product19" data-id="19" data-name="Телефоны">
                     <h3>Телефоны</h3>
-                    <p>Основной и дополнительный номера.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Настраиваемые номера телефонов. 
-                        Основной номер можно заменить на ваш.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 номер</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 номера</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-19">
+                            <p>Основной и дополнительный номера. Настраиваемые номера телефонов. Основной номер можно заменить на ваш.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-19">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product20" data-id="20" data-name="WhatsApp">
                     <h3>WhatsApp</h3>
-                    <p>Быстрый переход в мессенджер.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Кнопка WhatsApp открывает чат с указанным 
-                        номером. Номер можно изменить в коде.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 чат</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 чата</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-20">
+                            <p>Быстрый переход в мессенджер. Кнопка WhatsApp открывает чат с указанным номером. Номер можно изменить в коде.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-20">Читать далее</button>
                     </div>
                 </article>
             </div>
@@ -383,49 +1102,163 @@
             <!-- СЕКЦИЯ 5 — 5 карточек -->
             <h2 id="section5" class="section-title section-anchor">🎨 Дизайн и адаптация</h2>
             <div class="honey-grid">
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+                <article class="info-card section-anchor" id="product21" data-id="21" data-name="Серо-белый дизайн">
                     <h3>Серо-белый дизайн</h3>
-                    <p>Минималистичный и строгий стиль.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Все цвета заменены на серо-белые. Убраны 
-                        декоративные полоски. Дизайн чистый и современный.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 вариант</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 варианта</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-21">
+                            <p>Минималистичный и строгий стиль. Все цвета заменены на серо-белые. Убраны декоративные полоски. Дизайн чистый и современный.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-21">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product22" data-id="22" data-name="Адаптивная вёрстка">
                     <h3>Адаптивная вёрстка</h3>
-                    <p>Корректное отображение на всех устройствах.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Сайт адаптируется под мобильные устройства, 
-                        планшеты и десктопы. Все элементы корректно масштабируются.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 устройство</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 устройства</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-22">
+                            <p>Корректное отображение на всех устройствах. Сайт адаптируется под мобильные устройства, планшеты и десктопы. Все элементы корректно масштабируются.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-22">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product23" data-id="23" data-name="Готовый шаблон">
                     <h3>Готовый шаблон</h3>
-                    <p>Полный функционал для создания сайтов на заказ.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Всё, что нужно для старта — карточки товаров, 
-                        корзина, избранное, отзывы, карта, контакты. Просто замените контент.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 шаблон</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 шаблона</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-23">
+                            <p>Полный функционал для создания сайтов на заказ. Всё, что нужно для старта — карточки товаров, корзина, избранное, отзывы, карта, контакты. Просто замените контент.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-23">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product24" data-id="24" data-name="Типографика">
                     <h3>Типографика</h3>
-                    <p>Чёткая иерархия заголовков и текста.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Все тексты хорошо читаются на любых экранах. 
-                        Размеры шрифтов подобраны для комфортного восприятия.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 шрифт</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 шрифта</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-24">
+                            <p>Чёткая иерархия заголовков и текста. Все тексты хорошо читаются на любых экранах. Размеры шрифтов подобраны для комфортного восприятия.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-24">Читать далее</button>
                     </div>
                 </article>
-                <article class="info-card">
-                    <img src="tochka" alt="Точка">
+
+                <article class="info-card section-anchor" id="product25" data-id="25" data-name="Анимации">
                     <h3>Анимации</h3>
-                    <p>Плавные переходы и эффекты при наведении.</p>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Карточки плавно поднимаются при наведении, 
-                        кнопки меняют цвет. Все анимации не перегружают интерфейс.
+                    <img class="product-image" src="tochka" alt="Точка">
+                    <div class="meta weight-meta">
+                        <div class="weight-options">
+                            <div class="weight-option" data-weight="1" data-price="0">
+                                <span class="weight-label">1 эффект</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="weight-option" data-weight="2" data-price="0">
+                                <span class="weight-label">2 эффекта</span>
+                                <div class="counter-box">
+                                    <button class="cnt-btn minus" type="button">-</button>
+                                    <span class="cnt-value">0</span>
+                                    <button class="cnt-btn plus" type="button">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-section">
+                        <div class="product-description-wrapper" id="desc-25">
+                            <p>Плавные переходы и эффекты при наведении. Карточки плавно поднимаются при наведении, кнопки меняют цвет. Все анимации не перегружают интерфейс.</p>
+                            <div class="fade-overlay"></div>
+                        </div>
+                        <button class="read-more-btn" data-target="desc-25">Читать далее</button>
                     </div>
                 </article>
             </div>
@@ -521,6 +1354,18 @@
                 }
             });
         }
+
+        // Эффект туманности — кнопки "Читать далее" / "Скрыть"
+        document.querySelectorAll('.read-more-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.dataset.target;
+                const wrapper = document.getElementById(targetId);
+                if (wrapper) {
+                    wrapper.classList.toggle('expanded');
+                    this.textContent = wrapper.classList.contains('expanded') ? 'Скрыть' : 'Читать далее';
+                }
+            });
+        });
     </script>
 
     <script src="cart.js"></script>
