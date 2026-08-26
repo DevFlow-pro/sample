@@ -3,22 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О шаблоне — Промёд</title>
+    <title>Ваша точка — Сайт Шаблон</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Якорные ссылки в столбец */
+        /* Якорные ссылки в столбец — единый блок */
         .anchor-nav-wrapper {
             margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-light);
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
-        
+
+        .anchor-nav-wrapper .anchor-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        .anchor-nav-wrapper .anchor-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
         .anchor-nav {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            align-items: flex-start;
-            justify-content: flex-start;
+            gap: 6px;
+            align-items: stretch;
         }
 
         .anchor-nav a {
@@ -31,7 +48,6 @@
             border-radius: 8px;
             background: var(--bg-card);
             transition: var(--transition);
-            width: 100%;
             text-align: left;
         }
 
@@ -39,6 +55,11 @@
             background: var(--bg-hover);
             color: var(--text-dark);
             border-color: #9ca3af;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-anchor {
+            scroll-margin-top: 30px;
         }
 
         .section-title {
@@ -101,6 +122,17 @@
         .functional-note strong {
             color: #1e1e1e;
         }
+
+        .page-description {
+            font-size: 15px;
+            color: var(--text-muted);
+            background: #f3f4f6;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #9ca3af;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -108,13 +140,12 @@
         <header>
             <div class="header-top">
                 <div class="header-center-brand">
-                    <span class="header-emoji">⚙️</span>
-                    <a href="index.html" class="site-title">Промёд — Шаблон</a>
+                    <a href="index.html" class="site-title">Сайт Шаблон</a>
                 </div>
                 <div class="header-right-action">
                     <div class="fav-btn-wrapper">
                         <button id="favorites-toggle-btn" class="fav-icon-btn" title="Избранные заказы">
-                            🔖 <span id="fav-badge" class="fav-badge hidden">0</span>
+                            ⭐ <span id="fav-badge" class="fav-badge hidden">0</span>
                         </button>
                         <span class="fav-label-sub">избранное</span>
                     </div>
@@ -122,32 +153,38 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html">Товары</a></li>
-                    <li><a href="about.html" class="active">О шаблоне</a></li>
+                    <li><a href="index.html">Ваши товары</a></li>
+                    <li><a href="about.html" class="active">Ваша точка</a></li>
                     <li><a href="contact.html">Контакты и отзывы</a></li>
                 </ul>
             </nav>
         </header>
 
         <main>
-            <h1 class="page-heading">О шаблоне «Промёд»</h1>
+            <h1 class="page-heading">О вашей точке</h1>
 
-            <!-- Якорные ссылки в столбец -->
+            <div class="page-description">
+                📌 Эта страница показывает, как выглядит ваш бизнес. Здесь вы можете разместить информацию о вашей точке, услугах или преимуществах.
+            </div>
+
+            <!-- Якорные ссылки в столбец — единый блок с 5 строками для 5 секций -->
             <div class="anchor-nav-wrapper">
+                <div class="anchor-title">⬇️ Быстрый переход по разделам:</div>
+                <div class="anchor-desc">Кликните на название раздела, чтобы перейти к нему:</div>
                 <div class="anchor-nav">
-                    <a href="#section1">📦 Карточки товаров</a>
-                    <a href="#section2">🛒 Корзина и избранное</a>
-                    <a href="#section3">⭐ Отзывы и рейтинг</a>
-                    <a href="#section4">📍 Карта и контакты</a>
-                    <a href="#section5">🎨 Дизайн и адаптация</a>
+                    <a href="#section1">Карточки товаров</a>
+                    <a href="#section2">Корзина и избранное</a>
+                    <a href="#section3">Отзывы и рейтинг</a>
+                    <a href="#section4">Карта и контакты</a>
+                    <a href="#section5">Дизайн и адаптация</a>
                 </div>
             </div>
 
-            <!-- СЕКЦИЯ 1 -->
-            <h2 id="section1" class="section-title">📦 Карточки товаров</h2>
+            <!-- СЕКЦИЯ 1 — 5 карточек -->
+            <h2 id="section1" class="section-title section-anchor">📦 Карточки товаров</h2>
             <div class="honey-grid">
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1587049352847-4a222e784d38?w=600&auto=format&fit=crop&q=80" alt="Пример товара 1">
+                    <img src="tochka" alt="Точка">
                     <h3>Пример товара #1</h3>
                     <p>Карточка товара с возможностью выбора опций (вес, объём, размер) и количества.</p>
                     <div class="functional-note">
@@ -156,7 +193,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1471943311424-646960669fbc?w=600&auto=format&fit=crop&q=80" alt="Пример товара 2">
+                    <img src="tochka" alt="Точка">
                     <h3>Пример товара #2</h3>
                     <p>Универсальная карточка для любых товаров: цветы, меню, услуги автосервиса.</p>
                     <div class="functional-note">
@@ -165,7 +202,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=600&auto=format&fit=crop&q=80" alt="Пример товара 3">
+                    <img src="tochka" alt="Точка">
                     <h3>Пример товара #3</h3>
                     <p>Настраиваемое описание, изображение и варианты товара под ваш бизнес.</p>
                     <div class="functional-note">
@@ -174,7 +211,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1473081556163-2a17de81fc97?w=600&auto=format&fit=crop&q=80" alt="Пример товара 4">
+                    <img src="tochka" alt="Точка">
                     <h3>Пример товара #4</h3>
                     <p>Адаптивный дизайн карточек для мобильных устройств.</p>
                     <div class="functional-note">
@@ -183,7 +220,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=600&auto=format&fit=crop&q=80" alt="Пример товара 5">
+                    <img src="tochka" alt="Точка">
                     <h3>Пример товара #5</h3>
                     <p>Поддержка Lightbox — увеличение фото при клике.</p>
                     <div class="functional-note">
@@ -193,11 +230,11 @@
                 </article>
             </div>
 
-            <!-- СЕКЦИЯ 2 -->
-            <h2 id="section2" class="section-title">🛒 Корзина и избранное</h2>
+            <!-- СЕКЦИЯ 2 — 5 карточек -->
+            <h2 id="section2" class="section-title section-anchor">🛒 Корзина и избранное</h2>
             <div class="honey-grid">
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Корзина">
+                    <img src="tochka" alt="Точка">
                     <h3>Корзина заказов</h3>
                     <p>Автоматическое суммирование товаров в нижней панели.</p>
                     <div class="functional-note">
@@ -206,16 +243,16 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Избранное">
+                    <img src="tochka" alt="Точка">
                     <h3>Избранное</h3>
                     <p>Сохранение наборов товаров для быстрого заказа.</p>
                     <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Нажмите на иконку 🔖, чтобы открыть избранное. 
+                        <strong>⚡ Функционал:</strong> Нажмите на иконку ⭐, чтобы открыть избранное. 
                         Сохраняйте текущий заказ, чтобы быстро повторить его позже.
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="WhatsApp">
+                    <img src="tochka" alt="Точка">
                     <h3>Отправка в WhatsApp</h3>
                     <p>Мгновенная отправка заказа в мессенджер.</p>
                     <div class="functional-note">
@@ -223,13 +260,31 @@
                         с проверкой заказа и отправкой в WhatsApp.
                     </div>
                 </article>
+                <article class="info-card">
+                    <img src="tochka" alt="Точка">
+                    <h3>Управление заказом</h3>
+                    <p>Редактирование количества товаров прямо из корзины.</p>
+                    <div class="functional-note">
+                        <strong>⚡ Функционал:</strong> В попапе корзины можно менять количество 
+                        каждого товара с помощью кнопок «+» и «-».
+                    </div>
+                </article>
+                <article class="info-card">
+                    <img src="tochka" alt="Точка">
+                    <h3>История заказов</h3>
+                    <p>Сохранение истории заказов для повторного использования.</p>
+                    <div class="functional-note">
+                        <strong>⚡ Функционал:</strong> Сохраняйте заказы в избранное с названием, 
+                        чтобы быстро повторить их позже.
+                    </div>
+                </article>
             </div>
 
-            <!-- СЕКЦИЯ 3 -->
-            <h2 id="section3" class="section-title">⭐ Отзывы и рейтинг</h2>
+            <!-- СЕКЦИЯ 3 — 5 карточек -->
+            <h2 id="section3" class="section-title section-anchor">⭐ Отзывы и рейтинг</h2>
             <div class="honey-grid">
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Отзывы">
+                    <img src="tochka" alt="Точка">
                     <h3>Система отзывов</h3>
                     <p>Полноценная система отзывов с рейтингом и администрированием.</p>
                     <div class="functional-note">
@@ -238,7 +293,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Админка">
+                    <img src="tochka" alt="Точка">
                     <h3>Администрирование</h3>
                     <p>Управление отзывами через Google Sheets.</p>
                     <div class="functional-note">
@@ -247,7 +302,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Рейтинг">
+                    <img src="tochka" alt="Точка">
                     <h3>Рейтинг товаров</h3>
                     <p>Автоматический подсчёт среднего рейтинга.</p>
                     <div class="functional-note">
@@ -255,13 +310,31 @@
                         и количество отзывов. Звёзды отображаются динамически.
                     </div>
                 </article>
+                <article class="info-card">
+                    <img src="tochka" alt="Точка">
+                    <h3>Модерация отзывов</h3>
+                    <p>Фильтрация нецензурной лексики.</p>
+                    <div class="functional-note">
+                        <strong>⚡ Функционал:</strong> Встроенный фильтр мата и оскорблений 
+                        автоматически блокирует неприемлемые отзывы.
+                    </div>
+                </article>
+                <article class="info-card">
+                    <img src="tochka" alt="Точка">
+                    <h3>Ответы на отзывы</h3>
+                    <p>Возможность отвечать на отзывы от имени администратора.</p>
+                    <div class="functional-note">
+                        <strong>⚡ Функционал:</strong> Администратор может оставлять ответы на отзывы, 
+                        которые отображаются прямо под отзывом.
+                    </div>
+                </article>
             </div>
 
-            <!-- СЕКЦИЯ 4 -->
-            <h2 id="section4" class="section-title">📍 Карта и контакты</h2>
+            <!-- СЕКЦИЯ 4 — 5 карточек -->
+            <h2 id="section4" class="section-title section-anchor">📍 Карта и контакты</h2>
             <div class="honey-grid">
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Карта">
+                    <img src="tochka" alt="Точка">
                     <h3>Интерактивная карта</h3>
                     <p>Карта мира для демонстрации интерактивности.</p>
                     <div class="functional-note">
@@ -270,7 +343,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Контакты">
+                    <img src="tochka" alt="Точка">
                     <h3>Контакты</h3>
                     <p>Настраиваемые контактные данные.</p>
                     <div class="functional-note">
@@ -279,7 +352,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Навигация">
+                    <img src="tochka" alt="Точка">
                     <h3>Навигация</h3>
                     <p>Кнопки маршрута в Яндекс и 2GIS.</p>
                     <div class="functional-note">
@@ -287,13 +360,31 @@
                         реальный адрес. Сейчас они отображаются как пример.
                     </div>
                 </article>
+                <article class="info-card">
+                    <img src="tochka" alt="Точка">
+                    <h3>Телефоны</h3>
+                    <p>Основной и дополнительный номера.</p>
+                    <div class="functional-note">
+                        <strong>⚡ Функционал:</strong> Настраиваемые номера телефонов. 
+                        Основной номер можно заменить на ваш.
+                    </div>
+                </article>
+                <article class="info-card">
+                    <img src="tochka" alt="Точка">
+                    <h3>WhatsApp</h3>
+                    <p>Быстрый переход в мессенджер.</p>
+                    <div class="functional-note">
+                        <strong>⚡ Функционал:</strong> Кнопка WhatsApp открывает чат с указанным 
+                        номером. Номер можно изменить в коде.
+                    </div>
+                </article>
             </div>
 
-            <!-- СЕКЦИЯ 5 -->
-            <h2 id="section5" class="section-title">🎨 Дизайн и адаптация</h2>
+            <!-- СЕКЦИЯ 5 — 5 карточек -->
+            <h2 id="section5" class="section-title section-anchor">🎨 Дизайн и адаптация</h2>
             <div class="honey-grid">
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Дизайн">
+                    <img src="tochka" alt="Точка">
                     <h3>Серо-белый дизайн</h3>
                     <p>Минималистичный и строгий стиль.</p>
                     <div class="functional-note">
@@ -302,7 +393,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Адаптив">
+                    <img src="tochka" alt="Точка">
                     <h3>Адаптивная вёрстка</h3>
                     <p>Корректное отображение на всех устройствах.</p>
                     <div class="functional-note">
@@ -311,7 +402,7 @@
                     </div>
                 </article>
                 <article class="info-card">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80" alt="Шаблон">
+                    <img src="tochka" alt="Точка">
                     <h3>Готовый шаблон</h3>
                     <p>Полный функционал для создания сайтов на заказ.</p>
                     <div class="functional-note">
@@ -319,7 +410,26 @@
                         корзина, избранное, отзывы, карта, контакты. Просто замените контент.
                     </div>
                 </article>
+                <article class="info-card">
+                    <img src="tochka" alt="Точка">
+                    <h3>Типографика</h3>
+                    <p>Чёткая иерархия заголовков и текста.</p>
+                    <div class="functional-note">
+                        <strong>⚡ Функционал:</strong> Все тексты хорошо читаются на любых экранах. 
+                        Размеры шрифтов подобраны для комфортного восприятия.
+                    </div>
+                </article>
+                <article class="info-card">
+                    <img src="tochka" alt="Точка">
+                    <h3>Анимации</h3>
+                    <p>Плавные переходы и эффекты при наведении.</p>
+                    <div class="functional-note">
+                        <strong>⚡ Функционал:</strong> Карточки плавно поднимаются при наведении, 
+                        кнопки меняют цвет. Все анимации не перегружают интерфейс.
+                    </div>
+                </article>
             </div>
+
         </main>
 
         <button id="toTopBtn" class="to-top-btn">↑</button>
@@ -332,7 +442,7 @@
     <!-- Попапы -->
     <div id="favorites-popup" class="cart-popup hidden">
         <div class="cart-popup-header">
-            <h3>🔖 Ваши сохраненные заказы</h3>
+            <h3>⭐ Ваши сохраненные заказы</h3>
             <button id="close-favorites-popup" class="close-popup-btn">&times;</button>
         </div>
         <div style="margin-bottom: 12px; display: flex; gap: 8px;">

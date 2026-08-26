@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контакты и отзывы — Промёд Шаблон</title>
+    <title>Контакты и отзывы — Сайт Шаблон</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .contacts-grid {
@@ -114,7 +114,7 @@
 
         .map-container {
             width: 100%;
-            height: 280px;
+            height: 220px;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #d1d5db;
@@ -503,9 +503,23 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .page-description {
+            font-size: 15px;
+            color: var(--text-muted);
+            background: #f3f4f6;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #9ca3af;
+            line-height: 1.6;
+        }
+
         @media (max-width: 768px) {
             .contacts-grid {
                 grid-template-columns: 1fr;
+            }
+            .map-container {
+                height: 180px;
             }
         }
     </style>
@@ -515,13 +529,12 @@
         <header>
             <div class="header-top">
                 <div class="header-center-brand">
-                    <span class="header-emoji">⚙️</span>
-                    <a href="index.html" class="site-title">Промёд — Шаблон</a>
+                    <a href="index.html" class="site-title">Сайт Шаблон</a>
                 </div>
                 <div class="header-right-action">
                     <div class="fav-btn-wrapper">
                         <button id="favorites-toggle-btn" class="fav-icon-btn" title="Избранные заказы">
-                            🔖 <span id="fav-badge" class="fav-badge hidden">0</span>
+                            ⭐ <span id="fav-badge" class="fav-badge hidden">0</span>
                         </button>
                         <span class="fav-label-sub">избранное</span>
                     </div>
@@ -529,8 +542,8 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html">Товары</a></li>
-                    <li><a href="about.html">О шаблоне</a></li>
+                    <li><a href="index.html">Ваши товары</a></li>
+                    <li><a href="about.html">Ваша точка</a></li>
                     <li><a href="contact.html" class="active">Контакты и отзывы</a></li>
                 </ul>
             </nav>
@@ -538,6 +551,10 @@
 
         <main>
             <h1 class="page-heading">Контакты и местоположение</h1>
+
+            <div class="page-description">
+                📌 Контакты вашей компании: адрес, телефоны, интерактивная карта и система отзывов.
+            </div>
             
             <div class="contacts-grid">
                 <div class="contact-info-card">
@@ -555,8 +572,8 @@
                             <div class="phone-item">
                                 <span class="phone-label">Основной номер компании</span>
                                 <div class="phone-row">
-                                    <a href="tel:+77074242531" class="phone-number">+7 (707) 424-25-31</a>
-                                    <a href="https://wa.me/77074242531" target="_blank" class="wa-mini-btn">
+                                    <a href="tel:+77086229735" class="phone-number">+7 (708) 622-97-35</a>
+                                    <a href="https://wa.me/77086229735" target="_blank" class="wa-mini-btn">
                                         💬 WhatsApp
                                     </a>
                                 </div>
@@ -679,7 +696,7 @@
     <!-- Попапы -->
     <div id="favorites-popup" class="cart-popup hidden">
         <div class="cart-popup-header">
-            <h3>🔖 Ваши сохраненные заказы</h3>
+            <h3>⭐ Ваши сохраненные заказы</h3>
             <button id="close-favorites-popup" class="close-popup-btn">&times;</button>
         </div>
         <div style="margin-bottom: 12px; display: flex; gap: 8px;">

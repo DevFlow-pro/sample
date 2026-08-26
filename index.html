@@ -4,17 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Шаблон для сайта — Промёд</title>
+    <title>Сайт Шаблон — Главная</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Фиксированный размер фото (уменьшена высота до 650) */
+        /* Якорные ссылки в столбец — единый блок */
+        .anchor-nav-wrapper {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .anchor-nav-wrapper .anchor-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        .anchor-nav-wrapper .anchor-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .anchor-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: stretch;
+        }
+
+        .anchor-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 18px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background: var(--bg-card);
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .anchor-nav a:hover {
+            background: var(--bg-hover);
+            color: var(--text-dark);
+            border-color: #9ca3af;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-anchor {
+            scroll-margin-top: 30px;
+        }
+
+        /* Фиксированный размер фото */
         .info-card img {
             width: 100%;
             aspect-ratio: 600 / 650;
             object-fit: cover;
         }
 
-        /* Стили для пояснений функционала */
         .functional-note {
             font-size: 14px;
             color: #78716c;
@@ -34,6 +89,49 @@
             font-weight: 400;
             margin-left: 8px;
         }
+
+        .to-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background: #1e1e1e;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 998;
+        }
+
+        .to-top-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .to-top-btn:hover {
+            background: #374151;
+            transform: scale(1.1);
+        }
+
+        .page-description {
+            font-size: 15px;
+            color: var(--text-muted);
+            background: #f3f4f6;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #9ca3af;
+            line-height: 1.6;
+        }
     </style>
 </head>
 
@@ -46,15 +144,14 @@
             <div class="header-top">
 
                 <div class="header-center-brand">
-                    <span class="header-emoji">⚙️</span>
-                    <a href="index.html" class="site-title">Промёд — Шаблон</a>
+                    <a href="index.html" class="site-title">Сайт Шаблон</a>
                 </div>
 
                 <div class="header-right-action">
 
                     <div class="fav-btn-wrapper">
                         <button id="favorites-toggle-btn" class="fav-icon-btn" title="Избранные заказы">
-                            🔖 <span id="fav-badge" class="fav-badge hidden">0</span>
+                            ⭐ <span id="fav-badge" class="fav-badge hidden">0</span>
                         </button>
 
                         <span class="fav-label-sub">избранное</span>
@@ -66,26 +163,39 @@
 
             <nav>
                 <ul>
-                    <li><a href="index.html" class="active">Товары</a></li>
-                    <li><a href="about.html">О шаблоне</a></li>
+                    <li><a href="index.html" class="active">Ваши товары</a></li>
+                    <li><a href="about.html">Ваша точка</a></li>
                     <li><a href="contact.html">Контакты и отзывы</a></li>
                 </ul>
             </nav>
 
         </header>
 
-
         <main>
 
             <h1 class="page-heading">Каталог товаров</h1>
 
+            <div class="page-description">
+                📌 Здесь представлены ваши товары. Каждая карточка демонстрирует функционал: выбор вариантов (объём, вес, размер), управление количеством, автоматическое добавление в корзину.
+            </div>
+
+            <!-- Якорные строки — быстрый переход к карточкам товаров -->
+            <div class="anchor-nav-wrapper">
+                <div class="anchor-title">⬇️ Быстрый переход к товарам:</div>
+                <div class="anchor-desc">Кликните на название товара, чтобы перейти к его карточке:</div>
+                <div class="anchor-nav">
+                    <a href="#product1">Товар 1</a>
+                    <a href="#product2">Товар 2</a>
+                    <a href="#product3">Товар 3</a>
+                </div>
+            </div>
+
             <div class="honey-grid">
 
                 <!-- ТОВАР 1 -->
-                <article class="info-card" data-id="1" data-name="Ваш товар #1">
+                <article class="info-card section-anchor" id="product1" data-id="1" data-name="Ваш товар #1">
 
-                    <img src="https://images.unsplash.com/photo-1587049352847-4a222e784d38?w=600&auto=format&fit=crop&q=80"
-                         alt="Пример товара">
+                    <img src="tovar" alt="Товар">
 
                     <h3>Ваш товар #1</h3>
 
@@ -124,7 +234,6 @@
                         </div>
                     </div>
 
-                    <!-- Пояснение функционала карточки -->
                     <div class="functional-note">
                         <strong>⚡ Как работает карточка товара:</strong><br>
                         Здесь можно добавить описание вашего товара, изображение, варианты (объём, размер, цвет) и цену.
@@ -136,10 +245,9 @@
 
 
                 <!-- ТОВАР 2 -->
-                <article class="info-card" data-id="2" data-name="Ваш товар #2">
+                <article class="info-card section-anchor" id="product2" data-id="2" data-name="Ваш товар #2">
 
-                    <img src="https://images.unsplash.com/photo-1471943311424-646960669fbc?w=600&auto=format&fit=crop&q=80"
-                         alt="Пример товара">
+                    <img src="tovar" alt="Товар">
 
                     <h3>Ваш товар #2</h3>
 
@@ -188,10 +296,9 @@
 
 
                 <!-- ТОВАР 3 -->
-                <article class="info-card" data-id="3" data-name="Ваш товар #3">
+                <article class="info-card section-anchor" id="product3" data-id="3" data-name="Ваш товар #3">
 
-                    <img src="https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=600&auto=format&fit=crop&q=80"
-                         alt="Пример товара">
+                    <img src="tovar" alt="Товар">
 
                     <h3>Ваш товар #3</h3>
 
@@ -242,6 +349,7 @@
 
         </main>
 
+        <button id="toTopBtn" class="to-top-btn">↑</button>
 
         <footer>
             <p>&copy; 2026 Шаблон сайта «Промёд». Все права защищены.</p>
@@ -255,7 +363,7 @@
 
         <div class="cart-popup-header">
 
-            <h3>🔖 Ваши сохраненные заказы</h3>
+            <h3>⭐ Ваши сохраненные заказы</h3>
 
             <button id="close-favorites-popup" class="close-popup-btn">
                 &times;
@@ -365,6 +473,19 @@
 
     </div>
 
+
+    <script>
+        // Кнопка "Наверх"
+        const toTopBtn = document.getElementById("toTopBtn");
+        window.onscroll = () => {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                toTopBtn.classList.add("visible");
+            } else {
+                toTopBtn.classList.remove("visible");
+            }
+        };
+        toTopBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+    </script>
 
     <script src="cart.js"></script>
 

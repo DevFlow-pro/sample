@@ -38,6 +38,10 @@ body {
     flex-direction: column;
 }
 
+/* =========================================
+   HEADER
+   ========================================= */
+
 header {
     background-color: var(--header-bg);
     border: 1px solid var(--border-light);
@@ -63,12 +67,6 @@ header {
     gap: 10px;
     flex: 1;
     min-width: 0;
-}
-
-.header-emoji {
-    font-size: 32px;
-    line-height: 1;
-    flex-shrink: 0;
 }
 
 .site-title {
@@ -145,6 +143,10 @@ header {
     display: none;
 }
 
+/* =========================================
+   NAVIGATION
+   ========================================= */
+
 nav ul {
     display: flex;
     list-style: none;
@@ -196,6 +198,10 @@ nav a.active::after {
     border-radius: 4px 4px 0 0;
 }
 
+/* =========================================
+   PAGE HEADING
+   ========================================= */
+
 .page-heading {
     margin-bottom: 30px;
     color: var(--text-dark);
@@ -204,12 +210,35 @@ nav a.active::after {
     letter-spacing: -0.5px;
 }
 
+/* =========================================
+   PAGE DESCRIPTION (добавлено из промта)
+   ========================================= */
+
+.page-description {
+    font-size: 15px;
+    color: var(--text-muted);
+    background: #f3f4f6;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border-left: 4px solid #9ca3af;
+    line-height: 1.6;
+}
+
+/* =========================================
+   GRID
+   ========================================= */
+
 .honey-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     margin-bottom: 40px;
 }
+
+/* =========================================
+   INFO CARD
+   ========================================= */
 
 .info-card {
     background: var(--bg-card);
@@ -264,6 +293,10 @@ nav a.active::after {
     gap: 10px;
 }
 
+/* =========================================
+   COUNTER
+   ========================================= */
+
 .counter-box {
     display: flex;
     align-items: center;
@@ -302,6 +335,101 @@ nav a.active::after {
     min-width: 14px;
     text-align: center;
 }
+
+/* =========================================
+   WEIGHT OPTIONS (компактный ряд)
+   ========================================= */
+
+.weight-meta {
+    display: block !important;
+}
+
+.weight-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.weight-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 10px;
+    background: var(--bg-hover);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.weight-option:hover {
+    background: #e5e7eb;
+    border-color: #9ca3af;
+}
+
+.weight-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    white-space: nowrap;
+}
+
+.weight-option .counter-box {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    padding: 2px 6px;
+    border-radius: 12px;
+}
+
+.weight-option .cnt-value {
+    min-width: 16px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.weight-option .cnt-btn {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    font-size: 12px;
+}
+
+.weight-option .desc-hint {
+    font-size: 11px;
+    color: #9ca3af;
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+/* =========================================
+   FUNCTIONAL NOTE
+   ========================================= */
+
+.functional-note {
+    font-size: 14px;
+    color: #78716c;
+    background: #f3f4f6;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border-left: 4px solid #9ca3af;
+    line-height: 1.5;
+}
+
+.functional-note strong {
+    color: #374151;
+}
+
+/* =========================================
+   CONTACTS GRID
+   ========================================= */
 
 .contacts-grid {
     display: grid;
@@ -354,7 +482,7 @@ nav a.active::after {
 }
 
 /* =========================================
-   КОРЗИНА
+   CART POPUP
    ========================================= */
 
 .cart-popup {
@@ -510,7 +638,7 @@ nav a.active::after {
 }
 
 /* =========================================
-   НИЖНЯЯ ПАНЕЛЬ ЗАКАЗА
+   ORDER BAR (нижняя панель заказа)
    ========================================= */
 
 .order-bar {
@@ -671,6 +799,42 @@ nav a.active::after {
 }
 
 /* =========================================
+   TO TOP BUTTON
+   ========================================= */
+
+.to-top-btn {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background: #1e1e1e;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 998;
+}
+
+.to-top-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.to-top-btn:hover {
+    background: #374151;
+    transform: scale(1.1);
+}
+
+/* =========================================
    FOOTER
    ========================================= */
 
@@ -683,68 +847,74 @@ footer {
 }
 
 /* =========================================
-   ВЫБОР ВЕСА ТОВАРА (КОМПАКТНЫЙ РЯД)
+   ЯКОРНЫЕ СТРОКИ (единый блок)
    ========================================= */
 
-.weight-meta {
-    display: block !important;
+.anchor-nav-wrapper {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-.weight-options {
+.anchor-nav-wrapper .anchor-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+}
+
+.anchor-nav-wrapper .anchor-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+
+.anchor-nav {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    width: 100%;
+    align-items: stretch;
 }
 
-.weight-option {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    width: 100%;
-    padding: 6px 10px;
-    background: var(--bg-hover);
-    border: 1px solid var(--border-light);
-    border-radius: 10px;
-    transition: var(--transition);
-}
-
-.weight-option:hover {
-    background: #e5e7eb;
-    border-color: #9ca3af;
-}
-
-.weight-label {
-    font-size: 13px;
-    font-weight: 700;
+.anchor-nav a {
+    text-decoration: none;
     color: var(--text-dark);
-    white-space: nowrap;
-}
-
-.weight-option .counter-box {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-shrink: 0;
-    background: #ffffff;
-    border: 1px solid var(--border-light);
-    padding: 2px 6px;
-    border-radius: 12px;
-}
-
-.weight-option .cnt-value {
-    min-width: 16px;
-    text-align: center;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 14px;
+    padding: 10px 18px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: var(--bg-card);
+    transition: var(--transition);
+    text-align: left;
 }
 
-.weight-option .cnt-btn {
-    width: 22px;
-    height: 22px;
-    padding: 0;
-    font-size: 12px;
+.anchor-nav a:hover {
+    background: var(--bg-hover);
+    color: var(--text-dark);
+    border-color: #9ca3af;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+}
+
+.section-anchor {
+    scroll-margin-top: 30px;
+}
+
+/* =========================================
+   SECTION TITLE (для about.html)
+   ========================================= */
+
+.section-title {
+    margin: 40px 0 20px 0;
+    color: var(--text-dark);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-light);
+    font-size: 24px;
 }
 
 /* =========================================
@@ -775,10 +945,6 @@ footer {
 
     .site-title {
         font-size: 20px;
-    }
-
-    .header-emoji {
-        font-size: 26px;
     }
 
     nav a {
@@ -813,5 +979,23 @@ footer {
 
     .weight-label {
         font-size: 12px;
+    }
+
+    .map-container {
+        height: 180px;
+    }
+
+    .cart-popup {
+        width: 96%;
+        padding: 15px;
+        bottom: 85px;
+    }
+
+    .to-top-btn {
+        bottom: 80px;
+        right: 10px;
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
     }
 }
