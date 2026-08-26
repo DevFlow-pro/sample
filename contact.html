@@ -112,9 +112,17 @@
             gap: 15px;
         }
 
+        .map-card h2 {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
         .map-container {
             width: 100%;
-            height: 220px;
+            max-width: 480px;
+            height: 280px;
+            margin: 0 auto;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #d1d5db;
@@ -517,9 +525,20 @@
         @media (max-width: 768px) {
             .contacts-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
+
             .map-container {
-                height: 180px;
+                max-width: 100%;
+                height: 220px;
+            }
+
+            .contact-info-card {
+                padding: 20px;
+            }
+
+            .map-card {
+                padding: 15px;
             }
         }
     </style>
