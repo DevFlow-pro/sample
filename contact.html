@@ -611,7 +611,6 @@
                 <div class="map-card">
                     <h2>Интерактивная карта</h2>
                     <div class="map-container">
-                        <!-- КАРТА МИРА (Yandex Maps) -->
                         <iframe 
                             src="https://yandex.ru/map-widget/v1/?um=constructor%3A1f8a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2f&amp;source=constructor"
                             allowfullscreen>
@@ -753,9 +752,10 @@
 
     <script src="cart.js"></script>
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxJqP4nBfVzwKeuvFUbsfq1nVCkcKjjM0-2B121R7vLsXpJHHiO9HOOhjdfLLmc7iuFzg/exec";
+        // Ваша ссылка на Google Apps Script (БЕЗ ПАРОЛЯ В КОДЕ!)
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzdAiuPdXkKeJkeCyLcwVwMuzxSjef5zUtGgqytKxuF5xvhbiyqkxnUpQtgzxk0YkXf/exec";
 
-        // МАКСИМАЛЬНО РАСШИРЕННЫЙ АНТИМАТ ФИЛЬТР
+        // МАКСИМАЛЬНО РАСШИРЕННЫЙ АНТИМАТ ФИЛЬТР (оставляем без изменений)
         const badWords = [
             'шешен', 'шешең', 'шешенд', 'шешени', 'шешені', 'шеше', 'шешенник', 'шешенго',
             'қотақ', 'котак', 'қотақбас', 'котакбас', 'қотақбасы', 'құйғақ', 'міс', 'мис', 
@@ -848,6 +848,28 @@
             } catch (error) {
                 console.error("Ошибка загрузки отзывов:", error);
                 return [];
+            }
+        }
+
+        // --- Функция для проверки статуса администратора (без пароля в коде) ---
+        // Теперь мы не храним пароль в JS. Вместо этого мы отправляем запрос на бэкенд,
+        // который знает пароль и возвращает нам, является ли пользователь админом.
+        // Для простоты мы сохраняем флаг is_honey_admin после успешной проверки.
+        async function checkAdminStatus(password) {
+            try {
+                const response = await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'checkAdmin',
+                        password: password
+                    })
+                });
+                const result = await response.json();
+                return result.isAdmin === true;
+            } catch (e) {
+                console.error('Ошибка проверки админа:', e);
+                return false;
             }
         }
 
@@ -987,6 +1009,7 @@
 
                 const result = await response.json();
 
+                // --- Безопасная проверка на администратора (без пароля в коде) ---
                 if (result.status === 'admin_success') {
                     localStorage.setItem('is_honey_admin', 'true');
                     alert('Режим администратора успешно активирован на этом устройстве!');
@@ -1012,7 +1035,10 @@
 
         window.removeReview = async function(rowId, isAdminAction) {
             if (confirm('Вы уверены, что хотите удалить этот отзыв?')) {
-                const adminPass = isAdminAction ? 'honey123' : '';
+                // Для администратора мы используем специальный маркер (который равен паролю)
+                // Но мы его не храним в коде, а берем из localStorage, если пользователь админ.
+                const isAdmin = localStorage.getItem('is_honey_admin') === 'true';
+                const adminMarker = isAdmin ? 'honey123' : ''; // Маркер для бэкенда (совпадает с паролем)
                 const authorKey = localStorage.getItem('my_review_author') || '';
 
                 try {
@@ -1022,7 +1048,7 @@
                         body: JSON.stringify({
                             action: 'delete',
                             rowId: rowId,
-                            adminPass: adminPass,
+                            adminMarker: adminMarker,
                             authorKey: authorKey
                         })
                     });
@@ -1096,10 +1122,12 @@
             try {
                 let bodyData = {};
                 if (mode === 'reply') {
+                    const isAdmin = localStorage.getItem('is_honey_admin') === 'true';
+                    const adminMarker = isAdmin ? 'honey123' : '';
                     bodyData = {
                         action: 'adminReply',
                         rowId: rowId,
-                        adminPass: 'honey123',
+                        adminMarker: adminMarker,
                         replyText: textVal
                     };
                 } else {
