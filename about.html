@@ -62,14 +62,6 @@
             scroll-margin-top: 30px;
         }
 
-        .section-title {
-            margin: 40px 0 20px 0;
-            color: var(--text-dark);
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--border-light);
-            font-size: 24px;
-        }
-
         .info-card img {
             width: 100%;
             aspect-ratio: 600 / 650;
@@ -133,11 +125,10 @@
             border-left: 4px solid #9ca3af;
             line-height: 1.6;
         }
-        .weight-option .desc-hint {
-            font-size: 11px;
-            color: #9ca3af;
-            font-weight: 400;
-            margin-left: 8px;
+
+        /* Убираем кнопки + и - на этой странице */
+        .info-card .counter-box {
+            display: none !important;
         }
     </style>
 </head>
@@ -173,727 +164,107 @@
                 📌 Эта страница показывает, как выглядит ваш бизнес. Здесь вы можете разместить информацию о вашей точке, услугах или преимуществах.
             </div>
 
-            <!-- Якорные ссылки в столбец — единый блок с 5 строками для 5 секций -->
+            <!-- Якорные ссылки в столбец — единый блок с 5 строками для 5 карточек -->
             <div class="anchor-nav-wrapper">
                 <div class="anchor-title">⬇️ Быстрый переход по разделам:</div>
                 <div class="anchor-desc">Кликните на название раздела, чтобы перейти к нему:</div>
                 <div class="anchor-nav">
-                    <a href="#section1">Карточки товаров</a>
-                    <a href="#section2">Корзина и избранное</a>
-                    <a href="#section3">Отзывы и рейтинг</a>
-                    <a href="#section4">Карта и контакты</a>
-                    <a href="#section5">Дизайн и адаптация</a>
+                    <a href="#card1">Карточка 1</a>
+                    <a href="#card2">Карточка 2</a>
+                    <a href="#card3">Карточка 3</a>
+                    <a href="#card4">Карточка 4</a>
+                    <a href="#card5">Карточка 5</a>
                 </div>
             </div>
 
-            <!-- СЕКЦИЯ 1 — 5 карточек -->
-            <h2 id="section1" class="section-title section-anchor">📦 Карточки товаров</h2>
+            <!-- ВСЕГО 5 КАРТОЧЕК НА СТРАНИЦУ -->
             <div class="honey-grid">
-                <article class="info-card" data-id="1" data-name="Пример товара #1">
-                    <h3>Пример товара #1</h3>
+
+                <!-- КАРТОЧКА 1 -->
+                <article class="info-card section-anchor" id="card1">
+                    <h3>Карточка 1</h3>
                     <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸ <span class="desc-hint">(вес, объём)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="1.5" data-price="0">
-                                <span class="weight-label">Опция 2 — 0 ₸ <span class="desc-hint">(вес, объём)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="description-wrapper">
-                        <p class="description-content">Карточка товара с возможностью выбора опций (вес, объём, размер) и количества. Это отличный способ продемонстрировать ваш товар.</p>
+                        <p class="description-content">
+                            Описание вашей точки или услуги. Здесь вы можете рассказать о своём бизнесе, преимуществах, особенностях работы. Этот текст демонстрирует эффект "туманности" — он будет плавно обрезаться, если станет слишком длинным.
+                        </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
                     <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Кнопки «+» и «-» управляют количеством. Автоматическое добавление в корзину.
+                        <strong>📍 О нашей точке:</strong> Здесь вы можете разместить информацию о вашей компании, местоположении, графике работы или любых других важных деталях.
                     </div>
                 </article>
 
-                <article class="info-card" data-id="2" data-name="Пример товара #2">
-                    <h3>Пример товара #2</h3>
+                <!-- КАРТОЧКА 2 -->
+                <article class="info-card section-anchor" id="card2">
+                    <h3>Карточка 2</h3>
                     <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸ <span class="desc-hint">(стандарт)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="1.5" data-price="0">
-                                <span class="weight-label">Опция 2 — 0 ₸ <span class="desc-hint">(премиум)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="description-wrapper">
-                        <p class="description-content">Универсальная карточка для любых товаров: цветы, меню, услуги автосервиса. Этот текст можно заменить на свой.</p>
+                        <p class="description-content">
+                            Расскажите о своих услугах. Что вы предлагаете клиентам? Какие у вас цены? Есть ли скидки или акции? Эта информация поможет клиентам сделать правильный выбор.
+                        </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
                     <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Возможность добавить несколько вариантов товара с разными ценами и характеристиками.
+                        <strong>💼 Наши услуги:</strong> Опишите свой основной продукт или услугу, укажите цены и особенности. Клиенты должны понимать, что вы предлагаете.
                     </div>
                 </article>
 
-                <article class="info-card" data-id="3" data-name="Пример товара #3">
-                    <h3>Пример товара #3</h3>
+                <!-- КАРТОЧКА 3 -->
+                <article class="info-card section-anchor" id="card3">
+                    <h3>Карточка 3</h3>
                     <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸ <span class="desc-hint">(малый)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="1.5" data-price="0">
-                                <span class="weight-label">Опция 2 — 0 ₸ <span class="desc-hint">(большой)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="description-wrapper">
-                        <p class="description-content">Настраиваемое описание, изображение и варианты товара под ваш бизнес. Полная кастомизация.</p>
+                        <p class="description-content">
+                            Преимущества вашей компании. Почему клиенты должны выбрать именно вас? Что делает вас лучше конкурентов? Это могут быть уникальные технологии, качество, сервис или опыт.
+                        </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
                     <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Полная кастомизация — меняйте текст, фото, цены и названия опций.
+                        <strong>⭐ Наши преимущества:</strong> Перечислите главные причины, по которым клиенты выбирают вас. Это могут быть гарантии, опыт, удобство или что-то уникальное.
                     </div>
                 </article>
 
-                <article class="info-card" data-id="4" data-name="Пример товара #4">
-                    <h3>Пример товара #4</h3>
+                <!-- КАРТОЧКА 4 -->
+                <article class="info-card section-anchor" id="card4">
+                    <h3>Карточка 4</h3>
                     <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸ <span class="desc-hint">(мобильный)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="1.5" data-price="0">
-                                <span class="weight-label">Опция 2 — 0 ₸ <span class="desc-hint">(десктоп)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="description-wrapper">
-                        <p class="description-content">Адаптивный дизайн карточек для мобильных устройств. Отлично смотрится на телефонах, планшетах и компьютерах.</p>
+                        <p class="description-content">
+                            Контактная информация и местоположение. Где находится ваша точка? Как с вами связаться? Укажите адрес, телефон, email и часы работы, чтобы клиенты могли легко вас найти.
+                        </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
                     <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Отлично смотрится на телефонах, планшетах и компьютерах. Автоматическая подстройка под экран.
+                        <strong>📞 Свяжитесь с нами:</strong> Добавьте свой адрес, телефон, email и график работы. Чем проще с вами связаться, тем больше клиентов вы получите.
                     </div>
                 </article>
 
-                <article class="info-card" data-id="5" data-name="Пример товара #5">
-                    <h3>Пример товара #5</h3>
+                <!-- КАРТОЧКА 5 -->
+                <article class="info-card section-anchor" id="card5">
+                    <h3>Карточка 5</h3>
                     <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸ <span class="desc-hint">(стандарт)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="1.5" data-price="0">
-                                <span class="weight-label">Опция 2 — 0 ₸ <span class="desc-hint">(премиум)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="description-wrapper">
-                        <p class="description-content">Поддержка Lightbox — увеличение фото при клике. Нажмите на изображение, чтобы увидеть его в увеличенном виде.</p>
+                        <p class="description-content">
+                            Отзывы клиентов и рейтинг. Что говорят о вас клиенты? Высокий рейтинг и положительные отзывы — лучшая реклама для вашего бизнеса. Поделитесь успехами своих клиентов.
+                        </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
                     <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Нажмите на изображение, чтобы увидеть его в увеличенном виде с затемнением фона.
-                    </div>
-                </article>
-            </div>
-
-            <!-- СЕКЦИЯ 2 — 5 карточек -->
-            <h2 id="section2" class="section-title section-anchor">🛒 Корзина и избранное</h2>
-            <div class="honey-grid">
-                <article class="info-card" data-id="6" data-name="Корзина заказов">
-                    <h3>Корзина заказов</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Автоматическое суммирование товаров в нижней панели. Все выбранные товары отображаются в панели «ЗАКАЗ» внизу экрана.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Все выбранные товары отображаются в панели «ЗАКАЗ» внизу экрана. Можно редактировать количество прямо в корзине.
+                        <strong>🌟 Отзывы и рейтинг:</strong> Расскажите о своих успехах. Хорошие отзывы создают доверие и привлекают новых клиентов. Покажите, что вас ценят.
                     </div>
                 </article>
 
-                <article class="info-card" data-id="7" data-name="Избранное">
-                    <h3>Избранное</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Сохранение наборов товаров для быстрого заказа. Нажмите на иконку ⭐, чтобы открыть избранное.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Нажмите на иконку ⭐, чтобы открыть избранное. Сохраняйте текущий заказ, чтобы быстро повторить его позже.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="8" data-name="Отправка в WhatsApp">
-                    <h3>Отправка в WhatsApp</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Мгновенная отправка заказа в мессенджер. Нажмите «в Ватсап», чтобы открыть модальное окно с проверкой заказа.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Нажмите «в Ватсап», чтобы открыть модальное окно с проверкой заказа и отправкой в WhatsApp.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="9" data-name="Управление заказом">
-                    <h3>Управление заказом</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Редактирование количества товаров прямо из корзины. В попапе корзины можно менять количество каждого товара.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> В попапе корзины можно менять количество каждого товара с помощью кнопок «+» и «-».
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="10" data-name="История заказов">
-                    <h3>История заказов</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Сохранение истории заказов для повторного использования. Сохраняйте заказы в избранное с названием.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Сохраняйте заказы в избранное с названием, чтобы быстро повторить их позже.
-                    </div>
-                </article>
-            </div>
-
-            <!-- СЕКЦИЯ 3 — 5 карточек -->
-            <h2 id="section3" class="section-title section-anchor">⭐ Отзывы и рейтинг</h2>
-            <div class="honey-grid">
-                <article class="info-card" data-id="11" data-name="Система отзывов">
-                    <h3>Система отзывов</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Полноценная система отзывов с рейтингом и администрированием. Пользователи могут оставлять отзывы с оценкой от 1 до 5 звёзд.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Пользователи могут оставлять отзывы с оценкой от 1 до 5 звёзд. Реализована защита от мата и оскорблений.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="12" data-name="Администрирование">
-                    <h3>Администрирование</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Управление отзывами через Google Sheets. Администратор может отвечать на отзывы, редактировать и удалять их.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Администратор может отвечать на отзывы, редактировать и удалять их. Пароль администратора: <strong>honey123</strong>
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="13" data-name="Рейтинг товаров">
-                    <h3>Рейтинг товаров</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Автоматический подсчёт среднего рейтинга. На странице контактов отображается общий рейтинг и количество отзывов.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> На странице контактов отображается общий рейтинг и количество отзывов. Звёзды отображаются динамически.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="14" data-name="Модерация отзывов">
-                    <h3>Модерация отзывов</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Фильтрация нецензурной лексики. Встроенный фильтр мата и оскорблений автоматически блокирует неприемлемые отзывы.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Встроенный фильтр мата и оскорблений автоматически блокирует неприемлемые отзывы.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="15" data-name="Ответы на отзывы">
-                    <h3>Ответы на отзывы</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Возможность отвечать на отзывы от имени администратора. Администратор может оставлять ответы на отзывы.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Администратор может оставлять ответы на отзывы, которые отображаются прямо под отзывом.
-                    </div>
-                </article>
-            </div>
-
-            <!-- СЕКЦИЯ 4 — 5 карточек -->
-            <h2 id="section4" class="section-title section-anchor">📍 Карта и контакты</h2>
-            <div class="honey-grid">
-                <article class="info-card" data-id="16" data-name="Интерактивная карта">
-                    <h3>Интерактивная карта</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Карта мира для демонстрации интерактивности. Вы можете заменить карту мира на карту с вашим адресом.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Вы можете заменить карту мира на карту с вашим адресом. Используйте Яндекс.Карты или 2GIS.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="17" data-name="Контакты">
-                    <h3>Контакты</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Настраиваемые контактные данные. Вы можете изменить номера телефонов, адрес и добавить свои контакты.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Вы можете изменить номера телефонов, адрес и добавить свои контакты.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="18" data-name="Навигация">
-                    <h3>Навигация</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Кнопки маршрута в Яндекс и 2GIS. Кнопки навигации можно настроить под ваш реальный адрес.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Кнопки навигации можно настроить под ваш реальный адрес. Сейчас они отображаются как пример.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="19" data-name="Телефоны">
-                    <h3>Телефоны</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Основной и дополнительный номера. Настраиваемые номера телефонов можно заменить на ваши.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Настраиваемые номера телефонов. Основной номер можно заменить на ваш.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="20" data-name="WhatsApp">
-                    <h3>WhatsApp</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Быстрый переход в мессенджер. Кнопка WhatsApp открывает чат с указанным номером.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Кнопка WhatsApp открывает чат с указанным номером. Номер можно изменить в коде.
-                    </div>
-                </article>
-            </div>
-
-            <!-- СЕКЦИЯ 5 — 5 карточек -->
-            <h2 id="section5" class="section-title section-anchor">🎨 Дизайн и адаптация</h2>
-            <div class="honey-grid">
-                <article class="info-card" data-id="21" data-name="Серо-белый дизайн">
-                    <h3>Серо-белый дизайн</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Минималистичный и строгий стиль. Все цвета заменены на серо-белые. Дизайн чистый и современный.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Все цвета заменены на серо-белые. Убраны декоративные полоски. Дизайн чистый и современный.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="22" data-name="Адаптивная вёрстка">
-                    <h3>Адаптивная вёрстка</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Корректное отображение на всех устройствах. Сайт адаптируется под мобильные устройства, планшеты и десктопы.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Сайт адаптируется под мобильные устройства, планшеты и десктопы. Все элементы корректно масштабируются.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="23" data-name="Готовый шаблон">
-                    <h3>Готовый шаблон</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Полный функционал для создания сайтов на заказ. Всё, что нужно для старта — карточки товаров, корзина, избранное, отзывы.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Всё, что нужно для старта — карточки товаров, корзина, избранное, отзывы, карта, контакты. Просто замените контент.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="24" data-name="Типографика">
-                    <h3>Типографика</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Чёткая иерархия заголовков и текста. Все тексты хорошо читаются на любых экранах. Размеры шрифтов подобраны для комфортного восприятия.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Все тексты хорошо читаются на любых экранах. Размеры шрифтов подобраны для комфортного восприятия.
-                    </div>
-                </article>
-
-                <article class="info-card" data-id="25" data-name="Анимации">
-                    <h3>Анимации</h3>
-                    <img src="tochka" alt="Точка">
-                    <div class="meta weight-meta">
-                        <div class="weight-options">
-                            <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">Опция 1 — 0 ₸</span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description-wrapper">
-                        <p class="description-content">Плавные переходы и эффекты при наведении. Карточки плавно поднимаются при наведении, кнопки меняют цвет.</p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
-                        </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⚡ Функционал:</strong> Карточки плавно поднимаются при наведении, кнопки меняют цвет. Все анимации не перегружают интерфейс.
-                    </div>
-                </article>
             </div>
 
         </main>
