@@ -274,12 +274,61 @@ nav a.active::after {
     color: var(--text-dark);
 }
 
-.info-card p {
+/* --- БЛОК ОПИСАНИЯ С ТУМАННОСТЬЮ --- */
+.description-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.description-content {
     font-size: 15px;
     line-height: 1.6;
     color: var(--text-muted);
-    margin-bottom: 20px;
+    margin: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 72px; /* Примерно 3 строки */
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
+
+.description-content.expanded {
+    max-height: 1000px; /* Достаточно для полного раскрытия */
+    mask-image: none;
+    -webkit-mask-image: none;
+}
+
+/* Кнопка-треугольник */
+.toggle-description-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-top: 5px;
+    transition: transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-weight: 300;
+}
+
+.toggle-description-btn:hover {
+    color: var(--text-dark);
+}
+
+.toggle-description-btn .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.toggle-description-btn .arrow.expanded {
+    transform: rotate(180deg);
+}
+
+/* --- КОНЕЦ БЛОКА ОПИСАНИЯ --- */
 
 .info-card .meta {
     margin-top: auto;

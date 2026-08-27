@@ -68,9 +68,21 @@
             width: 100%;
             aspect-ratio: 600 / 650;
             object-fit: cover;
-            display: block;
         }
 
+        .functional-note {
+            font-size: 14px;
+            color: #78716c;
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #9ca3af;
+            line-height: 1.5;
+        }
+        .functional-note strong {
+            color: #374151;
+        }
         .weight-option .desc-hint {
             font-size: 11px;
             color: #9ca3af;
@@ -119,156 +131,6 @@
             margin-bottom: 30px;
             border-left: 4px solid #9ca3af;
             line-height: 1.6;
-        }
-
-        /* Стили для эффекта туманности */
-        .product-description-wrapper {
-            position: relative;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            max-height: 72px;
-            line-height: 1.6;
-            font-size: 15px;
-            color: var(--text-dark);
-        }
-
-        .product-description-wrapper.expanded {
-            max-height: 2000px;
-        }
-
-        .product-description-wrapper .fade-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(transparent, #ffffff);
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .product-description-wrapper.expanded .fade-overlay {
-            opacity: 0;
-        }
-
-        .read-more-btn {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 6px 16px;
-            background: transparent;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            color: var(--text-dark);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            background: #f9fafb;
-        }
-
-        .read-more-btn:hover {
-            background: #e5e7eb;
-            border-color: #9ca3af;
-        }
-
-        /* ПОРЯДОК В КАРТОЧКЕ: НАЗВАНИЕ → ФОТО → ВЫБОР КОЛИЧЕСТВА → ОПИСАНИЕ */
-        .info-card {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .info-card h3 {
-            order: 1;
-        }
-
-        .info-card .product-image {
-            order: 2;
-        }
-
-        .info-card .meta.weight-meta {
-            order: 3;
-        }
-
-        .info-card .description-section {
-            order: 4;
-        }
-
-        /* Стили для блока выбора количества */
-        .weight-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 12px;
-            width: 100%;
-        }
-
-        .weight-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 14px;
-            background: #f9fafb;
-            border-radius: 10px;
-            border: 1px solid #e5e7eb;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .weight-label {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text-dark);
-        }
-
-        .weight-label .desc-hint {
-            font-size: 11px;
-            color: #9ca3af;
-            font-weight: 400;
-            margin-left: 6px;
-        }
-
-        .counter-box {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .cnt-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 1px solid #d1d5db;
-            background: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-dark);
-        }
-
-        .cnt-btn:hover {
-            background: #e5e7eb;
-            border-color: #9ca3af;
-        }
-
-        .cnt-value {
-            font-weight: 700;
-            font-size: 16px;
-            min-width: 24px;
-            text-align: center;
-            color: var(--text-dark);
-        }
-
-        .meta.weight-meta {
-            margin-top: 12px;
-        }
-
-        /* Стили для описания под выбором количества */
-        .description-section {
-            margin-top: 15px;
         }
     </style>
 </head>
@@ -333,65 +195,56 @@
                 <!-- ТОВАР 1 -->
                 <article class="info-card section-anchor" id="product1" data-id="1" data-name="Ваш товар #1">
 
-                    <!-- НАЗВАНИЕ (сверху) -->
                     <h3>Ваш товар #1</h3>
+                    <img src="tovar" alt="Товар">
 
-                    <!-- ФОТО -->
-                    <img class="product-image" src="tovar" alt="Товар">
-
-                    <!-- ВЫБОР КОЛИЧЕСТВА И ОБЪЁМА -->
                     <div class="meta weight-meta">
                         <div class="weight-options">
+
                             <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">1 кг <span class="desc-hint">(объём)</span></span>
+                                <span class="weight-label">
+                                    Опция 1 — 0 ₸
+                                    <span class="desc-hint">(например: объём, размер)</span>
+                                </span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
                                     <button class="cnt-btn plus" type="button">+</button>
                                 </div>
                             </div>
-                            <div class="weight-option" data-weight="2" data-price="0">
-                                <span class="weight-label">2 кг <span class="desc-hint">(объём)</span></span>
+
+                            <div class="weight-option" data-weight="1.5" data-price="0">
+                                <span class="weight-label">
+                                    Опция 2 — 0 ₸
+                                    <span class="desc-hint">(например: объём, размер)</span>
+                                </span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
                                     <button class="cnt-btn plus" type="button">+</button>
                                 </div>
                             </div>
-                            <div class="weight-option" data-weight="3" data-price="0">
-                                <span class="weight-label">3 кг <span class="desc-hint">(объём)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="4" data-price="0">
-                                <span class="weight-label">4 кг <span class="desc-hint">(объём)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="5" data-price="0">
-                                <span class="weight-label">5 кг <span class="desc-hint">(объём)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
-                    <!-- ОПИСАНИЕ с эффектом туманности (в самом низу) -->
-                    <div class="description-section">
-                        <div class="product-description-wrapper" id="desc-1">
-                            <p>Здесь вы можете разместить описание вашего товара, услуги или категории. Например: цветы, меню ресторана, услуги автосервиса и т.д. Это длинное описание, чтобы показать эффект туманности — текст обрезается и плавно затухает, если не помещается. Вы можете добавить сюда любую информацию о вашем продукте. Подробности, характеристики, преимущества и особенности товара.</p>
-                            <div class="fade-overlay"></div>
-                        </div>
-                        <button class="read-more-btn" data-target="desc-1">Читать далее</button>
+                    <div class="description-wrapper">
+                        <p class="description-content">
+                            Здесь вы можете разместить описание вашего товара, услуги или категории.
+                            Например: цветы, меню ресторана, услуги автосервиса и т.д.
+                            Это описание может быть достаточно длинным, чтобы продемонстрировать эффект "туманности".
+                            Когда текст будет длиннее, он будет плавно обрезаться.
+                        </p>
+                        <button class="toggle-description-btn" aria-label="Развернуть описание">
+                            <span class="arrow">▾</span>
+                        </button>
+                    </div>
+
+                    <div class="functional-note">
+                        <strong>⚡ Как работает карточка товара:</strong><br>
+                        Здесь можно добавить описание вашего товара, изображение, варианты (объём, размер, цвет) и цену.
+                        Кнопки <strong>«+»</strong> и <strong>«-»</strong> позволяют выбрать количество.
+                        Цена установлена в <strong>0 ₸</strong> для демонстрации функционала.
                     </div>
 
                 </article>
@@ -400,65 +253,55 @@
                 <!-- ТОВАР 2 -->
                 <article class="info-card section-anchor" id="product2" data-id="2" data-name="Ваш товар #2">
 
-                    <!-- НАЗВАНИЕ (сверху) -->
                     <h3>Ваш товар #2</h3>
+                    <img src="tovar" alt="Товар">
 
-                    <!-- ФОТО -->
-                    <img class="product-image" src="tovar" alt="Товар">
-
-                    <!-- ВЫБОР КОЛИЧЕСТВА И ОБЪЁМА -->
                     <div class="meta weight-meta">
                         <div class="weight-options">
+
                             <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">1 шт <span class="desc-hint">(количество)</span></span>
+                                <span class="weight-label">
+                                    Опция 1 — 0 ₸
+                                    <span class="desc-hint">(например: вес, порция)</span>
+                                </span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
                                     <button class="cnt-btn plus" type="button">+</button>
                                 </div>
                             </div>
-                            <div class="weight-option" data-weight="2" data-price="0">
-                                <span class="weight-label">2 шт <span class="desc-hint">(количество)</span></span>
+
+                            <div class="weight-option" data-weight="1.5" data-price="0">
+                                <span class="weight-label">
+                                    Опция 2 — 0 ₸
+                                    <span class="desc-hint">(например: вес, порция)</span>
+                                </span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
                                     <button class="cnt-btn plus" type="button">+</button>
                                 </div>
                             </div>
-                            <div class="weight-option" data-weight="3" data-price="0">
-                                <span class="weight-label">3 шт <span class="desc-hint">(количество)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="4" data-price="0">
-                                <span class="weight-label">4 шт <span class="desc-hint">(количество)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="5" data-price="0">
-                                <span class="weight-label">5 шт <span class="desc-hint">(количество)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
-                    <!-- ОПИСАНИЕ с эффектом туманности (в самом низу) -->
-                    <div class="description-section">
-                        <div class="product-description-wrapper" id="desc-2">
-                            <p>Адаптируйте эту карточку под свой бизнес. Например: букеты, блюда из меню, услуги мастерской. Здесь можно разместить подробное описание товара, его характеристики, особенности и преимущества. Текст будет красиво обрезаться эффектом туманности, если он слишком длинный. Укажите все важные детали для ваших клиентов.</p>
-                            <div class="fade-overlay"></div>
-                        </div>
-                        <button class="read-more-btn" data-target="desc-2">Читать далее</button>
+                    <div class="description-wrapper">
+                        <p class="description-content">
+                            Адаптируйте эту карточку под свой бизнес.
+                            Например: букеты, блюда из меню, услуги мастерской.
+                            Это описание может быть достаточно длинным, чтобы продемонстрировать эффект "туманности".
+                            Когда текст будет длиннее, он будет плавно обрезаться.
+                        </p>
+                        <button class="toggle-description-btn" aria-label="Развернуть описание">
+                            <span class="arrow">▾</span>
+                        </button>
+                    </div>
+
+                    <div class="functional-note">
+                        <strong>⚡ Как работает карточка товара:</strong><br>
+                        Здесь вы можете настроить варианты товара (вес, объём, размер) и управлять количеством.
+                        Кнопки «+» и «-» динамически обновляют корзину внизу экрана.
                     </div>
 
                 </article>
@@ -467,65 +310,55 @@
                 <!-- ТОВАР 3 -->
                 <article class="info-card section-anchor" id="product3" data-id="3" data-name="Ваш товар #3">
 
-                    <!-- НАЗВАНИЕ (сверху) -->
                     <h3>Ваш товар #3</h3>
+                    <img src="tovar" alt="Товар">
 
-                    <!-- ФОТО -->
-                    <img class="product-image" src="tovar" alt="Товар">
-
-                    <!-- ВЫБОР КОЛИЧЕСТВА И ОБЪЁМА -->
                     <div class="meta weight-meta">
                         <div class="weight-options">
+
                             <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">1 л <span class="desc-hint">(объём)</span></span>
+                                <span class="weight-label">
+                                    Опция 1 — 0 ₸
+                                    <span class="desc-hint">(например: стандарт)</span>
+                                </span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
                                     <button class="cnt-btn plus" type="button">+</button>
                                 </div>
                             </div>
-                            <div class="weight-option" data-weight="2" data-price="0">
-                                <span class="weight-label">2 л <span class="desc-hint">(объём)</span></span>
+
+                            <div class="weight-option" data-weight="1.5" data-price="0">
+                                <span class="weight-label">
+                                    Опция 2 — 0 ₸
+                                    <span class="desc-hint">(например: премиум)</span>
+                                </span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
                                     <button class="cnt-btn plus" type="button">+</button>
                                 </div>
                             </div>
-                            <div class="weight-option" data-weight="3" data-price="0">
-                                <span class="weight-label">3 л <span class="desc-hint">(объём)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="4" data-price="0">
-                                <span class="weight-label">4 л <span class="desc-hint">(объём)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
-                            <div class="weight-option" data-weight="5" data-price="0">
-                                <span class="weight-label">5 л <span class="desc-hint">(объём)</span></span>
-                                <div class="counter-box">
-                                    <button class="cnt-btn minus" type="button">-</button>
-                                    <span class="cnt-value">0</span>
-                                    <button class="cnt-btn plus" type="button">+</button>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
-                    <!-- ОПИСАНИЕ с эффектом туманности (в самом низу) -->
-                    <div class="description-section">
-                        <div class="product-description-wrapper" id="desc-3">
-                            <p>Универсальный шаблон для любого типа товаров или услуг. Просто замените текст и изображения под свой проект. Это описание демонстрирует эффект туманности — первые 2-3 строки видны полностью, а остальной текст плавно затухает градиентом. Нажмите "Читать далее", чтобы увидеть полный текст. Добавьте всю необходимую информацию о вашем продукте.</p>
-                            <div class="fade-overlay"></div>
-                        </div>
-                        <button class="read-more-btn" data-target="desc-3">Читать далее</button>
+                    <div class="description-wrapper">
+                        <p class="description-content">
+                            Универсальный шаблон для любого типа товаров или услуг.
+                            Просто замените текст и изображения под свой проект.
+                            Это описание может быть достаточно длинным, чтобы продемонстрировать эффект "туманности".
+                            Когда текст будет длиннее, он будет плавно обрезаться.
+                        </p>
+                        <button class="toggle-description-btn" aria-label="Развернуть описание">
+                            <span class="arrow">▾</span>
+                        </button>
+                    </div>
+
+                    <div class="functional-note">
+                        <strong>⚡ Как работает карточка товара:</strong><br>
+                        Каждая карточка может содержать несколько вариантов товара.
+                        Выбранные товары автоматически суммируются в нижней панели «ЗАКАЗ».
                     </div>
 
                 </article>
@@ -658,28 +491,41 @@
 
     </div>
 
-
     <script>
-        // Кнопка "Наверх"
-        const toTopBtn = document.getElementById("toTopBtn");
-        window.onscroll = () => {
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                toTopBtn.classList.add("visible");
-            } else {
-                toTopBtn.classList.remove("visible");
-            }
-        };
-        toTopBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
-
-        // Эффект туманности — кнопки "Читать далее" / "Скрыть"
-        document.querySelectorAll('.read-more-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const targetId = this.dataset.target;
-                const wrapper = document.getElementById(targetId);
-                if (wrapper) {
-                    wrapper.classList.toggle('expanded');
-                    this.textContent = wrapper.classList.contains('expanded') ? 'Скрыть' : 'Читать далее';
+        document.addEventListener('DOMContentLoaded', function() {
+            // Кнопка "Наверх"
+            const toTopBtn = document.getElementById("toTopBtn");
+            window.onscroll = () => {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    toTopBtn.classList.add("visible");
+                } else {
+                    toTopBtn.classList.remove("visible");
                 }
+            };
+            toTopBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+
+            // --- Логика для кнопок "Развернуть/Свернуть" ---
+            const toggleButtons = document.querySelectorAll('.toggle-description-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const wrapper = this.closest('.description-wrapper');
+                    const content = wrapper.querySelector('.description-content');
+                    const arrow = this.querySelector('.arrow');
+                    
+                    if (content.classList.contains('expanded')) {
+                        content.classList.remove('expanded');
+                        arrow.classList.remove('expanded');
+                        arrow.textContent = '▾';
+                        this.setAttribute('aria-label', 'Развернуть описание');
+                    } else {
+                        content.classList.add('expanded');
+                        arrow.classList.add('expanded');
+                        arrow.textContent = '▴';
+                        this.setAttribute('aria-label', 'Свернуть описание');
+                    }
+                });
             });
         });
     </script>
