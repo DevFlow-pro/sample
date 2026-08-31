@@ -17,6 +17,10 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-dark);
@@ -211,7 +215,7 @@ nav a.active::after {
 }
 
 /* =========================================
-   PAGE DESCRIPTION (добавлено из промта)
+   PAGE DESCRIPTION
    ========================================= */
 
 .page-description {
@@ -287,18 +291,17 @@ nav a.active::after {
     margin: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    max-height: 72px; /* Примерно 3 строки */
+    max-height: 72px;
     mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
 .description-content.expanded {
-    max-height: 1000px; /* Достаточно для полного раскрытия */
+    max-height: 1000px;
     mask-image: none;
     -webkit-mask-image: none;
 }
 
-/* Кнопка-треугольник */
 .toggle-description-btn {
     background: none;
     border: none;
@@ -386,7 +389,7 @@ nav a.active::after {
 }
 
 /* =========================================
-   WEIGHT OPTIONS (компактный ряд)
+   WEIGHT OPTIONS
    ========================================= */
 
 .weight-meta {
@@ -687,7 +690,7 @@ nav a.active::after {
 }
 
 /* =========================================
-   ORDER BAR (нижняя панель заказа)
+   ORDER BAR
    ========================================= */
 
 .order-bar {
@@ -896,58 +899,56 @@ footer {
 }
 
 /* =========================================
-   ЯКОРНЫЕ СТРОКИ (единый блок)
+   ЯКОРНЫЕ СТРОКИ — МИНИМАЛИСТИЧНЫЙ БЛОК
    ========================================= */
 
 .anchor-nav-wrapper {
     margin-bottom: 30px;
-    padding: 20px;
+    padding: 18px 20px 14px 20px;
     background: #ffffff;
-    border-radius: 16px;
+    border-radius: 12px;
     border: 1px solid var(--border-light);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .anchor-nav-wrapper .anchor-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--text-muted);
-    margin-bottom: 8px;
-    letter-spacing: 0.3px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .anchor-nav-wrapper .anchor-desc {
     font-size: 13px;
     color: var(--text-muted);
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     line-height: 1.5;
 }
 
 .anchor-nav {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     align-items: stretch;
 }
 
 .anchor-nav a {
     text-decoration: none;
     color: var(--text-dark);
-    font-weight: 700;
+    font-weight: 600;
     font-size: 14px;
-    padding: 10px 18px;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    background: var(--bg-card);
+    padding: 6px 0;
     transition: var(--transition);
     text-align: left;
+    border-bottom: 1px solid transparent;
 }
 
 .anchor-nav a:hover {
-    background: var(--bg-hover);
-    color: var(--text-dark);
-    border-color: #9ca3af;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    color: var(--accent-blue);
+    border-bottom-color: var(--accent-blue);
+    padding-left: 6px;
 }
 
 .section-anchor {
@@ -955,7 +956,7 @@ footer {
 }
 
 /* =========================================
-   SECTION TITLE (для about.html)
+   SECTION TITLE
    ========================================= */
 
 .section-title {
@@ -1046,5 +1047,10 @@ footer {
         width: 44px;
         height: 44px;
         font-size: 20px;
+    }
+
+    .anchor-nav a {
+        font-size: 13px;
+        padding: 5px 0;
     }
 }

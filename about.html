@@ -6,98 +6,15 @@
     <title>Ваша точка — Сайт Шаблон</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Якорные ссылки в столбец — единый блок */
-        .anchor-nav-wrapper {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 16px;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .anchor-nav-wrapper .anchor-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            letter-spacing: 0.3px;
-        }
-
-        .anchor-nav-wrapper .anchor-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 14px;
-            line-height: 1.5;
-        }
-
-        .anchor-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: stretch;
-        }
-
-        .anchor-nav a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 700;
-            font-size: 14px;
-            padding: 10px 18px;
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            background: var(--bg-card);
-            transition: var(--transition);
-            text-align: left;
-        }
-
-        .anchor-nav a:hover {
-            background: var(--bg-hover);
-            color: var(--text-dark);
-            border-color: #9ca3af;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .section-anchor {
-            scroll-margin-top: 30px;
+        /* Скрываем кнопки + и - на этой странице */
+        .info-card .counter-box {
+            display: none !important;
         }
 
         .info-card img {
             width: 100%;
             aspect-ratio: 600 / 650;
             object-fit: cover;
-        }
-
-        .to-top-btn {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            background: #1e1e1e;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: var(--transition);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 998;
-        }
-
-        .to-top-btn.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .to-top-btn:hover {
-            background: #374151;
-            transform: scale(1.1);
         }
 
         .functional-note {
@@ -124,11 +41,6 @@
             margin-bottom: 30px;
             border-left: 4px solid #9ca3af;
             line-height: 1.6;
-        }
-
-        /* Убираем кнопки + и - на этой странице */
-        .info-card .counter-box {
-            display: none !important;
         }
     </style>
 </head>
@@ -166,7 +78,7 @@
 
             <!-- Якорные ссылки в столбец — единый блок с 5 строками для 5 карточек -->
             <div class="anchor-nav-wrapper">
-                <div class="anchor-title">⬇️ Быстрый переход по разделам:</div>
+                <div class="anchor-title">⬇️ Быстрый переход</div>
                 <div class="anchor-desc">Кликните на название раздела, чтобы перейти к нему:</div>
                 <div class="anchor-nav">
                     <a href="#card1">Карточка 1</a>
