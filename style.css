@@ -597,6 +597,12 @@ nav a.active::after {
     padding-right: 5px;
 }
 
+/* Ограничение высоты для списка товаров в окне подтверждения */
+#confirm-modal-items {
+    max-height: 160px; /* примерно 2 товара */
+    overflow-y: auto;
+}
+
 .fav-input {
     flex: 1;
     padding: 8px 12px;
@@ -968,6 +974,178 @@ footer {
 }
 
 /* =========================================
+   НОВЫЙ БЛОК: ИНФОРМАЦИЯ О ПРЕДЗАКАЗЕ
+   ========================================= */
+.preorder-info-block {
+    font-size: 15px;
+    color: #1e3a8a; /* Темно-синий текст */
+    background: #eff6ff; /* Светло-голубой фон */
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border-left: 4px solid #2563eb; /* Синяя граница */
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* =========================================
+   НОВЫЙ БЛОК: ВЫБОР СТОЛА
+   ========================================= */
+.table-selection-block {
+    background: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.table-selection-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1e1e1e;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+.table-selection-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.table-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.table-select-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 15px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e1e1e;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.table-select-btn:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+.table-select-btn.active {
+    background: #ecfdf5;
+    border-color: #10b981;
+    color: #065f46;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.table-select-btn.selected-takeaway {
+    background: #fffbeb;
+    border-color: #f59e0b;
+    color: #92400e;
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+.table-btn-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.table-btn-text {
+    flex: 1;
+}
+
+.manual-table-input-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    animation: fadeIn 0.3s ease;
+}
+
+.manual-table-input-container.hidden {
+    display: none;
+}
+
+.manual-table-input-container input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    font-family: inherit;
+}
+
+.manual-table-input-container input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.table-error-message {
+    font-size: 13px;
+    font-weight: 700;
+    color: #dc2626;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
+    animation: fadeIn 0.3s ease;
+}
+
+.table-error-message.hidden {
+    display: none;
+}
+
+/* Стили для футера модального окна подтверждения */
+.confirm-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #d1d5db;
+    padding-top: 10px;
+    gap: 10px;
+}
+
+/* Компактная кнопка WhatsApp в модальном окне */
+.confirm-whatsapp-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    gap: 8px;
+}
+
+.confirm-whatsapp-btn .wa-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+}
+
+/* Стили для строки сохранения в избранное в модальном окне */
+.confirm-fav-save-row {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: #f3f4f6;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+}
+
+/* =========================================
    МОБИЛЬНАЯ ВЕРСИЯ
    ========================================= */
 
@@ -1052,5 +1230,28 @@ footer {
     .anchor-nav a {
         font-size: 13px;
         padding: 5px 0;
+    }
+
+    .confirm-modal-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .confirm-modal-footer span {
+        text-align: center;
+    }
+
+    .confirm-whatsapp-btn {
+        justify-content: center;
+    }
+
+    .table-selection-title {
+        font-size: 14px;
+    }
+
+    .table-select-btn {
+        font-size: 13px;
+        padding: 10px 12px;
     }
 }

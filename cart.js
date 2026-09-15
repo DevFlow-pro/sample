@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     let favorites = JSON.parse(localStorage.getItem(FAV_STORAGE_KEY)) || [];
 
+    // --- Логика выбора стола ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const tableFromUrl = urlParams.get('table');
+    let selectedTable = null; // '1', '2', 'takeaway' etc.
+    let orderType = null; // 'dine-in', 'takeaway'
 
     const cards = document.querySelectorAll('.info-card[data-id]');
 
@@ -34,24 +39,55 @@ document.addEventListener('DOMContentLoaded', () => {
     // Создание модального окна проверки заказа с затемнением фона и кнопкой сохранения в избранное
     const orderConfirmModal = document.createElement('div');
     orderConfirmModal.id = 'order-confirm-modal';
-    orderConfirmModal.className = 'cart-popup'; // Используем знакомый красивый класс для стилизации
+    orderConfirmModal.className = 'cart-popup';
     orderConfirmModal.style.zIndex = '2000';
     orderConfirmModal.innerHTML = `
         <div class="cart-popup-header">
-            <h3>✨ Точно ли вы заказали это?</h3>
+            <h3>Точно ли вы заказали это?</h3>
             <button id="close-confirm-modal" class="close-popup-btn">&times;</button>
         </div>
+
+        <!-- НОВЫЙ БЛОК: ВЫБОР СТОЛА -->
+        <div id="table-selection-block" class="table-selection-block">
+            <h4 class="table-selection-title">ФУНКЦИЯ ДЛЯ КАФЕ И РЕСТОРАНОВ ПРИ НАЛИЧИИ QR-КОДОВ</h4>
+            <p class="table-selection-desc">Заказывайте прямо со стола, не дожидаясь официанта! Просто отсканируйте QR-код, выберите блюда и отправьте заказ. Еда будет готовиться, пока вы отдыхаете. А если хотите заказать заранее из дома — выберите третий вариант и приезжайте к готовому заказу!</p>
+            
+            <div class="table-buttons-container">
+                <button id="table-btn-current" class="table-select-btn">
+                    <span class="table-btn-icon">🍽️</span>
+                    <span class="table-btn-text">Я сижу за столом №${tableFromUrl || '?'}</span>
+                </button>
+                <button id="table-btn-other" class="table-select-btn">
+                    <span class="table-btn-icon">🔄</span>
+                    <span class="table-btn-text">Нет, я за другим столом</span>
+                </button>
+                <button id="table-btn-takeaway" class="table-select-btn">
+                    <span class="table-btn-icon">🥡</span>
+                    <span class="table-btn-text">Я заказываю заранее (предоплата)</span>
+                </button>
+            </div>
+
+            <div id="manual-table-input-container" class="manual-table-input-container hidden">
+                <input type="number" id="manual-table-input" placeholder="Введите номер стола" min="1">
+                <button id="confirm-manual-table-btn" class="fav-save-btn">Подтвердить</button>
+            </div>
+
+            <div id="table-error-message" class="table-error-message hidden">
+                ⚠️ ВАЖНО! Выберите стол, за которым вы сидите!
+            </div>
+        </div>
+
         <p style="font-size: 13px; color: #78716c; margin-bottom: 12px;">Проверьте ваш заказ, при необходимости измените количество или сохраните в избранное:</p>
         <div id="confirm-modal-items" class="cart-popup-items" style="margin-bottom: 15px;"></div>
         
-        <div style="margin-bottom: 15px; display: flex; gap: 8px; align-items: center; background: #f3f4f6; padding: 10px; border-radius: 12px; border: 1px solid #d1d5db;">
+        <div class="confirm-fav-save-row">
             <input type="text" id="confirm-fav-name-input" placeholder="Название набора для избранного" class="fav-input" style="background: #fff;">
-            <button id="confirm-save-fav-btn" class="fav-save-btn" style="white-space: nowrap;">🔖 В избранное</button>
+            <button id="confirm-save-fav-btn" class="fav-save-btn" style="white-space: nowrap;">⭐ Избранное</button>
         </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #d1d5db; pt: 10px; padding-top: 10px;">
+        <div class="confirm-modal-footer">
             <span style="font-size: 15px; font-weight: 700; color: #1e1e1e;">Итого: <strong id="confirm-total-price" style="color: #1e1e1e;">0 ₸</strong></span>
-            <button id="confirm-whatsapp-final-btn" class="whatsapp-btn" style="padding: 10px 20px;">
+            <button id="confirm-whatsapp-final-btn" class="whatsapp-btn confirm-whatsapp-btn">
                 <span class="wa-text">Отправить в WhatsApp</span>
                 <span class="wa-icon">➔</span>
             </button>
@@ -79,6 +115,94 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmWhatsappFinalBtn = document.getElementById('confirm-whatsapp-final-btn');
     const confirmFavNameInput = document.getElementById('confirm-fav-name-input');
     const confirmSaveFavBtn = document.getElementById('confirm-save-fav-btn');
+
+    // Элементы для выбора стола
+    const tableSelectionBlock = document.getElementById('table-selection-block');
+    const tableBtnCurrent = document.getElementById('table-btn-current');
+    const tableBtnOther = document.getElementById('table-btn-other');
+    const tableBtnTakeaway = document.getElementById('table-btn-takeaway');
+    const manualTableInputContainer = document.getElementById('manual-table-input-container');
+    const manualTableInput = document.getElementById('manual-table-input');
+    const confirmManualTableBtn = document.getElementById('confirm-manual-table-btn');
+    const tableErrorMessage = document.getElementById('table-error-message');
+
+    // --- Функции для работы с блоком выбора стола ---
+
+    function resetTableSelection() {
+        selectedTable = null;
+        orderType = null;
+        tableErrorMessage.classList.add('hidden');
+        manualTableInputContainer.classList.add('hidden');
+        manualTableInput.value = '';
+
+        // Сброс активных классов
+        [tableBtnCurrent, tableBtnOther, tableBtnTakeaway].forEach(btn => {
+            btn.classList.remove('active', 'selected-takeaway');
+        });
+
+        // Обновляем текст первой кнопки в зависимости от URL
+        if (tableFromUrl) {
+            tableBtnCurrent.querySelector('.table-btn-text').textContent = `Я сижу за столом №${tableFromUrl}`;
+            tableBtnCurrent.style.display = 'flex';
+        } else {
+            tableBtnCurrent.querySelector('.table-btn-text').textContent = `Указать стол`;
+            // Можно скрыть, но лучше оставить для ручного ввода
+            tableBtnCurrent.style.display = 'flex';
+        }
+    }
+
+    function handleTableSelection(type, tableNumber = null) {
+        resetTableSelection(); // Сбрасываем прошлый выбор
+        tableErrorMessage.classList.add('hidden');
+
+        if (type === 'current') {
+            if (tableFromUrl) {
+                selectedTable = tableFromUrl;
+                orderType = 'dine-in';
+                tableBtnCurrent.classList.add('active');
+            } else {
+                // Если в URL нет стола, эта кнопка работает как "Указать стол"
+                tableBtnOther.click();
+                return;
+            }
+        } else if (type === 'other') {
+            orderType = 'dine-in';
+            tableBtnOther.classList.add('active');
+            manualTableInputContainer.classList.remove('hidden');
+            manualTableInput.focus();
+            return; // Не устанавливаем selectedTable, ждем ввода
+        } else if (type === 'takeaway') {
+            orderType = 'takeaway';
+            selectedTable = 'takeaway';
+            tableBtnTakeaway.classList.add('active', 'selected-takeaway');
+        }
+    }
+
+    tableBtnCurrent.addEventListener('click', () => handleTableSelection('current'));
+    tableBtnOther.addEventListener('click', () => handleTableSelection('other'));
+    tableBtnTakeaway.addEventListener('click', () => handleTableSelection('takeaway'));
+
+    confirmManualTableBtn.addEventListener('click', () => {
+        const manualTableNumber = manualTableInput.value.trim();
+        if (manualTableNumber && !isNaN(manualTableNumber) && Number(manualTableNumber) > 0) {
+            selectedTable = manualTableNumber;
+            orderType = 'dine-in';
+            manualTableInputContainer.classList.add('hidden');
+            tableErrorMessage.classList.add('hidden');
+            // Можно добавить визуальное подтверждение
+            tableBtnOther.querySelector('.table-btn-text').textContent = `Стол №${manualTableNumber}`;
+            tableBtnOther.classList.add('active');
+        } else {
+            manualTableInput.style.borderColor = '#dc2626';
+            setTimeout(() => { manualTableInput.style.borderColor = ''; }, 2000);
+        }
+    });
+
+    manualTableInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            confirmManualTableBtn.click();
+        }
+    });
 
 
     function formatWeight(weight) {
@@ -200,7 +324,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateFavoritesUI();
         
-        // Если открыто окно проверки, обновляем его содержимое на лету при изменении плюсиками/минусиками
         if (orderConfirmModal.classList.contains('active')) {
             updateConfirmModalContent();
         }
@@ -309,6 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cartPopup) cartPopup.classList.remove('active');
         if (favoritesPopup) favoritesPopup.classList.remove('active');
 
+        resetTableSelection(); // Сбрасываем выбор стола при каждом открытии
         updateConfirmModalContent();
         modalBackdrop.style.display = 'block';
         orderConfirmModal.classList.add('active');
@@ -354,7 +478,6 @@ document.addEventListener('DOMContentLoaded', () => {
         confirmModalItems.innerHTML = html;
         confirmTotalPrice.textContent = totalSum + ' ₸';
 
-        // Слушатели для плюсиков/минусиков прямо в окне проверки
         confirmModalItems.querySelectorAll('.confirm-plus').forEach(btn => {
             btn.addEventListener('click', () => {
                 const key = btn.dataset.key;
@@ -409,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(favorites));
             confirmFavNameInput.value = '';
             updateFavoritesUI();
-            alert('Заказ успешно сохранен в избранное! 🔖');
+            alert('Заказ успешно сохранен в избранное! ⭐');
         });
     }
 
@@ -423,6 +546,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Проверка выбора стола
+            if (!selectedTable && orderType !== 'takeaway') {
+                tableErrorMessage.classList.remove('hidden');
+                // Прокрутка к блоку выбора стола для привлечения внимания
+                tableSelectionBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
             let message = "Здравствуйте! Хочу сделать заказ:\n\n";
             let totalSum = 0;
 
@@ -432,7 +563,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 message += `▪️ ${item.name} — ${formatWeight(item.weight)}, ${item.qty} шт. (${sum} ₸)\n`;
             });
 
-            message += `\n📦 Итого к оплате: ${totalSum} ₸`;
+            message += `\n📦 Итого к оплате: ${totalSum} ₸\n`;
+
+            if (orderType === 'takeaway') {
+                message += `\n🥡 Заказ на вынос (предоплата)`;
+            } else if (selectedTable) {
+                message += `\n🍽️ Стол: №${selectedTable}`;
+            }
 
             const encodedMessage = encodeURIComponent(message);
             const waURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
@@ -523,15 +660,11 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(favorites));
             favNameInput.value = '';
             updateFavoritesUI();
-            alert('Заказ успешно сохранен в избранное! 🔖');
+            alert('Заказ успешно сохранен в избранное! ⭐');
         });
     }
 
 
-    /*
-     * Перехватываем клик по кнопке "в Ватсап" на нижней панели:
-     * вместо прямой отправки теперь открывается красивое модальное окно проверки заказа с затемнением фона.
-     */
     if (whatsappBtn) {
         whatsappBtn.addEventListener('click', (e) => {
             e.preventDefault();
