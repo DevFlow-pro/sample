@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <!-- НОВЫЙ БЛОК: ВЫБОР СТОЛА -->
         <div id="table-selection-block" class="table-selection-block">
-            <h4 class="table-selection-title">ФУНКЦИЯ ДЛЯ КАФЕ И РЕСТОРАНОВ ПРИ НАЛИЧИИ QR-КОДОВ</h4>
-            <p class="table-selection-desc">Заказывайте прямо со стола, не дожидаясь официанта! Просто отсканируйте QR-код, выберите блюда и отправьте заказ. Еда будет готовиться, пока вы отдыхаете. А если хотите заказать заранее из дома — выберите третий вариант и приезжайте к готовому заказу!</p>
+            <h4 class="table-selection-title">Функция для кафе и ресторанов при наличии QR-кодов</h4>
+            <p class="table-selection-desc">Сканируйте QR-код, чтобы заказать еду прямо из дома, не дожидаясь заказа. Обязательно укажите стол — официант доставит заказ прямо к вам.</p>
             
             <div class="table-buttons-container">
                 <button id="table-btn-current" class="table-select-btn">
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
                 <button id="table-btn-takeaway" class="table-select-btn">
                     <span class="table-btn-icon">🥡</span>
-                    <span class="table-btn-text">Я заказываю заранее (предоплата)</span>
+                    <span class="table-btn-text">Заказать по предоплате из дома</span>
                 </button>
             </div>
 
@@ -73,7 +73,22 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div id="table-error-message" class="table-error-message hidden">
-                ⚠️ ВАЖНО! Выберите стол, за которым вы сидите!
+                ⚠️ Обязательно укажите стол!
+            </div>
+
+            <!-- Раскрывающееся пояснение для клиента -->
+            <button type="button" id="table-details-toggle" class="table-details-toggle">
+                <span class="table-details-arrow">▾</span>
+                <span class="table-details-label">Подробнее о функции</span>
+            </button>
+            <div id="table-details-content" class="table-details-content">
+                <div class="table-details-inner">
+                    <p><strong>Как это работает:</strong></p>
+                    <p>• <strong>Я сижу за столом</strong> — если вы отсканировали QR-код со стола, номер подставится автоматически.</p>
+                    <p>• <strong>Другой стол</strong> — укажите номер вручную, если перешли за другой стол.</p>
+                    <p>• <strong>Предоплата из дома</strong> — закажите заранее из любого места и приезжайте к готовому заказу.</p>
+                    <p class="table-details-note">Заказ уйдёт в WhatsApp с указанием стола — официант принесёт еду прямо к вам.</p>
+                </div>
             </div>
         </div>
 
@@ -126,6 +141,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmManualTableBtn = document.getElementById('confirm-manual-table-btn');
     const tableErrorMessage = document.getElementById('table-error-message');
 
+    // Логика раскрытия подробного описания
+    const tableDetailsToggle = document.getElementById('table-details-toggle');
+    const tableDetailsContent = document.getElementById('table-details-content');
+
+    if (tableDetailsToggle && tableDetailsContent) {
+        tableDetailsToggle.addEventListener('click', () => {
+            const isOpen = tableDetailsContent.classList.toggle('open');
+            tableDetailsToggle.classList.toggle('open', isOpen);
+        });
+    }
+
     // --- Функции для работы с блоком выбора стола ---
 
     function resetTableSelection() {
@@ -146,8 +172,16 @@ document.addEventListener('DOMContentLoaded', () => {
             tableBtnCurrent.style.display = 'flex';
         } else {
             tableBtnCurrent.querySelector('.table-btn-text').textContent = `Указать стол`;
-            // Можно скрыть, но лучше оставить для ручного ввода
             tableBtnCurrent.style.display = 'flex';
+        }
+
+        // Сбрасываем текст кнопки "другой стол"
+        tableBtnOther.querySelector('.table-btn-text').textContent = `Нет, я за другим столом`;
+
+        // Закрываем подробное описание
+        if (tableDetailsContent && tableDetailsToggle) {
+            tableDetailsContent.classList.remove('open');
+            tableDetailsToggle.classList.remove('open');
         }
     }
 
