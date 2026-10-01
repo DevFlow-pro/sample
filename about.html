@@ -6,41 +6,12 @@
     <title>Ваша точка — Сайт Шаблон</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Скрываем кнопки + и - на этой странице */
-        .info-card .counter-box {
-            display: none !important;
-        }
+        .info-card .counter-box { display: none !important; }
 
         .info-card img {
             width: 100%;
             aspect-ratio: 600 / 650;
             object-fit: cover;
-        }
-
-        .functional-note {
-            font-size: 14px;
-            color: #6b7280;
-            background: #f3f4f6;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            border-left: 4px solid #9ca3af;
-            line-height: 1.5;
-        }
-
-        .functional-note strong {
-            color: #1e1e1e;
-        }
-
-        .page-description {
-            font-size: 15px;
-            color: var(--text-muted);
-            background: #f3f4f6;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border-left: 4px solid #9ca3af;
-            line-height: 1.6;
         }
     </style>
 </head>
@@ -72,14 +43,8 @@
         <main>
             <h1 class="page-heading">О вашей точке</h1>
 
-            <div class="page-description">
-                📌 Эта страница показывает, как выглядит ваш бизнес. Здесь вы можете разместить информацию о вашей точке, услугах или преимуществах.
-            </div>
-
-            <!-- Якорные ссылки в столбец — единый блок с 5 строками для 5 карточек -->
             <div class="anchor-nav-wrapper">
                 <div class="anchor-title">⬇️ Быстрый переход</div>
-                <div class="anchor-desc">Кликните на название раздела, чтобы перейти к нему:</div>
                 <div class="anchor-nav">
                     <a href="#card1">Карточка 1</a>
                     <a href="#card2">Карточка 2</a>
@@ -89,23 +54,32 @@
                 </div>
             </div>
 
-            <!-- ВСЕГО 5 КАРТОЧЕК НА СТРАНИЦУ -->
             <div class="honey-grid">
 
-                <!-- КАРТОЧКА 1 -->
-                <article class="info-card section-anchor" id="card1">
+                <!-- КАРТОЧКА 1 (с выносками) -->
+                <article class="info-card section-anchor cluster-card" id="card1">
                     <h3>Карточка 1</h3>
-                    <img src="tochka.jpeg" alt="Точка">
+                    <div class="cluster-img-wrap">
+                        <img src="tochka.jpeg" alt="Точка">
+                    </div>
+
+                    <div class="cluster-line left">
+                        <span class="cluster-dot"></span>
+                        <span class="cluster-label">Фото вашей точки или услуги</span>
+                    </div>
+
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Описание вашей точки или услуги. Здесь вы можете рассказать о своём бизнесе, преимуществах, особенностях работы. Этот текст демонстрирует эффект "туманности" — он будет плавно обрезаться, если станет слишком длинным.
+                            Расскажите о своём бизнесе, преимуществах и особенностях работы.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
-                    <div class="functional-note">
-                        <strong>📍 О нашей точке:</strong> Здесь вы можете разместить информацию о вашей компании, местоположении, графике работы или любых других важных деталях.
+
+                    <div class="cluster-line right">
+                        <span class="cluster-dot"></span>
+                        <span class="cluster-label">Нажмите, чтобы развернуть описание</span>
                     </div>
                 </article>
 
@@ -115,14 +89,11 @@
                     <img src="tochka.jpeg" alt="Точка">
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Расскажите о своих услугах. Что вы предлагаете клиентам? Какие у вас цены? Есть ли скидки или акции? Эта информация поможет клиентам сделать правильный выбор.
+                            Расскажите о своих услугах: что вы предлагаете, цены, акции.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>💼 Наши услуги:</strong> Опишите свой основной продукт или услугу, укажите цены и особенности. Клиенты должны понимать, что вы предлагаете.
                     </div>
                 </article>
 
@@ -132,14 +103,11 @@
                     <img src="tochka.jpeg" alt="Точка">
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Преимущества вашей компании. Почему клиенты должны выбрать именно вас? Что делает вас лучше конкурентов? Это могут быть уникальные технологии, качество, сервис или опыт.
+                            Преимущества вашей компании: почему клиенты выбирают именно вас.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>⭐ Наши преимущества:</strong> Перечислите главные причины, по которым клиенты выбирают вас. Это могут быть гарантии, опыт, удобство или что-то уникальное.
                     </div>
                 </article>
 
@@ -149,14 +117,11 @@
                     <img src="tochka.jpeg" alt="Точка">
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Контактная информация и местоположение. Где находится ваша точка? Как с вами связаться? Укажите адрес, телефон, email и часы работы, чтобы клиенты могли легко вас найти.
+                            Контактная информация и местоположение вашей точки.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>📞 Свяжитесь с нами:</strong> Добавьте свой адрес, телефон, email и график работы. Чем проще с вами связаться, тем больше клиентов вы получите.
                     </div>
                 </article>
 
@@ -166,14 +131,11 @@
                     <img src="tochka.jpeg" alt="Точка">
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Отзывы клиентов и рейтинг. Что говорят о вас клиенты? Высокий рейтинг и положительные отзывы — лучшая реклама для вашего бизнеса. Поделитесь успехами своих клиентов.
+                            Отзывы клиентов и рейтинг — лучшая реклама для вашего бизнеса.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
-                    </div>
-                    <div class="functional-note">
-                        <strong>🌟 Отзывы и рейтинг:</strong> Расскажите о своих успехах. Хорошие отзывы создают доверие и привлекают новых клиентов. Покажите, что вас ценят.
                     </div>
                 </article>
 
@@ -233,7 +195,6 @@
     </div>
 
     <script>
-        // Кнопка "Наверх"
         const toTopBtn = document.getElementById("toTopBtn");
         window.onscroll = () => {
             if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -244,7 +205,6 @@
         };
         toTopBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
-        // Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.querySelector('.lightbox-close');
@@ -271,17 +231,16 @@
             });
         }
 
-        // --- Логика для кнопок "Развернуть/Свернуть" ---
         document.addEventListener('DOMContentLoaded', function() {
             const toggleButtons = document.querySelectorAll('.toggle-description-btn');
-            
+
             toggleButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.stopPropagation();
                     const wrapper = this.closest('.description-wrapper');
                     const content = wrapper.querySelector('.description-content');
                     const arrow = this.querySelector('.arrow');
-                    
+
                     if (content.classList.contains('expanded')) {
                         content.classList.remove('expanded');
                         arrow.classList.remove('expanded');

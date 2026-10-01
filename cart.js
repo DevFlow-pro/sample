@@ -8,11 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     let favorites = JSON.parse(localStorage.getItem(FAV_STORAGE_KEY)) || [];
 
-    // --- Логика выбора стола ---
     const urlParams = new URLSearchParams(window.location.search);
     const tableFromUrl = urlParams.get('table');
-    let selectedTable = null; // '1', '2', 'takeaway' etc.
-    let orderType = null; // 'dine-in', 'takeaway'
+    let selectedTable = null;
+    let orderType = null;
 
     const cards = document.querySelectorAll('.info-card[data-id]');
 
@@ -35,23 +34,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveCurrentFavBtn = document.getElementById('save-current-fav-btn');
     const favBadge = document.getElementById('fav-badge');
 
-
-    // Создание модального окна проверки заказа с затемнением фона и кнопкой сохранения в избранное
+    // --- МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ЗАКАЗА ---
     const orderConfirmModal = document.createElement('div');
     orderConfirmModal.id = 'order-confirm-modal';
     orderConfirmModal.className = 'cart-popup';
     orderConfirmModal.style.zIndex = '2000';
     orderConfirmModal.innerHTML = `
         <div class="cart-popup-header">
-            <h3>Точно ли вы заказали это?</h3>
+            <h3>Проверьте детали заказа</h3>
             <button id="close-confirm-modal" class="close-popup-btn">&times;</button>
         </div>
 
-        <!-- НОВЫЙ БЛОК: ВЫБОР СТОЛА -->
+        <!-- БЛОК ВЫБОРА СТОЛА -->
         <div id="table-selection-block" class="table-selection-block">
-            <h4 class="table-selection-title">Функция для кафе и ресторанов при наличии QR-кодов</h4>
-            <p class="table-selection-desc">Сканируйте QR-код, чтобы заказать еду прямо из дома, не дожидаясь заказа. Обязательно укажите стол — официант доставит заказ прямо к вам.</p>
-            
+            <h4 class="table-selection-title">Закажите, уточните: за каким столом вы сидите или заказываете из дома</h4>
+
             <div class="table-buttons-container">
                 <button id="table-btn-current" class="table-select-btn">
                     <span class="table-btn-icon">🍽️</span>
@@ -59,11 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
                 <button id="table-btn-other" class="table-select-btn">
                     <span class="table-btn-icon">🔄</span>
-                    <span class="table-btn-text">Нет, я за другим столом</span>
+                    <span class="table-btn-text">Я за другим столом</span>
                 </button>
                 <button id="table-btn-takeaway" class="table-select-btn">
                     <span class="table-btn-icon">🥡</span>
-                    <span class="table-btn-text">Заказать по предоплате из дома</span>
+                    <span class="table-btn-text">Заказываю из дома по предоплате</span>
                 </button>
             </div>
 
@@ -76,25 +73,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 ⚠️ Обязательно укажите стол!
             </div>
 
-            <!-- Раскрывающееся пояснение для клиента -->
+            <!-- Раскрывающееся пояснение-палочка -->
             <button type="button" id="table-details-toggle" class="table-details-toggle">
-                <span class="table-details-arrow">▾</span>
-                <span class="table-details-label">Подробнее о функции</span>
+                <span class="table-details-arrow">▸</span>
+                <span class="table-details-label">Подробнее о функции для кафе и ресторанов</span>
             </button>
             <div id="table-details-content" class="table-details-content">
                 <div class="table-details-inner">
-                    <p><strong>Как это работает:</strong></p>
-                    <p>• <strong>Я сижу за столом</strong> — если вы отсканировали QR-код со стола, номер подставится автоматически.</p>
-                    <p>• <strong>Другой стол</strong> — укажите номер вручную, если перешли за другой стол.</p>
-                    <p>• <strong>Предоплата из дома</strong> — закажите заранее из любого места и приезжайте к готовому заказу.</p>
-                    <p class="table-details-note">Заказ уйдёт в WhatsApp с указанием стола — официант принесёт еду прямо к вам.</p>
+                    <p>• <strong>Я сижу за столом</strong> — номер подставится из QR-кода автоматически.</p>
+                    <p>• <strong>Другой стол</strong> — укажите номер вручную.</p>
+                    <p>• <strong>Из дома</strong> — заказ по предоплате, приезжайте к готовому.</p>
                 </div>
             </div>
         </div>
 
-        <p style="font-size: 13px; color: #78716c; margin-bottom: 12px;">Проверьте ваш заказ, при необходимости измените количество или сохраните в избранное:</p>
         <div id="confirm-modal-items" class="cart-popup-items" style="margin-bottom: 15px;"></div>
-        
+
         <div class="confirm-fav-save-row">
             <input type="text" id="confirm-fav-name-input" placeholder="Название набора для избранного" class="fav-input" style="background: #fff;">
             <button id="confirm-save-fav-btn" class="fav-save-btn" style="white-space: nowrap;">⭐ Избранное</button>
@@ -110,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.body.appendChild(orderConfirmModal);
 
-    // Создание подложки для затемнения фона (backdrop)
     const modalBackdrop = document.createElement('div');
     modalBackdrop.id = 'modal-backdrop';
     modalBackdrop.style.cssText = `
@@ -131,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmFavNameInput = document.getElementById('confirm-fav-name-input');
     const confirmSaveFavBtn = document.getElementById('confirm-save-fav-btn');
 
-    // Элементы для выбора стола
     const tableSelectionBlock = document.getElementById('table-selection-block');
     const tableBtnCurrent = document.getElementById('table-btn-current');
     const tableBtnOther = document.getElementById('table-btn-other');
@@ -141,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmManualTableBtn = document.getElementById('confirm-manual-table-btn');
     const tableErrorMessage = document.getElementById('table-error-message');
 
-    // Логика раскрытия подробного описания
     const tableDetailsToggle = document.getElementById('table-details-toggle');
     const tableDetailsContent = document.getElementById('table-details-content');
 
@@ -152,8 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Функции для работы с блоком выбора стола ---
-
     function resetTableSelection() {
         selectedTable = null;
         orderType = null;
@@ -161,12 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
         manualTableInputContainer.classList.add('hidden');
         manualTableInput.value = '';
 
-        // Сброс активных классов
         [tableBtnCurrent, tableBtnOther, tableBtnTakeaway].forEach(btn => {
             btn.classList.remove('active', 'selected-takeaway');
         });
 
-        // Обновляем текст первой кнопки в зависимости от URL
         if (tableFromUrl) {
             tableBtnCurrent.querySelector('.table-btn-text').textContent = `Я сижу за столом №${tableFromUrl}`;
             tableBtnCurrent.style.display = 'flex';
@@ -175,18 +162,16 @@ document.addEventListener('DOMContentLoaded', () => {
             tableBtnCurrent.style.display = 'flex';
         }
 
-        // Сбрасываем текст кнопки "другой стол"
-        tableBtnOther.querySelector('.table-btn-text').textContent = `Нет, я за другим столом`;
+        tableBtnOther.querySelector('.table-btn-text').textContent = `Я за другим столом`;
 
-        // Закрываем подробное описание
         if (tableDetailsContent && tableDetailsToggle) {
             tableDetailsContent.classList.remove('open');
             tableDetailsToggle.classList.remove('open');
         }
     }
 
-    function handleTableSelection(type, tableNumber = null) {
-        resetTableSelection(); // Сбрасываем прошлый выбор
+    function handleTableSelection(type) {
+        resetTableSelection();
         tableErrorMessage.classList.add('hidden');
 
         if (type === 'current') {
@@ -195,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 orderType = 'dine-in';
                 tableBtnCurrent.classList.add('active');
             } else {
-                // Если в URL нет стола, эта кнопка работает как "Указать стол"
                 tableBtnOther.click();
                 return;
             }
@@ -204,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tableBtnOther.classList.add('active');
             manualTableInputContainer.classList.remove('hidden');
             manualTableInput.focus();
-            return; // Не устанавливаем selectedTable, ждем ввода
+            return;
         } else if (type === 'takeaway') {
             orderType = 'takeaway';
             selectedTable = 'takeaway';
@@ -223,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
             orderType = 'dine-in';
             manualTableInputContainer.classList.add('hidden');
             tableErrorMessage.classList.add('hidden');
-            // Можно добавить визуальное подтверждение
             tableBtnOther.querySelector('.table-btn-text').textContent = `Стол №${manualTableNumber}`;
             tableBtnOther.classList.add('active');
         } else {
@@ -238,18 +221,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     function formatWeight(weight) {
-        return weight === '1.5'
-            ? '1,5 кг'
-            : `${weight} кг`;
+        return weight === '1.5' ? '1,5 кг' : `${weight} кг`;
     }
-
 
     function getCartKey(id, weight) {
         return `${id}_${weight}`;
     }
-
 
     function getCartItems() {
         const items = [];
@@ -265,20 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const qty = cart[key] || 0;
 
                 if (qty > 0) {
-                    items.push({
-                        id,
-                        name,
-                        weight,
-                        price,
-                        qty,
-                        key
-                    });
+                    items.push({ id, name, weight, price, qty, key });
                 }
             });
         });
         return items;
     }
-
 
     function updateUI() {
         let totalSum = 0;
@@ -307,9 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
             totalSum += itemSum;
             totalCount += item.qty;
 
-            itemsSummaryArray.push(
-                `${item.name} — ${formatWeight(item.weight)} x${item.qty}`
-            );
+            itemsSummaryArray.push(`${item.name} — ${formatWeight(item.weight)} x${item.qty}`);
 
             popupHtml += `
                 <div class="popup-item-row">
@@ -335,36 +303,25 @@ document.addEventListener('DOMContentLoaded', () => {
             attachPopupListeners();
         }
 
-        if (barTotalPrice) {
-            barTotalPrice.textContent = totalSum + ' ₸';
-        }
+        if (barTotalPrice) barTotalPrice.textContent = totalSum + ' ₸';
 
         if (totalCount > 0) {
-            if (barItemsText) {
-                barItemsText.textContent = itemsSummaryArray.join(', ');
-            }
-            if (orderBar) {
-                orderBar.classList.remove('hidden');
-            }
+            if (barItemsText) barItemsText.textContent = itemsSummaryArray.join(', ');
+            if (orderBar) orderBar.classList.remove('hidden');
         } else {
-            if (orderBar) {
-                orderBar.classList.add('hidden');
-            }
-            if (cartPopup) {
-                cartPopup.classList.remove('active');
-            }
+            if (orderBar) orderBar.classList.add('hidden');
+            if (cartPopup) cartPopup.classList.remove('active');
             closeOrderConfirmModal();
         }
 
         updateFavoritesUI();
-        
+
         if (orderConfirmModal.classList.contains('active')) {
             updateConfirmModalContent();
         }
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
     }
-
 
     function updateFavoritesUI() {
         if (!favBadge) return;
@@ -401,7 +358,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     cards.forEach(card => {
         const id = card.dataset.id;
         const weightOptions = card.querySelectorAll('.weight-option');
@@ -431,7 +387,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
     function attachPopupListeners() {
         if (!cartPopupItems) return;
 
@@ -455,8 +410,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-    // Функции для модального окна проверки заказа
     function openOrderConfirmModal() {
         const cartItems = getCartItems();
         if (cartItems.length === 0) {
@@ -466,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cartPopup) cartPopup.classList.remove('active');
         if (favoritesPopup) favoritesPopup.classList.remove('active');
 
-        resetTableSelection(); // Сбрасываем выбор стола при каждом открытии
+        resetTableSelection();
         updateConfirmModalContent();
         modalBackdrop.style.display = 'block';
         orderConfirmModal.classList.add('active');
@@ -532,14 +485,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     if (closeConfirmModalBtn) {
         closeConfirmModalBtn.addEventListener('click', closeOrderConfirmModal);
     }
     modalBackdrop.addEventListener('click', closeOrderConfirmModal);
 
-
-    // Сохранение в избранное прямо из окна проверки заказа
     if (confirmSaveFavBtn) {
         confirmSaveFavBtn.addEventListener('click', () => {
             const cartItems = getCartItems();
@@ -549,9 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             let customName = confirmFavNameInput.value.trim();
-            if (!customName) {
-                customName = `Набор #${favorites.length + 1}`;
-            }
+            if (!customName) customName = `Набор #${favorites.length + 1}`;
 
             const totalSum = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
             const summaryArr = cartItems.map(item => `${item.name} — ${formatWeight(item.weight)} x${item.qty}`);
@@ -570,8 +518,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-    // Итоговая отправка в WhatsApp из модального окна проверки
     if (confirmWhatsappFinalBtn) {
         confirmWhatsappFinalBtn.addEventListener('click', () => {
             const cartItems = getCartItems();
@@ -580,10 +526,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Проверка выбора стола
             if (!selectedTable && orderType !== 'takeaway') {
                 tableErrorMessage.classList.remove('hidden');
-                // Прокрутка к блоку выбора стола для привлечения внимания
                 tableSelectionBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
@@ -613,7 +557,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     function attachFavoritesListeners() {
         if (!favoritesPopupItems) return;
 
@@ -636,7 +579,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     if (orderBarToggle && cartPopup) {
         orderBarToggle.addEventListener('click', () => {
             if (favoritesPopup) favoritesPopup.classList.remove('active');
@@ -644,13 +586,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     if (closePopupBtn && cartPopup) {
         closePopupBtn.addEventListener('click', () => {
             cartPopup.classList.remove('active');
         });
     }
-
 
     if (favoritesToggleBtn && favoritesPopup) {
         favoritesToggleBtn.addEventListener('click', () => {
@@ -659,13 +599,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     if (closeFavoritesPopup && favoritesPopup) {
         closeFavoritesPopup.addEventListener('click', () => {
             favoritesPopup.classList.remove('active');
         });
     }
-
 
     if (saveCurrentFavBtn) {
         saveCurrentFavBtn.addEventListener('click', () => {
@@ -676,9 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             let customName = favNameInput.value.trim();
-            if (!customName) {
-                customName = `Набор #${favorites.length + 1}`;
-            }
+            if (!customName) customName = `Набор #${favorites.length + 1}`;
 
             const cartItems = getCartItems();
             const totalSum = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
@@ -698,7 +634,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     if (whatsappBtn) {
         whatsappBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -706,13 +641,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     updateUI();
 
-
-    /*
-     * Lightbox
-     */
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const closeBtn = document.querySelector('.lightbox-close');

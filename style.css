@@ -9,6 +9,7 @@
     --border-light: #d1d5db;
     --bg-card: #ffffff;
     --bg-hover: #f3f4f6;
+    --cluster-line: #9ca3af;
 }
 
 * {
@@ -17,9 +18,7 @@
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
     background-color: var(--bg-color);
@@ -42,9 +41,7 @@ body {
     flex-direction: column;
 }
 
-/* =========================================
-   HEADER
-   ========================================= */
+/* ============ HEADER ============ */
 
 header {
     background-color: var(--header-bg);
@@ -84,10 +81,7 @@ header {
     text-overflow: ellipsis;
 }
 
-.header-right-action {
-    display: flex;
-    flex-shrink: 0;
-}
+.header-right-action { display: flex; flex-shrink: 0; }
 
 .fav-btn-wrapper {
     display: flex;
@@ -143,13 +137,9 @@ header {
     border: 2px solid #fff;
 }
 
-.fav-badge.hidden {
-    display: none;
-}
+.fav-badge.hidden { display: none; }
 
-/* =========================================
-   NAVIGATION
-   ========================================= */
+/* ============ NAV ============ */
 
 nav ul {
     display: flex;
@@ -158,9 +148,7 @@ nav ul {
     width: 100%;
 }
 
-nav li {
-    flex: 1;
-}
+nav li { flex: 1; }
 
 nav a {
     display: block;
@@ -202,9 +190,7 @@ nav a.active::after {
     border-radius: 4px 4px 0 0;
 }
 
-/* =========================================
-   PAGE HEADING
-   ========================================= */
+/* ============ PAGE HEADING ============ */
 
 .page-heading {
     margin-bottom: 30px;
@@ -214,24 +200,7 @@ nav a.active::after {
     letter-spacing: -0.5px;
 }
 
-/* =========================================
-   PAGE DESCRIPTION
-   ========================================= */
-
-.page-description {
-    font-size: 15px;
-    color: var(--text-muted);
-    background: #f3f4f6;
-    padding: 16px 20px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    border-left: 4px solid #9ca3af;
-    line-height: 1.6;
-}
-
-/* =========================================
-   GRID
-   ========================================= */
+/* ============ GRID ============ */
 
 .honey-grid {
     display: grid;
@@ -240,9 +209,7 @@ nav a.active::after {
     margin-bottom: 40px;
 }
 
-/* =========================================
-   INFO CARD
-   ========================================= */
+/* ============ INFO CARD ============ */
 
 .info-card {
     background: var(--bg-card);
@@ -253,6 +220,7 @@ nav a.active::after {
     display: flex;
     flex-direction: column;
     transition: var(--transition);
+    position: relative;
 }
 
 .info-card:hover {
@@ -278,7 +246,80 @@ nav a.active::after {
     color: var(--text-dark);
 }
 
-/* --- БЛОК ОПИСАНИЯ С ТУМАННОСТЬЮ --- */
+/* ============ CLUSTER / LEADER LINES ============ */
+
+.cluster-img-wrap {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.cluster-img-wrap img { margin-bottom: 0; }
+
+.cluster-card {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.cluster-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.cluster-line.left { justify-content: flex-start; }
+
+.cluster-line.right {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.cluster-dot {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cluster-line);
+    position: relative;
+}
+
+.cluster-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 26px;
+    height: 1px;
+    background: var(--cluster-line);
+    transform: translateY(-50%);
+}
+
+.cluster-line.left .cluster-dot::before {
+    left: 100%;
+}
+
+.cluster-line.right .cluster-dot::before {
+    right: 100%;
+}
+
+.cluster-label {
+    background: #f3f4f6;
+    border: 1px solid var(--border-light);
+    padding: 4px 10px;
+    border-radius: 8px;
+    white-space: normal;
+    max-width: 100%;
+}
+
+.contact-cluster {
+    position: relative;
+}
+
+/* ============ DESCRIPTION ============ */
+
 .description-wrapper {
     position: relative;
     margin-bottom: 15px;
@@ -318,9 +359,7 @@ nav a.active::after {
     font-weight: 300;
 }
 
-.toggle-description-btn:hover {
-    color: var(--text-dark);
-}
+.toggle-description-btn:hover { color: var(--text-dark); }
 
 .toggle-description-btn .arrow {
     display: inline-block;
@@ -331,7 +370,7 @@ nav a.active::after {
     transform: rotate(180deg);
 }
 
-/* --- КОНЕЦ БЛОКА ОПИСАНИЯ --- */
+/* ============ META / COUNTER ============ */
 
 .info-card .meta {
     margin-top: auto;
@@ -344,10 +383,6 @@ nav a.active::after {
     flex-direction: column;
     gap: 10px;
 }
-
-/* =========================================
-   COUNTER
-   ========================================= */
 
 .counter-box {
     display: flex;
@@ -388,13 +423,9 @@ nav a.active::after {
     text-align: center;
 }
 
-/* =========================================
-   WEIGHT OPTIONS
-   ========================================= */
+/* ============ WEIGHT OPTIONS ============ */
 
-.weight-meta {
-    display: block !important;
-}
+.weight-meta { display: block !important; }
 
 .weight-options {
     display: flex;
@@ -453,35 +484,7 @@ nav a.active::after {
     font-size: 12px;
 }
 
-.weight-option .desc-hint {
-    font-size: 11px;
-    color: #9ca3af;
-    font-weight: 400;
-    margin-left: 8px;
-}
-
-/* =========================================
-   FUNCTIONAL NOTE
-   ========================================= */
-
-.functional-note {
-    font-size: 14px;
-    color: #78716c;
-    background: #f3f4f6;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 15px;
-    border-left: 4px solid #9ca3af;
-    line-height: 1.5;
-}
-
-.functional-note strong {
-    color: #374151;
-}
-
-/* =========================================
-   CONTACTS GRID
-   ========================================= */
+/* ============ CONTACTS GRID ============ */
 
 .contacts-grid {
     display: grid;
@@ -511,31 +514,7 @@ nav a.active::after {
     margin-bottom: 20px;
 }
 
-.contact-details-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.contact-details-list li {
-    font-size: 15px;
-    color: var(--text-dark);
-}
-
-.contact-details-list a {
-    color: var(--accent-blue);
-    text-decoration: none;
-    font-weight: 700;
-}
-
-.contact-details-list a:hover {
-    text-decoration: underline;
-}
-
-/* =========================================
-   CART POPUP
-   ========================================= */
+/* ============ CART POPUP ============ */
 
 .cart-popup {
     position: fixed;
@@ -584,9 +563,7 @@ nav a.active::after {
     line-height: 1;
 }
 
-.close-popup-btn:hover {
-    color: var(--text-dark);
-}
+.close-popup-btn:hover { color: var(--text-dark); }
 
 .cart-popup-items {
     display: flex;
@@ -597,9 +574,8 @@ nav a.active::after {
     padding-right: 5px;
 }
 
-/* Ограничение высоты для списка товаров в окне подтверждения */
 #confirm-modal-items {
-    max-height: 160px; /* примерно 2 товара */
+    max-height: 160px;
     overflow-y: auto;
 }
 
@@ -625,9 +601,7 @@ nav a.active::after {
     transition: var(--transition);
 }
 
-.fav-save-btn:hover {
-    background: #374151;
-}
+.fav-save-btn:hover { background: #374151; }
 
 .fav-item-row,
 .popup-item-row {
@@ -660,10 +634,7 @@ nav a.active::after {
     color: var(--text-muted);
 }
 
-.fav-actions {
-    display: flex;
-    gap: 8px;
-}
+.fav-actions { display: flex; gap: 8px; }
 
 .fav-load-btn {
     background: var(--accent-blue);
@@ -676,9 +647,7 @@ nav a.active::after {
     cursor: pointer;
 }
 
-.fav-load-btn:hover {
-    background: #1d4ed8;
-}
+.fav-load-btn:hover { background: #1d4ed8; }
 
 .fav-del-btn {
     background: #dc2626;
@@ -691,13 +660,9 @@ nav a.active::after {
     cursor: pointer;
 }
 
-.fav-del-btn:hover {
-    background: #b91c1c;
-}
+.fav-del-btn:hover { background: #b91c1c; }
 
-/* =========================================
-   ORDER BAR
-   ========================================= */
+/* ============ ORDER BAR ============ */
 
 .order-bar {
     position: fixed;
@@ -762,15 +727,8 @@ nav a.active::after {
     letter-spacing: normal;
 }
 
-.order-total {
-    font-size: 15px;
-    color: var(--text-muted);
-}
-
-.order-total strong {
-    color: var(--text-dark);
-    font-size: 17px;
-}
+.order-total { font-size: 15px; color: var(--text-muted); }
+.order-total strong { color: var(--text-dark); font-size: 17px; }
 
 .order-items-preview {
     font-size: 13px;
@@ -816,9 +774,7 @@ nav a.active::after {
     font-size: 15px;
 }
 
-/* =========================================
-   LIGHTBOX
-   ========================================= */
+/* ============ LIGHTBOX ============ */
 
 .lightbox-modal {
     display: none;
@@ -835,9 +791,7 @@ nav a.active::after {
     padding: 20px;
 }
 
-.lightbox-modal.active {
-    display: flex;
-}
+.lightbox-modal.active { display: flex; }
 
 .lightbox-content {
     max-width: 90%;
@@ -856,9 +810,7 @@ nav a.active::after {
     cursor: pointer;
 }
 
-/* =========================================
-   TO TOP BUTTON
-   ========================================= */
+/* ============ TO TOP ============ */
 
 .to-top-btn {
     position: fixed;
@@ -882,19 +834,10 @@ nav a.active::after {
     z-index: 998;
 }
 
-.to-top-btn.visible {
-    opacity: 1;
-    pointer-events: auto;
-}
+.to-top-btn.visible { opacity: 1; pointer-events: auto; }
+.to-top-btn:hover { background: #374151; transform: scale(1.1); }
 
-.to-top-btn:hover {
-    background: #374151;
-    transform: scale(1.1);
-}
-
-/* =========================================
-   FOOTER
-   ========================================= */
+/* ============ FOOTER ============ */
 
 footer {
     text-align: center;
@@ -904,9 +847,7 @@ footer {
     margin-top: auto;
 }
 
-/* =========================================
-   ЯКОРНЫЕ СТРОКИ — МИНИМАЛИСТИЧНЫЙ БЛОК
-   ========================================= */
+/* ============ ANCHOR NAV ============ */
 
 .anchor-nav-wrapper {
     margin-bottom: 30px;
@@ -924,13 +865,6 @@ footer {
     margin-bottom: 10px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-}
-
-.anchor-nav-wrapper .anchor-desc {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-    line-height: 1.5;
 }
 
 .anchor-nav {
@@ -957,40 +891,10 @@ footer {
     padding-left: 6px;
 }
 
-.section-anchor {
-    scroll-margin-top: 30px;
-}
+.section-anchor { scroll-margin-top: 30px; }
 
-/* =========================================
-   SECTION TITLE
-   ========================================= */
+/* ============ TABLE SELECTION ============ */
 
-.section-title {
-    margin: 40px 0 20px 0;
-    color: var(--text-dark);
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--border-light);
-    font-size: 24px;
-}
-
-/* =========================================
-   НОВЫЙ БЛОК: ИНФОРМАЦИЯ О ПРЕДЗАКАЗЕ
-   ========================================= */
-.preorder-info-block {
-    font-size: 15px;
-    color: #1e3a8a;
-    background: #eff6ff;
-    padding: 15px 20px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    border-left: 4px solid #2563eb;
-    line-height: 1.6;
-    font-weight: 600;
-}
-
-/* =========================================
-   НОВЫЙ БЛОК: ВЫБОР СТОЛА
-   ========================================= */
 .table-selection-block {
     background: #f9fafb;
     border: 1px solid #d1d5db;
@@ -1003,17 +907,9 @@ footer {
     font-size: 14px;
     font-weight: 800;
     color: #1e1e1e;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     letter-spacing: 0.3px;
     line-height: 1.4;
-    text-align: center;
-}
-
-.table-selection-desc {
-    font-size: 12.5px;
-    color: #6b7280;
-    line-height: 1.5;
-    margin-bottom: 12px;
     text-align: center;
 }
 
@@ -1062,10 +958,7 @@ footer {
     box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
 }
 
-.table-btn-icon {
-    font-size: 16px;
-    flex-shrink: 0;
-}
+.table-btn-icon { font-size: 16px; flex-shrink: 0; }
 
 .table-btn-text {
     flex: 1;
@@ -1080,9 +973,7 @@ footer {
     animation: fadeIn 0.3s ease;
 }
 
-.manual-table-input-container.hidden {
-    display: none;
-}
+.manual-table-input-container.hidden { display: none; }
 
 .manual-table-input-container input {
     flex: 1;
@@ -1120,13 +1011,9 @@ footer {
     text-align: center;
 }
 
-.table-error-message.hidden {
-    display: none;
-}
+.table-error-message.hidden { display: none; }
 
-/* =========================================
-   РАСКРЫВАЮЩЕЕСЯ ПОЯСНЕНИЕ (СТРЕЛОЧКА В СТОРОНУ)
-   ========================================= */
+/* ============ TABLE DETAILS TOGGLE (LEADER) ============ */
 
 .table-details-toggle {
     display: flex;
@@ -1142,31 +1029,25 @@ footer {
     font-weight: 700;
     color: #2563eb;
     transition: color 0.2s ease;
-    margin-top: 4px;
+    margin-top: 8px;
+    justify-content: center;
 }
 
-.table-details-toggle:hover {
-    color: #1d4ed8;
-}
+.table-details-toggle:hover { color: #1d4ed8; }
 
 .table-details-arrow {
     display: inline-block;
     font-size: 13px;
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     color: #2563eb;
-    transform: translateX(0) rotate(-90deg);
 }
 
 .table-details-toggle.open .table-details-arrow {
-    transform: translateX(6px) rotate(0deg);
+    transform: rotate(90deg);
 }
 
 .table-details-label {
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.table-details-toggle.open .table-details-label {
-    transform: translateX(6px);
 }
 
 .table-details-content {
@@ -1198,28 +1079,12 @@ footer {
     margin-bottom: 6px;
 }
 
-.table-details-content p:last-child {
-    margin-bottom: 0;
-}
+.table-details-content p:last-child { margin-bottom: 0; }
 
-.table-details-content strong {
-    color: #1e1e1e;
-}
+.table-details-content strong { color: #1e1e1e; }
 
-.table-details-note {
-    background: #eff6ff;
-    border-left: 3px solid #2563eb;
-    padding: 8px 10px;
-    border-radius: 6px;
-    margin-top: 8px !important;
-    font-size: 12px !important;
-    color: #1e3a8a !important;
-    font-weight: 600;
-}
+/* ============ CONFIRM MODAL FOOTER ============ */
 
-/* =========================================
-   ФУТЕР МОДАЛЬНОГО ОКНА ПОДТВЕРЖДЕНИЯ
-   ========================================= */
 .confirm-modal-footer {
     display: flex;
     justify-content: space-between;
@@ -1252,15 +1117,17 @@ footer {
     border: 1px solid #d1d5db;
 }
 
-/* =========================================
-   МОБИЛЬНАЯ ВЕРСИЯ
-   ========================================= */
+/* ============ MOBILE ============ */
+
+@media (max-width: 992px) {
+    .honey-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
 @media (max-width: 768px) {
 
-    body {
-        padding-bottom: 110px;
-    }
+    body { padding-bottom: 110px; }
 
     .main-wrapper {
         margin: 0;
@@ -1278,9 +1145,7 @@ footer {
         gap: 20px;
     }
 
-    .site-title {
-        font-size: 20px;
-    }
+    .site-title { font-size: 20px; }
 
     nav a {
         font-size: 12px;
@@ -1303,22 +1168,16 @@ footer {
         width: 100%;
     }
 
-    .order-items-preview {
-        max-width: 100%;
-    }
+    .order-items-preview { max-width: 100%; }
 
     .weight-option {
         padding: 6px 8px;
         gap: 6px;
     }
 
-    .weight-label {
-        font-size: 12px;
-    }
+    .weight-label { font-size: 12px; }
 
-    .map-container {
-        height: 180px;
-    }
+    .map-container { height: 180px; }
 
     .cart-popup {
         width: 96%;
@@ -1339,22 +1198,9 @@ footer {
         padding: 5px 0;
     }
 
-    .table-selection-block {
-        padding: 14px;
-    }
-
-    .table-selection-title {
-        font-size: 13px;
-    }
-
-    .table-selection-desc {
-        font-size: 12px;
-    }
-
-    .table-select-btn {
-        font-size: 12.5px;
-        padding: 9px 11px;
-    }
+    .table-selection-block { padding: 14px; }
+    .table-selection-title { font-size: 13px; }
+    .table-select-btn { font-size: 12.5px; padding: 9px 11px; }
 
     .confirm-modal-footer {
         flex-direction: column;
@@ -1362,19 +1208,17 @@ footer {
         gap: 8px;
     }
 
-    .confirm-modal-footer span {
-        text-align: center;
+    .confirm-modal-footer span { text-align: center; }
+    .confirm-whatsapp-btn { justify-content: center; }
+
+    .table-details-content p { font-size: 12px; }
+    .table-details-inner { padding: 10px 12px; }
+
+    /* Палочки на мобильных переносим в поток, чтобы не сжимали контент */
+    .cluster-line {
+        flex-wrap: wrap;
+        font-size: 11.5px;
     }
 
-    .confirm-whatsapp-btn {
-        justify-content: center;
-    }
-
-    .table-details-content p {
-        font-size: 12px;
-    }
-
-    .table-details-inner {
-        padding: 10px 12px;
-    }
+    .cluster-label { padding: 3px 8px; }
 }

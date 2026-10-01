@@ -7,25 +7,10 @@
     <title>Сайт Шаблон — Главная</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Фиксированный размер фото */
         .info-card img {
             width: 100%;
             aspect-ratio: 600 / 650;
             object-fit: cover;
-        }
-
-        .functional-note {
-            font-size: 14px;
-            color: #78716c;
-            background: #f3f4f6;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            border-left: 4px solid #9ca3af;
-            line-height: 1.5;
-        }
-        .functional-note strong {
-            color: #374151;
         }
         .weight-option .desc-hint {
             font-size: 11px;
@@ -33,27 +18,14 @@
             font-weight: 400;
             margin-left: 8px;
         }
-
-        .page-description {
-            font-size: 15px;
-            color: var(--text-muted);
-            background: #f3f4f6;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border-left: 4px solid #9ca3af;
-            line-height: 1.6;
-        }
-
-        /* Стили для информационного блока */
         .preorder-info-block {
             font-size: 15px;
-            color: #1e3a8a; /* Темно-синий текст */
-            background: #eff6ff; /* Светло-голубой фон */
+            color: #1e3a8a;
+            background: #eff6ff;
             padding: 15px 20px;
             border-radius: 12px;
             margin-bottom: 30px;
-            border-left: 4px solid #2563eb; /* Синяя граница */
+            border-left: 4px solid #2563eb;
             line-height: 1.6;
             font-weight: 600;
         }
@@ -65,25 +37,18 @@
     <div class="main-wrapper">
 
         <header>
-
             <div class="header-top">
-
                 <div class="header-center-brand">
                     <a href="index.html" class="site-title">Сайт Шаблон</a>
                 </div>
-
                 <div class="header-right-action">
-
                     <div class="fav-btn-wrapper">
                         <button id="favorites-toggle-btn" class="fav-icon-btn" title="Избранные заказы">
                             ⭐ <span id="fav-badge" class="fav-badge hidden">0</span>
                         </button>
-
                         <span class="fav-label-sub">избранное</span>
                     </div>
-
                 </div>
-
             </div>
 
             <nav>
@@ -93,26 +58,19 @@
                     <li><a href="contact.html">Контакты и отзывы</a></li>
                 </ul>
             </nav>
-
         </header>
 
         <main>
 
             <h1 class="page-heading">Каталог товаров</h1>
 
-            <div class="page-description">
-                📌 Здесь представлены ваши товары. Каждая карточка демонстрирует функционал: выбор вариантов (объём, вес, размер), управление количеством, автоматическое добавление в корзину.
-            </div>
-
-            <!-- НОВЫЙ ИНФОРМАЦИОННЫЙ БЛОК -->
             <div class="preorder-info-block">
                 📦 Заказ можно сделать заранее из дома и приехать к моменту готовности — не ждите!
             </div>
 
-            <!-- Якорные строки — быстрый переход к карточкам товаров -->
+            <!-- Быстрый переход -->
             <div class="anchor-nav-wrapper">
                 <div class="anchor-title">⬇️ Быстрый переход</div>
-                <div class="anchor-desc">Кликните на название товара, чтобы перейти к его карточке:</div>
                 <div class="anchor-nav">
                     <a href="#product1">Товар 1</a>
                     <a href="#product2">Товар 2</a>
@@ -122,20 +80,25 @@
 
             <div class="honey-grid">
 
-                <!-- ТОВАР 1 -->
-                <article class="info-card section-anchor" id="product1" data-id="1" data-name="Ваш товар #1">
+                <!-- ТОВАР 1 (с выносками) -->
+                <article class="info-card section-anchor cluster-card" id="product1" data-id="1" data-name="Ваш товар #1">
+
+                    <div class="cluster-line left">
+                        <span class="cluster-dot"></span>
+                        <span class="cluster-label">Фото вашего товара</span>
+                    </div>
 
                     <h3>Ваш товар #1</h3>
-                    <img src="tovar.jpeg" alt="Товар">
+
+                    <div class="cluster-img-wrap">
+                        <img src="tovar.jpeg" alt="Товар">
+                    </div>
 
                     <div class="meta weight-meta">
                         <div class="weight-options">
 
                             <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">
-                                    Опция 1 — 0 ₸
-                                    <span class="desc-hint">(например: объём, размер)</span>
-                                </span>
+                                <span class="weight-label">Опция 1 — 0 ₸</span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
@@ -144,10 +107,7 @@
                             </div>
 
                             <div class="weight-option" data-weight="1.5" data-price="0">
-                                <span class="weight-label">
-                                    Опция 2 — 0 ₸
-                                    <span class="desc-hint">(например: объём, размер)</span>
-                                </span>
+                                <span class="weight-label">Опция 2 — 0 ₸</span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
@@ -158,27 +118,22 @@
                         </div>
                     </div>
 
+                    <div class="cluster-line right">
+                        <span class="cluster-dot"></span>
+                        <span class="cluster-label">+ / − — добавить в корзину</span>
+                    </div>
+
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Здесь вы можете разместить описание вашего товара, услуги или категории.
-                            Например: цветы, меню ресторана, услуги автосервиса и т.д.
-                            Это описание может быть достаточно длинным, чтобы продемонстрировать эффект "туманности".
-                            Когда текст будет длиннее, он будет плавно обрезаться.
+                            Разместите здесь описание вашего товара, услуги или категории.
+                            Например: цветы, меню ресторана, услуги автосервиса.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
 
-                    <div class="functional-note">
-                        <strong>⚡ Как работает карточка товара:</strong><br>
-                        Здесь можно добавить описание вашего товара, изображение, варианты (объём, размер, цвет) и цену.
-                        Кнопки <strong>«+»</strong> и <strong>«-»</strong> позволяют выбрать количество.
-                        Цена установлена в <strong>0 ₸</strong> для демонстрации функционала.
-                    </div>
-
                 </article>
-
 
                 <!-- ТОВАР 2 -->
                 <article class="info-card section-anchor" id="product2" data-id="2" data-name="Ваш товар #2">
@@ -190,10 +145,7 @@
                         <div class="weight-options">
 
                             <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">
-                                    Опция 1 — 0 ₸
-                                    <span class="desc-hint">(например: вес, порция)</span>
-                                </span>
+                                <span class="weight-label">Опция 1 — 0 ₸</span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
@@ -202,10 +154,7 @@
                             </div>
 
                             <div class="weight-option" data-weight="1.5" data-price="0">
-                                <span class="weight-label">
-                                    Опция 2 — 0 ₸
-                                    <span class="desc-hint">(например: вес, порция)</span>
-                                </span>
+                                <span class="weight-label">Опция 2 — 0 ₸</span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
@@ -218,24 +167,14 @@
 
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Адаптируйте эту карточку под свой бизнес.
-                            Например: букеты, блюда из меню, услуги мастерской.
-                            Это описание может быть достаточно длинным, чтобы продемонстрировать эффект "туманности".
-                            Когда текст будет длиннее, он будет плавно обрезаться.
+                            Адаптируйте карточку под свой бизнес: букеты, блюда, услуги.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
 
-                    <div class="functional-note">
-                        <strong>⚡ Как работает карточка товара:</strong><br>
-                        Здесь вы можете настроить варианты товара (вес, объём, размер) и управлять количеством.
-                        Кнопки «+» и «-» динамически обновляют корзину внизу экрана.
-                    </div>
-
                 </article>
-
 
                 <!-- ТОВАР 3 -->
                 <article class="info-card section-anchor" id="product3" data-id="3" data-name="Ваш товар #3">
@@ -247,10 +186,7 @@
                         <div class="weight-options">
 
                             <div class="weight-option" data-weight="1" data-price="0">
-                                <span class="weight-label">
-                                    Опция 1 — 0 ₸
-                                    <span class="desc-hint">(например: стандарт)</span>
-                                </span>
+                                <span class="weight-label">Опция 1 — 0 ₸</span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
@@ -259,10 +195,7 @@
                             </div>
 
                             <div class="weight-option" data-weight="1.5" data-price="0">
-                                <span class="weight-label">
-                                    Опция 2 — 0 ₸
-                                    <span class="desc-hint">(например: премиум)</span>
-                                </span>
+                                <span class="weight-label">Опция 2 — 0 ₸</span>
                                 <div class="counter-box">
                                     <button class="cnt-btn minus" type="button">-</button>
                                     <span class="cnt-value">0</span>
@@ -275,20 +208,11 @@
 
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Универсальный шаблон для любого типа товаров или услуг.
-                            Просто замените текст и изображения под свой проект.
-                            Это описание может быть достаточно длинным, чтобы продемонстрировать эффект "туманности".
-                            Когда текст будет длиннее, он будет плавно обрезаться.
+                            Универсальный шаблон под любой тип товаров или услуг.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
-                    </div>
-
-                    <div class="functional-note">
-                        <strong>⚡ Как работает карточка товара:</strong><br>
-                        Каждая карточка может содержать несколько вариантов товара.
-                        Выбранные товары автоматически суммируются в нижней панели «ЗАКАЗ».
                     </div>
 
                 </article>
@@ -305,120 +229,51 @@
 
     </div>
 
-
     <!-- ИЗБРАННЫЕ ЗАКАЗЫ -->
     <div id="favorites-popup" class="cart-popup hidden">
-
         <div class="cart-popup-header">
-
             <h3>⭐ Ваши сохраненные заказы</h3>
-
-            <button id="close-favorites-popup" class="close-popup-btn">
-                &times;
-            </button>
-
+            <button id="close-favorites-popup" class="close-popup-btn">&times;</button>
         </div>
-
         <div style="margin-bottom: 12px; display: flex; gap: 8px;">
-
-            <input
-                type="text"
-                id="fav-name-input"
-                placeholder="Название набора"
-                class="fav-input"
-            >
-
-            <button id="save-current-fav-btn" class="fav-save-btn">
-                Сохранить текущий
-            </button>
-
+            <input type="text" id="fav-name-input" placeholder="Название набора" class="fav-input">
+            <button id="save-current-fav-btn" class="fav-save-btn">Сохранить текущий</button>
         </div>
-
         <div id="favorites-popup-items" class="cart-popup-items"></div>
-
     </div>
-
 
     <!-- КОРЗИНА -->
     <div id="cart-popup" class="cart-popup hidden">
-
         <div class="cart-popup-header">
-
             <h3>Состав вашего заказа</h3>
-
-            <button id="close-cart-popup" class="close-popup-btn">
-                &times;
-            </button>
-
+            <button id="close-cart-popup" class="close-popup-btn">&times;</button>
         </div>
-
         <div id="cart-popup-items" class="cart-popup-items"></div>
-
     </div>
-
 
     <!-- НИЖНЯЯ ПАНЕЛЬ ЗАКАЗА -->
     <div id="order-bar" class="order-bar hidden">
-
         <div class="order-bar-content">
-
             <div id="order-bar-toggle" class="order-info">
-
                 <div class="order-title-row">
-
                     <span class="order-heading">
-                        ЗАКАЗ
-                        <span class="order-edit-hint">(изменить)</span>
+                        ЗАКАЗ <span class="order-edit-hint">(изменить)</span>
                     </span>
-
-                    <span class="order-total">
-                        Итого:
-                        <strong id="bar-total-price">0 ₸</strong>
-                    </span>
-
+                    <span class="order-total">Итого: <strong id="bar-total-price">0 ₸</strong></span>
                 </div>
-
-                <div id="bar-items-text" class="order-items-preview">
-                    пусто
-                </div>
-
+                <div id="bar-items-text" class="order-items-preview">пусто</div>
             </div>
-
-
-            <button
-                id="whatsapp-send-btn"
-                class="whatsapp-btn"
-                title="Отправить в Ватсап"
-            >
-
-                <span class="wa-text">
-                    в Ватсап
-                </span>
-
-                <span class="wa-icon">
-                    ➔
-                </span>
-
+            <button id="whatsapp-send-btn" class="whatsapp-btn" title="Отправить в Ватсап">
+                <span class="wa-text">в Ватсап</span>
+                <span class="wa-icon">➔</span>
             </button>
-
         </div>
-
     </div>
-
 
     <!-- LIGHTBOX -->
     <div id="lightbox" class="lightbox-modal">
-
-        <span class="lightbox-close">
-            &times;
-        </span>
-
-        <img
-            class="lightbox-content"
-            id="lightbox-img"
-            alt="Увеличенное фото"
-        >
-
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" alt="Увеличенное фото">
     </div>
 
     <script>
@@ -427,12 +282,10 @@
             const orderBar = document.getElementById("order-bar");
             const cartPopup = document.getElementById("cart-popup");
 
-            // Функция обновления позиции кнопки "Наверх"
             function updateToTopPosition() {
                 const isOrderBarVisible = orderBar && !orderBar.classList.contains('hidden');
                 const isCartPopupActive = cartPopup && cartPopup.classList.contains('active');
-                
-                // Если корзина или панель заказа активны — поднимаем кнопку
+
                 if (isOrderBarVisible || isCartPopupActive) {
                     toTopBtn.style.bottom = '160px';
                 } else {
@@ -440,23 +293,15 @@
                 }
             }
 
-            // Отслеживаем изменения корзины через MutationObserver
             const observer = new MutationObserver(function() {
                 updateToTopPosition();
             });
 
-            if (orderBar) {
-                observer.observe(orderBar, { attributes: true, attributeFilter: ['class'] });
-            }
+            if (orderBar) observer.observe(orderBar, { attributes: true, attributeFilter: ['class'] });
+            if (cartPopup) observer.observe(cartPopup, { attributes: true, attributeFilter: ['class'] });
 
-            if (cartPopup) {
-                observer.observe(cartPopup, { attributes: true, attributeFilter: ['class'] });
-            }
-
-            // Также обновляем при скролле и кликах
             window.addEventListener('scroll', updateToTopPosition);
 
-            // Кнопка "Наверх"
             window.onscroll = function() {
                 if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
                     toTopBtn.classList.add("visible");
@@ -470,22 +315,20 @@
                 window.scrollTo({top: 0, behavior: 'smooth'});
             };
 
-            // Обновляем позицию при любых изменениях в DOM
             const observerDOM = new MutationObserver(function() {
                 updateToTopPosition();
             });
             observerDOM.observe(document.body, { childList: true, subtree: true, attributes: true });
 
-            // --- Логика для кнопок "Развернуть/Свернуть" ---
             const toggleButtons = document.querySelectorAll('.toggle-description-btn');
-            
+
             toggleButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.stopPropagation();
                     const wrapper = this.closest('.description-wrapper');
                     const content = wrapper.querySelector('.description-content');
                     const arrow = this.querySelector('.arrow');
-                    
+
                     if (content.classList.contains('expanded')) {
                         content.classList.remove('expanded');
                         arrow.classList.remove('expanded');
@@ -500,7 +343,6 @@
                 });
             });
 
-            // Инициализация позиции
             setTimeout(updateToTopPosition, 100);
         });
     </script>

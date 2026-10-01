@@ -473,9 +473,7 @@
             justify-content: center;
             align-items: center;
         }
-        .admin-modal.active {
-            display: flex;
-        }
+        .admin-modal.active { display: flex; }
         .admin-modal-content {
             background: #fff;
             padding: 25px;
@@ -511,35 +509,14 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .page-description {
-            font-size: 15px;
-            color: var(--text-muted);
-            background: #f3f4f6;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border-left: 4px solid #9ca3af;
-            line-height: 1.6;
-        }
-
         @media (max-width: 768px) {
             .contacts-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-
-            .map-container {
-                max-width: 100%;
-                height: 220px;
-            }
-
-            .contact-info-card {
-                padding: 20px;
-            }
-
-            .map-card {
-                padding: 15px;
-            }
+            .map-container { max-width: 100%; height: 220px; }
+            .contact-info-card { padding: 20px; }
+            .map-card { padding: 15px; }
         }
     </style>
 </head>
@@ -571,18 +548,16 @@
         <main>
             <h1 class="page-heading">Контакты и местоположение</h1>
 
-            <div class="page-description">
-                📌 Контакты вашей компании: адрес, телефоны, интерактивная карта и система отзывов.
-            </div>
-            
             <div class="contacts-grid">
-                <div class="contact-info-card">
+                <div class="contact-info-card contact-cluster">
+                    <div class="cluster-line left">
+                        <span class="cluster-dot"></span>
+                        <span class="cluster-label">Адрес и контакты вашей точки</span>
+                    </div>
+
                     <div class="contact-section">
                         <h2>Адрес точки</h2>
                         <p class="contact-address-text">Здесь будет указан адрес вашей компании</p>
-                        <p style="font-size: 13px; color: #6b7280; margin-top: 4px;">
-                            ⚡ Впишите сюда фактический адрес вашей точки
-                        </p>
                     </div>
 
                     <div class="contact-section">
@@ -592,9 +567,7 @@
                                 <span class="phone-label">Основной номер компании</span>
                                 <div class="phone-row">
                                     <a href="tel:+77086229735" class="phone-number">+7 (708) 622-97-35</a>
-                                    <a href="https://wa.me/77086229735" target="_blank" class="wa-mini-btn">
-                                        💬 WhatsApp
-                                    </a>
+                                    <a href="https://wa.me/77086229735" target="_blank" class="wa-mini-btn">💬 WhatsApp</a>
                                 </div>
                             </div>
                             <div class="phone-item">
@@ -606,9 +579,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="cluster-line right">
+                        <span class="cluster-dot"></span>
+                        <span class="cluster-label">Нажмите кнопку WhatsApp — клиент напишет сразу</span>
+                    </div>
                 </div>
 
-                <div class="map-card">
+                <div class="map-card contact-cluster">
+                    <div class="cluster-line left">
+                        <span class="cluster-dot"></span>
+                        <span class="cluster-label">Это карта — укажите свою точку</span>
+                    </div>
+
                     <h2>Интерактивная карта</h2>
                     <div class="map-container">
                         <iframe 
@@ -630,14 +613,20 @@
                             <span style="font-weight: 400; font-size: 12px;">(настройте под свой адрес)</span>
                         </a>
                     </div>
-                    <p style="font-size: 13px; color: #6b7280; text-align: center; margin-top: 5px;">
-                        ⚡ На карте мира показан пример интерактивной карты. 
-                        Замените координаты на адрес вашей точки.
-                    </p>
+
+                    <div class="cluster-line right">
+                        <span class="cluster-dot"></span>
+                        <span class="cluster-label">Маршруты для клиентов в один клик</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="reviews-section">
+            <div class="reviews-section contact-cluster">
+                <div class="cluster-line left">
+                    <span class="cluster-dot"></span>
+                    <span class="cluster-label">Отзывы — сюда клиенты пишут. Есть антимат-система</span>
+                </div>
+
                 <div class="reviews-header-row">
                     <h2>Отзывы покупателей</h2>
                     <div class="reviews-summary" id="reviewsSummary">
@@ -661,7 +650,7 @@
                     </div>
                     <input type="text" id="reviewAuthor" class="review-input" placeholder="Ваше имя" required>
                     <textarea id="reviewText" class="review-textarea" placeholder="Ваш отзыв..." required></textarea>
-                    
+
                     <div id="profanityError" class="profanity-error-msg">⚠️ Запрещены маты, ругательства, оскорбления (в т.ч. упоминания родных, нации, расы и пола)! Пожалуйста, соблюдайте уважение.</div>
 
                     <button type="submit" class="submit-review-btn" id="submitBtn">Оставить отзыв</button>
@@ -684,7 +673,7 @@
             <h3 id="modalTitle">Ответ администратора</h3>
             <input type="hidden" id="replyRowId" value="">
             <input type="hidden" id="modalMode" value="reply">
-            
+
             <div id="editAuthorWrapper" style="display:none; flex-direction:column; gap:5px;">
                 <span class="rating-label">Имя автора:</span>
                 <input type="text" id="editReviewAuthor" class="review-input" placeholder="Ваше имя">
@@ -701,7 +690,7 @@
                 </div>
                 <input type="hidden" id="editReviewRating" value="5">
             </div>
-            
+
             <textarea id="adminModalText" class="review-textarea" placeholder="Введите текст..." required></textarea>
             <div id="modalProfanityError" class="profanity-error-msg">⚠️ Обнаружены запрещенные слова или мат!</div>
             <div style="display: flex; gap: 10px; justify-content: flex-end;">
@@ -752,10 +741,8 @@
 
     <script src="cart.js"></script>
     <script>
-        // Ваша ссылка на Google Apps Script (БЕЗ ПАРОЛЯ В КОДЕ!)
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby9PAv4RcnMzAzsNpwK1nci7DTotYK_sP9UZOFzvXYecHnsDsn057cM4T-J8I-PoGkE/exec";
 
-        // МАКСИМАЛЬНО РАСШИРЕННЫЙ АНТИМАТ ФИЛЬТР (оставляем без изменений)
         const badWords = [
             'шешен', 'шешең', 'шешенд', 'шешени', 'шешені', 'шеше', 'шешенник', 'шешенго',
             'қотақ', 'котак', 'қотақбас', 'котакбас', 'қотақбасы', 'құйғақ', 'міс', 'мис', 
@@ -851,10 +838,6 @@
             }
         }
 
-        // --- Функция для проверки статуса администратора (без пароля в коде) ---
-        // Теперь мы не храним пароль в JS. Вместо этого мы отправляем запрос на бэкенд,
-        // который знает пароль и возвращает нам, является ли пользователь админом.
-        // Для простоты мы сохраняем флаг is_honey_admin после успешной проверки.
         async function checkAdminStatus(password) {
             try {
                 const response = await fetch(WEB_APP_URL, {
@@ -877,7 +860,7 @@
             const list = document.getElementById('reviewsList');
             const summaryStars = document.getElementById('summaryStars');
             const summaryCount = document.getElementById('summaryCount');
-            
+
             const reviews = await fetchReviews();
             const isAdmin = localStorage.getItem('is_honey_admin') === 'true';
             const currentAuthor = localStorage.getItem('my_review_author') || '';
@@ -1009,7 +992,6 @@
 
                 const result = await response.json();
 
-                // --- Безопасная проверка на администратора (без пароля в коде) ---
                 if (result.status === 'admin_success') {
                     localStorage.setItem('is_honey_admin', 'true');
                     alert('Режим администратора успешно активирован на этом устройстве!');
@@ -1022,7 +1004,7 @@
                 submitBtn.textContent = 'Оставить отзыв';
                 ratingInput.value = 5;
                 updateStars(5, stars);
-                
+
                 await renderReviews();
             } catch (error) {
                 console.error('Ошибка отправки:', error);
@@ -1035,10 +1017,8 @@
 
         window.removeReview = async function(rowId, isAdminAction) {
             if (confirm('Вы уверены, что хотите удалить этот отзыв?')) {
-                // Для администратора мы используем специальный маркер (который равен паролю)
-                // Но мы его не храним в коде, а берем из localStorage, если пользователь админ.
                 const isAdmin = localStorage.getItem('is_honey_admin') === 'true';
-                const adminMarker = isAdmin ? 'honey123' : ''; // Маркер для бэкенда (совпадает с паролем)
+                const adminMarker = isAdmin ? 'honey123' : '';
                 const authorKey = localStorage.getItem('my_review_author') || '';
 
                 try {
