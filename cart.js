@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <button id="close-confirm-modal" class="close-popup-btn">&times;</button>
         </div>
 
+        <div class="cluster-plate-modal">Проверьте состав, укажите стол или выберите предоплату, затем отправьте в WhatsApp</div>
+
         <!-- БЛОК ВЫБОРА СТОЛА -->
         <div id="table-selection-block" class="table-selection-block">
             <h4 class="table-selection-title">Закажите, уточните: за каким столом вы сидите или заказываете из дома</h4>
@@ -73,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 ⚠️ Обязательно укажите стол!
             </div>
 
-            <!-- Раскрывающееся пояснение-палочка -->
             <button type="button" id="table-details-toggle" class="table-details-toggle">
                 <span class="table-details-arrow">▸</span>
                 <span class="table-details-label">Подробнее о функции для кафе и ресторанов</span>

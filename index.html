@@ -19,14 +19,24 @@
             margin-left: 8px;
         }
         .preorder-info-block {
-            font-size: 15px;
+            font-size: 14.5px;
             color: #1e3a8a;
             background: #eff6ff;
-            padding: 15px 20px;
+            padding: 14px 18px;
             border-radius: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 22px;
             border-left: 4px solid #2563eb;
-            line-height: 1.6;
+            line-height: 1.55;
+        }
+        .preorder-info-block .preorder-title {
+            display: block;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .preorder-info-block .preorder-sub {
+            display: block;
+            font-size: 12.5px;
+            color: #475569;
             font-weight: 600;
         }
     </style>
@@ -65,12 +75,15 @@
             <h1 class="page-heading">Каталог товаров</h1>
 
             <div class="preorder-info-block">
-                📦 Заказ можно сделать заранее из дома и приехать к моменту готовности — не ждите!
+                <span class="preorder-title">Заказывайте заранее — приезжайте к готовому.</span>
+                Оформите заказ из дома, выберите удобный стол или заберите на вынос.
+                <span class="preorder-sub">Функция для владельцев ресторанов и кафе.</span>
             </div>
 
             <!-- Быстрый переход -->
             <div class="anchor-nav-wrapper">
-                <div class="anchor-title">⬇️ Быстрый переход</div>
+                <div class="anchor-title">⬇️ Быстрый переход по каталогу</div>
+                <div class="anchor-desc">Нажмите, чтобы быстро найти то, что вам нужно:</div>
                 <div class="anchor-nav">
                     <a href="#product1">Товар 1</a>
                     <a href="#product2">Товар 2</a>
@@ -80,19 +93,14 @@
 
             <div class="honey-grid">
 
-                <!-- ТОВАР 1 (с выносками) -->
-                <article class="info-card section-anchor cluster-card" id="product1" data-id="1" data-name="Ваш товар #1">
-
-                    <div class="cluster-line left">
-                        <span class="cluster-dot"></span>
-                        <span class="cluster-label">Фото вашего товара</span>
-                    </div>
+                <!-- ТОВАР 1 -->
+                <article class="info-card section-anchor" id="product1" data-id="1" data-name="Ваш товар #1">
 
                     <h3>Ваш товар #1</h3>
 
-                    <div class="cluster-img-wrap">
-                        <img src="tovar.jpeg" alt="Товар">
-                    </div>
+                    <img src="tovar.jpeg" alt="Товар">
+
+                    <div class="cluster-plate">Фото вашего товара</div>
 
                     <div class="meta weight-meta">
                         <div class="weight-options">
@@ -118,20 +126,22 @@
                         </div>
                     </div>
 
-                    <div class="cluster-line right">
-                        <span class="cluster-dot"></span>
-                        <span class="cluster-label">+ / − — добавить в корзину</span>
-                    </div>
+                    <div class="cluster-plate">«+» / «−» — добавьте товар в корзину</div>
 
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Разместите здесь описание вашего товара, услуги или категории.
-                            Например: цветы, меню ресторана, услуги автосервиса.
+                            Здесь вы можете разместить полноценное описание вашего товара, услуги или категории.
+                            Например, если вы продаёте цветы — расскажите о сортах, свежести, составе букета и сроках доставки.
+                            Если это меню ресторана — опишите блюдо, его состав, порцию, калорийность и особенности подачи.
+                            Если это услуги — укажите, что входит в работу, сколько времени она занимает и какие гарантии вы даёте.
+                            Чем подробнее и понятнее описание, тем проще клиенту принять решение о заказе.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
+
+                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
 
                 </article>
 
@@ -139,7 +149,10 @@
                 <article class="info-card section-anchor" id="product2" data-id="2" data-name="Ваш товар #2">
 
                     <h3>Ваш товар #2</h3>
+
                     <img src="tovar.jpeg" alt="Товар">
+
+                    <div class="cluster-plate">Фото вашего товара</div>
 
                     <div class="meta weight-meta">
                         <div class="weight-options">
@@ -165,14 +178,21 @@
                         </div>
                     </div>
 
+                    <div class="cluster-plate">«+» / «−» — добавьте товар в корзину</div>
+
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Адаптируйте карточку под свой бизнес: букеты, блюда, услуги.
+                            Адаптируйте эту карточку под свой бизнес: букеты, блюда из меню, услуги мастерской или авторские наборы.
+                            Опишите, чем ваш товар отличается от других — качеством, свежестью, составом или особенным подходом.
+                            Можно указать размеры, вес, сроки изготовления и рекомендации по использованию.
+                            Чем больше деталей, тем больше доверия у клиента и тем выше вероятность заказа.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
+
+                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
 
                 </article>
 
@@ -180,7 +200,10 @@
                 <article class="info-card section-anchor" id="product3" data-id="3" data-name="Ваш товар #3">
 
                     <h3>Ваш товар #3</h3>
+
                     <img src="tovar.jpeg" alt="Товар">
+
+                    <div class="cluster-plate">Фото вашего товара</div>
 
                     <div class="meta weight-meta">
                         <div class="weight-options">
@@ -206,14 +229,21 @@
                         </div>
                     </div>
 
+                    <div class="cluster-plate">«+» / «−» — добавьте товар в корзину</div>
+
                     <div class="description-wrapper">
                         <p class="description-content">
-                            Универсальный шаблон под любой тип товаров или услуг.
+                            Универсальный шаблон под любой тип товаров или услуг — от еды и напитков до одежды и техники.
+                            Расскажите клиенту главное: что это, для кого, почему стоит выбрать именно вас и что входит в стоимость.
+                            Здесь же можно указать акции, скидки, условия доставки или самовывоза.
+                            Хорошее описание экономит время и клиенту, и вам — меньше вопросов, больше заказов.
                         </p>
                         <button class="toggle-description-btn" aria-label="Развернуть описание">
                             <span class="arrow">▾</span>
                         </button>
                     </div>
+
+                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
 
                 </article>
 
@@ -253,6 +283,9 @@
 
     <!-- НИЖНЯЯ ПАНЕЛЬ ЗАКАЗА -->
     <div id="order-bar" class="order-bar hidden">
+
+        <div class="cluster-plate-bar">Нажмите на «ЗАКАЗ» — откроется состав. Затем — «в Ватсап»</div>
+
         <div class="order-bar-content">
             <div id="order-bar-toggle" class="order-info">
                 <div class="order-title-row">
@@ -287,7 +320,7 @@
                 const isCartPopupActive = cartPopup && cartPopup.classList.contains('active');
 
                 if (isOrderBarVisible || isCartPopupActive) {
-                    toTopBtn.style.bottom = '160px';
+                    toTopBtn.style.bottom = '190px';
                 } else {
                     toTopBtn.style.bottom = '90px';
                 }

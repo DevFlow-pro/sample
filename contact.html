@@ -10,7 +10,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .contact-info-card {
@@ -549,16 +549,13 @@
             <h1 class="page-heading">Контакты и местоположение</h1>
 
             <div class="contacts-grid">
-                <div class="contact-info-card contact-cluster">
-                    <div class="cluster-line left">
-                        <span class="cluster-dot"></span>
-                        <span class="cluster-label">Адрес и контакты вашей точки</span>
-                    </div>
-
+                <div class="contact-info-card">
                     <div class="contact-section">
                         <h2>Адрес точки</h2>
                         <p class="contact-address-text">Здесь будет указан адрес вашей компании</p>
                     </div>
+
+                    <div class="cluster-plate">Адрес контактной точки</div>
 
                     <div class="contact-section">
                         <h2>Контакты</h2>
@@ -580,19 +577,14 @@
                         </div>
                     </div>
 
-                    <div class="cluster-line right">
-                        <span class="cluster-dot"></span>
-                        <span class="cluster-label">Нажмите кнопку WhatsApp — клиент напишет сразу</span>
-                    </div>
+                    <div class="cluster-plate">Нажмите кнопку WhatsApp — клиент напишет сразу</div>
                 </div>
 
-                <div class="map-card contact-cluster">
-                    <div class="cluster-line left">
-                        <span class="cluster-dot"></span>
-                        <span class="cluster-label">Это карта — укажите свою точку</span>
-                    </div>
-
+                <div class="map-card">
                     <h2>Интерактивная карта</h2>
+
+                    <div class="cluster-plate">Это карта — укажите свою точку</div>
+
                     <div class="map-container">
                         <iframe 
                             src="https://yandex.ru/map-widget/v1/?um=constructor%3A1f8a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2f&amp;source=constructor"
@@ -603,6 +595,7 @@
                             <small>Добавьте сюда координаты вашей точки</small>
                         </div>
                     </div>
+
                     <div class="navigators-group">
                         <a href="#" class="navigator-btn" style="pointer-events: none; opacity: 0.6;">
                             🚗 Маршрут в Яндекс Навигатор
@@ -614,27 +607,21 @@
                         </a>
                     </div>
 
-                    <div class="cluster-line right">
-                        <span class="cluster-dot"></span>
-                        <span class="cluster-label">Маршруты для клиентов в один клик</span>
-                    </div>
+                    <div class="cluster-plate">Маршруты — клиент доедет в один клик</div>
                 </div>
             </div>
 
-            <div class="reviews-section contact-cluster">
-                <div class="cluster-line left">
-                    <span class="cluster-dot"></span>
-                    <span class="cluster-label">Отзывы — сюда клиенты пишут. Есть антимат-система</span>
-                </div>
-
+            <div class="reviews-section">
                 <div class="reviews-header-row">
-                    <h2>Отзывы покупателей</h2>
+                    <h2>Отзывы посетителей</h2>
                     <div class="reviews-summary" id="reviewsSummary">
                         <span>Рейтинг:</span>
                         <span class="summary-stars" id="summaryStars">★★★★★</span>
                         <span id="summaryCount">(0 отзывов)</span>
                     </div>
                 </div>
+
+                <div class="cluster-plate">Отзывы — сюда клиенты пишут. Есть антимат-система</div>
 
                 <form class="review-form" id="reviewForm">
                     <div class="rating-select-group">
@@ -722,6 +709,7 @@
     </div>
 
     <div id="order-bar" class="order-bar hidden">
+        <div class="cluster-plate-bar">Нажмите на «ЗАКАЗ» — откроется состав. Затем — «в Ватсап»</div>
         <div class="order-bar-content">
             <div id="order-bar-toggle" class="order-info">
                 <div class="order-title-row">
