@@ -283,9 +283,6 @@
 
     <!-- НИЖНЯЯ ПАНЕЛЬ ЗАКАЗА -->
     <div id="order-bar" class="order-bar hidden">
-
-        <div class="cluster-plate-bar">Нажмите на «ЗАКАЗ» — откроется состав. Затем — «в Ватсап»</div>
-
         <div class="order-bar-content">
             <div id="order-bar-toggle" class="order-info">
                 <div class="order-title-row">
@@ -320,7 +317,7 @@
                 const isCartPopupActive = cartPopup && cartPopup.classList.contains('active');
 
                 if (isOrderBarVisible || isCartPopupActive) {
-                    toTopBtn.style.bottom = '190px';
+                    toTopBtn.style.bottom = '160px';
                 } else {
                     toTopBtn.style.bottom = '90px';
                 }
