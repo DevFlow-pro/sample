@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     orderConfirmModal.className = 'cart-popup';
     orderConfirmModal.style.zIndex = '2000';
     orderConfirmModal.innerHTML = `
-        <div class="cart-popup-header">
+        <div class="cart-popup-header confirm-modal-header">
             <h3>Проверьте детали заказа</h3>
             <button id="close-confirm-modal" class="close-popup-btn">&times;</button>
         </div>

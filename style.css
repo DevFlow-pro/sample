@@ -1301,4 +1301,24 @@ footer {
     }
 
     /* --- конец мобильной раскладки --- */
+
+    /* --- ИСПРАВЛЕНИЕ: шапка модалки подтверждения заказа --- */
+    /* Заголовок занимает свободное место, крестик всегда прижат справа */
+    .confirm-modal-header {
+        flex-wrap: nowrap;
+    }
+
+    .confirm-modal-header h3 {
+        flex: 1 1 auto;
+        order: 0;
+        min-width: 0;
+        margin-right: 10px;
+    }
+
+    .confirm-modal-header .close-popup-btn {
+        order: 0;
+        flex: 0 0 auto;
+        margin-left: auto;
+    }
+    /* --- конец исправления --- */
 }
