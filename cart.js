@@ -2,8 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const WHATSAPP_NUMBER = '77074242531';
 
-    const STORAGE_KEY = 'honey_shop_cart_v2';
-    const FAV_STORAGE_KEY = 'honey_shop_favs_v2';
+    // ============================================
+    // УНИКАЛЬНЫЙ ID САЙТА — не меняй без причины!
+    // ============================================
+    const SITE_UNIQUE_ID = 'template_one_2026';
+
+    const STORAGE_KEY = `${SITE_UNIQUE_ID}_cart_v1`;
+    const FAV_STORAGE_KEY = `${SITE_UNIQUE_ID}_favs_v1`;
 
     let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     let favorites = JSON.parse(localStorage.getItem(FAV_STORAGE_KEY)) || [];
@@ -33,6 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const favNameInput = document.getElementById('fav-name-input');
     const saveCurrentFavBtn = document.getElementById('save-current-fav-btn');
     const favBadge = document.getElementById('fav-badge');
+
+    // --- НОВЫЕ ЭЛЕМЕНТЫ ДЛЯ СОХРАНЕНИЯ В ИЗБРАННОЕ ИЗ КОРЗИНЫ ---
+    const openSaveFavPanelBtn = document.getElementById('open-save-fav-panel-btn');
+    const saveFavInputPanel = document.getElementById('save-fav-input-panel');
+    const saveFavNameInput = document.getElementById('save-fav-name-input');
+    const confirmSaveFavBtn = document.getElementById('confirm-save-fav-btn');
 
     // --- МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ЗАКАЗА ---
     const orderConfirmModal = document.createElement('div');
@@ -92,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <div class="confirm-fav-save-row">
             <input type="text" id="confirm-fav-name-input" placeholder="Название набора для избранного" class="fav-input" style="background: #fff;">
-            <button id="confirm-save-fav-btn" class="fav-save-btn" style="white-space: nowrap;">⭐ Избранное</button>
+            <button id="confirm-save-fav-btn-modal" class="fav-save-btn" style="white-space: nowrap;">⭐ Избранное</button>
         </div>
 
         <div class="confirm-modal-footer">
@@ -123,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmTotalPrice = document.getElementById('confirm-total-price');
     const confirmWhatsappFinalBtn = document.getElementById('confirm-whatsapp-final-btn');
     const confirmFavNameInput = document.getElementById('confirm-fav-name-input');
-    const confirmSaveFavBtn = document.getElementById('confirm-save-fav-btn');
+    const confirmSaveFavBtnModal = document.getElementById('confirm-save-fav-btn-modal');
 
     const tableSelectionBlock = document.getElementById('table-selection-block');
     const tableBtnCurrent = document.getElementById('table-btn-current');
@@ -491,8 +502,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     modalBackdrop.addEventListener('click', closeOrderConfirmModal);
 
-    if (confirmSaveFavBtn) {
-        confirmSaveFavBtn.addEventListener('click', () => {
+    if (confirmSaveFavBtnModal) {
+        confirmSaveFavBtnModal.addEventListener('click', () => {
             const cartItems = getCartItems();
             if (cartItems.length === 0) {
                 alert('Корзина пуста!');
@@ -584,12 +595,22 @@ document.addEventListener('DOMContentLoaded', () => {
         orderBarToggle.addEventListener('click', () => {
             if (favoritesPopup) favoritesPopup.classList.remove('active');
             cartPopup.classList.toggle('active');
+
+            // Скрываем панель сохранения в избранное при закрытии корзины
+            if (!cartPopup.classList.contains('active') && saveFavInputPanel) {
+                saveFavInputPanel.classList.add('hidden');
+            }
         });
     }
 
     if (closePopupBtn && cartPopup) {
         closePopupBtn.addEventListener('click', () => {
             cartPopup.classList.remove('active');
+
+            // Скрываем панель сохранения в избранное
+            if (saveFavInputPanel) {
+                saveFavInputPanel.classList.add('hidden');
+            }
         });
     }
 
@@ -639,6 +660,52 @@ document.addEventListener('DOMContentLoaded', () => {
         whatsappBtn.addEventListener('click', (e) => {
             e.preventDefault();
             openOrderConfirmModal();
+        });
+    }
+
+    // ============================================
+    // НОВАЯ ЛОГИКА: СОХРАНЕНИЕ ЗАКАЗА В ИЗБРАННОЕ ИЗ КОРЗИНЫ
+    // ============================================
+
+    // Показать/скрыть панель ввода названия
+    if (openSaveFavPanelBtn && saveFavInputPanel) {
+        openSaveFavPanelBtn.addEventListener('click', () => {
+            saveFavInputPanel.classList.toggle('hidden');
+            if (!saveFavInputPanel.classList.contains('hidden')) {
+                saveFavNameInput.focus();
+            }
+        });
+    }
+
+    // Сохранить текущий заказ в избранное из попапа корзины
+    if (confirmSaveFavBtn) {
+        confirmSaveFavBtn.addEventListener('click', () => {
+            const cartItems = getCartItems();
+            if (cartItems.length === 0) {
+                alert('Корзина пуста, нечего сохранять!');
+                return;
+            }
+
+            let customName = saveFavNameInput.value.trim();
+            if (!customName) {
+                customName = `Набор #${favorites.length + 1}`;
+            }
+
+            const totalSum = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+            const summaryArr = cartItems.map(item => `${item.name} — ${formatWeight(item.weight)} x${item.qty}`);
+
+            favorites.push({
+                name: customName,
+                summary: summaryArr.join(', '),
+                total: totalSum,
+                cartData: { ...cart }
+            });
+
+            localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(favorites));
+            saveFavNameInput.value = '';
+            saveFavInputPanel.classList.add('hidden');
+            updateFavoritesUI();
+            alert('Заказ успешно сохранен в избранное! ⭐');
         });
     }
 

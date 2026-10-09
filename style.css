@@ -528,6 +528,59 @@ nav a.active::after {
     color: var(--text-dark);
 }
 
+/* --- Новые стили для кнопки сохранения в избранное из корзины --- */
+
+.cart-header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.save-to-fav-btn {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e3a8a;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+    font-family: inherit;
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.save-to-fav-btn:hover {
+    background: #dbeafe;
+    border-color: #93c5fd;
+    transform: translateY(-1px);
+}
+
+.save-fav-input-panel {
+    display: flex;
+    gap: 8px;
+    background: #f3f4f6;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    margin-bottom: 15px;
+    animation: fadeIn 0.25s ease;
+}
+
+.save-fav-input-panel.hidden {
+    display: none;
+}
+
+.save-fav-input-panel .fav-input {
+    background: #ffffff;
+}
+
+/* --- Конец новых стилей --- */
+
 .close-popup-btn {
     background: none;
     border: none;
@@ -1208,4 +1261,44 @@ footer {
     .description-content {
         font-size: 14px;
     }
+
+    /* --- Мобильная раскладка кнопки «Сохранить в избранное» --- */
+    .cart-popup-header {
+        flex-wrap: wrap;
+    }
+
+    .cart-popup-header h3 {
+        flex: 1 1 auto;
+        order: 1;
+        min-width: 0;
+    }
+
+    .cart-header-actions {
+        display: contents;
+    }
+
+    #close-cart-popup {
+        order: 2;
+    }
+
+    .save-to-fav-btn {
+        order: 3;
+        flex: 1 1 100%;
+        justify-content: center;
+        margin-top: 4px;
+        padding: 8px 12px;
+        font-size: 12.5px;
+    }
+
+    .save-fav-input-panel {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .save-fav-input-panel .fav-input,
+    .save-fav-input-panel .fav-save-btn {
+        width: 100%;
+    }
+
+    /* --- конец мобильной раскладки --- */
 }
