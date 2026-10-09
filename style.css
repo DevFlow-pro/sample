@@ -1151,6 +1151,34 @@ footer {
     border: 1px solid #d1d5db;
 }
 
+/* ============ ШАПКА МОДАЛКИ ПОДТВЕРЖДЕНИЯ ЗАКАЗА ============ */
+/* Отдельный класс для шапки #order-confirm-modal, чтобы на мобиле
+   крестик всегда был справа, а заголовок — слева.
+   Правила для .cart-popup-header h3 на эту шапку НЕ распространяются. */
+
+.confirm-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.confirm-modal-header h3 {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    font-size: 18px;
+    color: var(--text-dark);
+    order: 0;
+}
+
+.confirm-modal-header .close-popup-btn {
+    flex: 0 0 auto;
+    order: 0;
+    margin-left: auto;
+}
+
 /* ============ MOBILE ============ */
 
 @media (max-width: 992px) {
@@ -1263,25 +1291,26 @@ footer {
     }
 
     /* --- Мобильная раскладка кнопки «Сохранить в избранное» --- */
-    .cart-popup-header {
+    /* Эти правила применяются ТОЛЬКО к шапке корзины #cart-popup. */
+    #cart-popup .cart-popup-header {
         flex-wrap: wrap;
     }
 
-    .cart-popup-header h3 {
+    #cart-popup .cart-popup-header h3 {
         flex: 1 1 auto;
         order: 1;
         min-width: 0;
     }
 
-    .cart-header-actions {
+    #cart-popup .cart-header-actions {
         display: contents;
     }
 
-    #close-cart-popup {
+    #cart-popup #close-cart-popup {
         order: 2;
     }
 
-    .save-to-fav-btn {
+    #cart-popup .save-to-fav-btn {
         order: 3;
         flex: 1 1 100%;
         justify-content: center;
@@ -1302,23 +1331,26 @@ footer {
 
     /* --- конец мобильной раскладки --- */
 
-    /* --- ИСПРАВЛЕНИЕ: шапка модалки подтверждения заказа --- */
-    /* Заголовок занимает свободное место, крестик всегда прижат справа */
+    /* --- Шапка модалки подтверждения заказа на мобиле --- */
+    /* Жёстко: заголовок слева, крестик справа. Никаких wrap и order:1. */
     .confirm-modal-header {
         flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .confirm-modal-header h3 {
         flex: 1 1 auto;
         order: 0;
         min-width: 0;
+        margin: 0;
         margin-right: 10px;
     }
 
     .confirm-modal-header .close-popup-btn {
-        order: 0;
         flex: 0 0 auto;
+        order: 0;
         margin-left: auto;
     }
-    /* --- конец исправления --- */
+    /* --- конец --- */
 }
