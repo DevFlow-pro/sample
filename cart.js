@@ -1,25 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const WHATSAPP_NUMBER = '77074242531';
-
-    // ============================================
-    // УНИКАЛЬНЫЙ ID САЙТА — не меняй без причины!
-    // ============================================
     const SITE_UNIQUE_ID = 'template_one_2026';
 
     const STORAGE_KEY = `${SITE_UNIQUE_ID}_cart_v1`;
     const FAV_STORAGE_KEY = `${SITE_UNIQUE_ID}_favs_v1`;
+    const TABLE_KEY = `${SITE_UNIQUE_ID}_saved_table`;
+    const TABLE_TIME_KEY = `${SITE_UNIQUE_ID}_saved_table_time`;
 
     let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
     let favorites = JSON.parse(localStorage.getItem(FAV_STORAGE_KEY)) || [];
 
     const urlParams = new URLSearchParams(window.location.search);
-    const tableFromUrl = urlParams.get('table');
-    let selectedTable = null;
-    let orderType = null;
+    let tableFromUrl = urlParams.get('table');
+    const TWO_DAYS_MS = 172800000;
+
+    if (tableFromUrl) {
+        localStorage.setItem(TABLE_KEY, tableFromUrl);
+        localStorage.setItem(TABLE_TIME_KEY, Date.now().toString());
+    } else {
+        const savedTable = localStorage.getItem(TABLE_KEY);
+        const savedTime = localStorage.getItem(TABLE_TIME_KEY);
+        if (savedTable && savedTime) {
+            if (Date.now() - parseInt(savedTime, 10) < TWO_DAYS_MS) {
+                tableFromUrl = savedTable;
+            } else {
+                localStorage.removeItem(TABLE_KEY);
+                localStorage.removeItem(TABLE_TIME_KEY);
+            }
+        }
+    }
+
+    let selectedTable = tableFromUrl || null;
+    let orderType = tableFromUrl ? 'dine-in' : null;
 
     const cards = document.querySelectorAll('.info-card[data-id]');
-
     const orderBar = document.getElementById('order-bar');
     const barTotalPrice = document.getElementById('bar-total-price');
     const barItemsText = document.getElementById('bar-items-text');
@@ -39,13 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveCurrentFavBtn = document.getElementById('save-current-fav-btn');
     const favBadge = document.getElementById('fav-badge');
 
-    // --- НОВЫЕ ЭЛЕМЕНТЫ ДЛЯ СОХРАНЕНИЯ В ИЗБРАННОЕ ИЗ КОРЗИНЫ ---
     const openSaveFavPanelBtn = document.getElementById('open-save-fav-panel-btn');
     const saveFavInputPanel = document.getElementById('save-fav-input-panel');
     const saveFavNameInput = document.getElementById('save-fav-name-input');
     const confirmSaveFavBtn = document.getElementById('confirm-save-fav-btn');
 
-    // --- МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ЗАКАЗА ---
     const orderConfirmModal = document.createElement('div');
     orderConfirmModal.id = 'order-confirm-modal';
     orderConfirmModal.className = 'cart-popup';
@@ -53,19 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
     orderConfirmModal.innerHTML = `
         <div class="cart-popup-header confirm-modal-header">
             <h3>Проверьте детали заказа</h3>
-            <button id="close-confirm-modal" class="close-popup-btn">&times;</button>
+            <button id="close-confirm-modal" class="close-popup-btn">×</button>
         </div>
-
         <div class="cluster-plate-modal">Проверьте состав, укажите стол или выберите предоплату, затем отправьте в WhatsApp</div>
-
-        <!-- БЛОК ВЫБОРА СТОЛА -->
         <div id="table-selection-block" class="table-selection-block">
             <h4 class="table-selection-title">Закажите, уточните: за каким столом вы сидите или заказываете из дома</h4>
-
             <div class="table-buttons-container">
                 <button id="table-btn-current" class="table-select-btn">
                     <span class="table-btn-icon">🍽️</span>
-                    <span class="table-btn-text">Я сижу за столом №${tableFromUrl || '?'}</span>
+                    <span class="table-btn-text">Указать стол</span>
                 </button>
                 <button id="table-btn-other" class="table-select-btn">
                     <span class="table-btn-icon">🔄</span>
@@ -76,16 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="table-btn-text">Заказываю из дома по предоплате</span>
                 </button>
             </div>
-
             <div id="manual-table-input-container" class="manual-table-input-container hidden">
                 <input type="number" id="manual-table-input" placeholder="Введите номер стола" min="1">
                 <button id="confirm-manual-table-btn" class="fav-save-btn">Подтвердить</button>
             </div>
-
-            <div id="table-error-message" class="table-error-message hidden">
-                ⚠️ Обязательно укажите стол!
-            </div>
-
+            <div id="table-error-message" class="table-error-message hidden">⚠️ Обязательно укажите стол!</div>
             <button type="button" id="table-details-toggle" class="table-details-toggle">
                 <span class="table-details-arrow">▸</span>
                 <span class="table-details-label">Подробнее о функции для кафе и ресторанов</span>
@@ -98,14 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         </div>
-
         <div id="confirm-modal-items" class="cart-popup-items" style="margin-bottom: 15px;"></div>
-
         <div class="confirm-fav-save-row">
             <input type="text" id="confirm-fav-name-input" placeholder="Название набора для избранного" class="fav-input" style="background: #fff;">
             <button id="confirm-save-fav-btn-modal" class="fav-save-btn" style="white-space: nowrap;">⭐ Избранное</button>
         </div>
-
         <div class="confirm-modal-footer">
             <span style="font-size: 15px; font-weight: 700; color: #1e1e1e;">Итого: <strong id="confirm-total-price" style="color: #1e1e1e;">0 ₸</strong></span>
             <button id="confirm-whatsapp-final-btn" class="whatsapp-btn confirm-whatsapp-btn">
@@ -119,13 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBackdrop = document.createElement('div');
     modalBackdrop.id = 'modal-backdrop';
     modalBackdrop.style.cssText = `
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(4px);
-        z-index: 1999;
-        display: none;
-        transition: opacity 0.3s ease;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px);
+        z-index: 1999; display: none; transition: opacity 0.3s ease;
     `;
     document.body.appendChild(modalBackdrop);
 
@@ -144,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const manualTableInput = document.getElementById('manual-table-input');
     const confirmManualTableBtn = document.getElementById('confirm-manual-table-btn');
     const tableErrorMessage = document.getElementById('table-error-message');
-
     const tableDetailsToggle = document.getElementById('table-details-toggle');
     const tableDetailsContent = document.getElementById('table-details-content');
 
@@ -155,52 +150,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function resetTableSelection() {
-        selectedTable = null;
-        orderType = null;
+    function renderTableState() {
         tableErrorMessage.classList.add('hidden');
         manualTableInputContainer.classList.add('hidden');
-        manualTableInput.value = '';
-
-        [tableBtnCurrent, tableBtnOther, tableBtnTakeaway].forEach(btn => {
-            btn.classList.remove('active', 'selected-takeaway');
-        });
+        [tableBtnCurrent, tableBtnOther, tableBtnTakeaway].forEach(btn => btn.classList.remove('active', 'selected-takeaway'));
 
         if (tableFromUrl) {
             tableBtnCurrent.querySelector('.table-btn-text').textContent = `Я сижу за столом №${tableFromUrl}`;
             tableBtnCurrent.style.display = 'flex';
         } else {
-            tableBtnCurrent.querySelector('.table-btn-text').textContent = `Указать стол`;
-            tableBtnCurrent.style.display = 'flex';
+            tableBtnCurrent.style.display = 'none';
         }
 
-        tableBtnOther.querySelector('.table-btn-text').textContent = `Я за другим столом`;
-
-        if (tableDetailsContent && tableDetailsToggle) {
-            tableDetailsContent.classList.remove('open');
-            tableDetailsToggle.classList.remove('open');
+        if (orderType === 'dine-in' && selectedTable) {
+            if (selectedTable === tableFromUrl) {
+                tableBtnCurrent.classList.add('active');
+            } else {
+                tableBtnOther.querySelector('.table-btn-text').textContent = `Стол №${selectedTable}`;
+                tableBtnOther.classList.add('active');
+            }
+        } else if (orderType === 'takeaway') {
+            tableBtnTakeaway.classList.add('active', 'selected-takeaway');
         }
     }
 
     function handleTableSelection(type) {
-        resetTableSelection();
         tableErrorMessage.classList.add('hidden');
+        manualTableInputContainer.classList.add('hidden');
+        [tableBtnCurrent, tableBtnOther, tableBtnTakeaway].forEach(btn => btn.classList.remove('active', 'selected-takeaway'));
 
         if (type === 'current') {
             if (tableFromUrl) {
                 selectedTable = tableFromUrl;
                 orderType = 'dine-in';
                 tableBtnCurrent.classList.add('active');
-            } else {
-                tableBtnOther.click();
-                return;
             }
         } else if (type === 'other') {
             orderType = 'dine-in';
             tableBtnOther.classList.add('active');
             manualTableInputContainer.classList.remove('hidden');
             manualTableInput.focus();
-            return;
         } else if (type === 'takeaway') {
             orderType = 'takeaway';
             selectedTable = 'takeaway';
@@ -228,13 +217,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     manualTableInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            confirmManualTableBtn.click();
-        }
+        if (e.key === 'Enter') confirmManualTableBtn.click();
     });
 
     function formatWeight(weight) {
-        return weight === '1.5' ? '1,5 кг' : `${weight} кг`;
+        return String(weight).replace('.', ',') + ' кг';
     }
 
     function getCartKey(id, weight) {
@@ -250,13 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             weightOptions.forEach(option => {
                 const weight = option.dataset.weight;
-                const price = parseInt(option.dataset.price);
+                const price = parseInt(option.dataset.price, 10);
                 const key = getCartKey(id, weight);
                 const qty = cart[key] || 0;
-
-                if (qty > 0) {
-                    items.push({ id, name, weight, price, qty, key });
-                }
+                if (qty > 0) items.push({ id, name, weight, price, qty, key });
             });
         });
         return items;
@@ -271,16 +255,12 @@ document.addEventListener('DOMContentLoaded', () => {
         cards.forEach(card => {
             const id = card.dataset.id;
             const weightOptions = card.querySelectorAll('.weight-option');
-
             weightOptions.forEach(option => {
                 const weight = option.dataset.weight;
                 const key = getCartKey(id, weight);
                 const qty = cart[key] || 0;
                 const countSpan = option.querySelector('.cnt-value');
-
-                if (countSpan) {
-                    countSpan.textContent = qty;
-                }
+                if (countSpan) countSpan.textContent = qty;
             });
         });
 
@@ -288,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const itemSum = item.price * item.qty;
             totalSum += itemSum;
             totalCount += item.qty;
-
             itemsSummaryArray.push(`${item.name} — ${formatWeight(item.weight)} x${item.qty}`);
 
             popupHtml += `
@@ -327,12 +306,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         updateFavoritesUI();
-
-        if (orderConfirmModal.classList.contains('active')) {
-            updateConfirmModalContent();
-        }
-
+        if (orderConfirmModal.classList.contains('active')) updateConfirmModalContent();
         localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+        updateToTopPosition();
     }
 
     function updateFavoritesUI() {
@@ -386,7 +362,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateUI();
                 });
             }
-
             if (minusBtn) {
                 minusBtn.addEventListener('click', () => {
                     if (cart[key] > 0) {
@@ -401,7 +376,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function attachPopupListeners() {
         if (!cartPopupItems) return;
-
         cartPopupItems.querySelectorAll('.popup-plus').forEach(btn => {
             btn.addEventListener('click', () => {
                 const key = btn.dataset.key;
@@ -409,7 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateUI();
             });
         });
-
         cartPopupItems.querySelectorAll('.popup-minus').forEach(btn => {
             btn.addEventListener('click', () => {
                 const key = btn.dataset.key;
@@ -424,22 +397,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openOrderConfirmModal() {
         const cartItems = getCartItems();
-        if (cartItems.length === 0) {
-            alert('Корзина пуста!');
-            return;
-        }
+        if (cartItems.length === 0) return;
+
         if (cartPopup) cartPopup.classList.remove('active');
         if (favoritesPopup) favoritesPopup.classList.remove('active');
 
-        resetTableSelection();
+        renderTableState();
         updateConfirmModalContent();
         modalBackdrop.style.display = 'block';
         orderConfirmModal.classList.add('active');
+        updateToTopPosition();
     }
 
     function closeOrderConfirmModal() {
         orderConfirmModal.classList.remove('active');
         modalBackdrop.style.display = 'none';
+        updateToTopPosition();
     }
 
     function updateConfirmModalContent() {
@@ -497,46 +470,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (closeConfirmModalBtn) {
-        closeConfirmModalBtn.addEventListener('click', closeOrderConfirmModal);
-    }
+    if (closeConfirmModalBtn) closeConfirmModalBtn.addEventListener('click', closeOrderConfirmModal);
     modalBackdrop.addEventListener('click', closeOrderConfirmModal);
 
-    if (confirmSaveFavBtnModal) {
-        confirmSaveFavBtnModal.addEventListener('click', () => {
-            const cartItems = getCartItems();
-            if (cartItems.length === 0) {
-                alert('Корзина пуста!');
-                return;
-            }
+    function saveToFavorites(nameInputEl) {
+        const cartItems = getCartItems();
+        if (cartItems.length === 0) return;
 
-            let customName = confirmFavNameInput.value.trim();
-            if (!customName) customName = `Набор #${favorites.length + 1}`;
+        let customName = nameInputEl ? nameInputEl.value.trim() : '';
+        if (!customName) customName = `Набор #${favorites.length + 1}`;
 
-            const totalSum = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
-            const summaryArr = cartItems.map(item => `${item.name} — ${formatWeight(item.weight)} x${item.qty}`);
+        const totalSum = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+        const summaryArr = cartItems.map(item => `${item.name} — ${formatWeight(item.weight)} x${item.qty}`);
 
-            favorites.push({
-                name: customName,
-                summary: summaryArr.join(', '),
-                total: totalSum,
-                cartData: { ...cart }
-            });
-
-            localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(favorites));
-            confirmFavNameInput.value = '';
-            updateFavoritesUI();
-            alert('Заказ успешно сохранен в избранное! ⭐');
+        favorites.push({
+            name: customName,
+            summary: summaryArr.join(', '),
+            total: totalSum,
+            cartData: { ...cart }
         });
+
+        localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(favorites));
+        if (nameInputEl) nameInputEl.value = '';
+        updateFavoritesUI();
+    }
+
+    if (confirmSaveFavBtnModal) {
+        confirmSaveFavBtnModal.addEventListener('click', () => saveToFavorites(confirmFavNameInput));
     }
 
     if (confirmWhatsappFinalBtn) {
         confirmWhatsappFinalBtn.addEventListener('click', () => {
             const cartItems = getCartItems();
-            if (cartItems.length === 0) {
-                alert('Корзина пуста!');
-                return;
-            }
+            if (cartItems.length === 0) return;
 
             if (!selectedTable && orderType !== 'takeaway') {
                 tableErrorMessage.classList.remove('hidden');
@@ -554,16 +520,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             message += `\n📦 Итого к оплате: ${totalSum} ₸\n`;
-
             if (orderType === 'takeaway') {
                 message += `\n🥡 Заказ на вынос (предоплата)`;
             } else if (selectedTable) {
                 message += `\n🍽️ Стол: №${selectedTable}`;
             }
 
-            const encodedMessage = encodeURIComponent(message);
-            const waURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-
+            const waURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
             closeOrderConfirmModal();
             window.open(waURL, '_blank');
         });
@@ -571,7 +534,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function attachFavoritesListeners() {
         if (!favoritesPopupItems) return;
-
         favoritesPopupItems.querySelectorAll('.fav-load-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const index = btn.dataset.index;
@@ -580,7 +542,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateUI();
             });
         });
-
         favoritesPopupItems.querySelectorAll('.fav-del-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const index = btn.dataset.index;
@@ -595,22 +556,18 @@ document.addEventListener('DOMContentLoaded', () => {
         orderBarToggle.addEventListener('click', () => {
             if (favoritesPopup) favoritesPopup.classList.remove('active');
             cartPopup.classList.toggle('active');
-
-            // Скрываем панель сохранения в избранное при закрытии корзины
             if (!cartPopup.classList.contains('active') && saveFavInputPanel) {
                 saveFavInputPanel.classList.add('hidden');
             }
+            updateToTopPosition();
         });
     }
 
     if (closePopupBtn && cartPopup) {
         closePopupBtn.addEventListener('click', () => {
             cartPopup.classList.remove('active');
-
-            // Скрываем панель сохранения в избранное
-            if (saveFavInputPanel) {
-                saveFavInputPanel.classList.add('hidden');
-            }
+            if (saveFavInputPanel) saveFavInputPanel.classList.add('hidden');
+            updateToTopPosition();
         });
     }
 
@@ -618,43 +575,18 @@ document.addEventListener('DOMContentLoaded', () => {
         favoritesToggleBtn.addEventListener('click', () => {
             if (cartPopup) cartPopup.classList.remove('active');
             favoritesPopup.classList.toggle('active');
+            updateToTopPosition();
         });
     }
 
     if (closeFavoritesPopup && favoritesPopup) {
         closeFavoritesPopup.addEventListener('click', () => {
             favoritesPopup.classList.remove('active');
+            updateToTopPosition();
         });
     }
 
-    if (saveCurrentFavBtn) {
-        saveCurrentFavBtn.addEventListener('click', () => {
-            const totalCount = getCartItems().reduce((sum, item) => sum + item.qty, 0);
-            if (totalCount === 0) {
-                alert('Корзина пуста, нечего сохранять!');
-                return;
-            }
-
-            let customName = favNameInput.value.trim();
-            if (!customName) customName = `Набор #${favorites.length + 1}`;
-
-            const cartItems = getCartItems();
-            const totalSum = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
-            const summaryArr = cartItems.map(item => `${item.name} — ${formatWeight(item.weight)} x${item.qty}`);
-
-            favorites.push({
-                name: customName,
-                summary: summaryArr.join(', '),
-                total: totalSum,
-                cartData: { ...cart }
-            });
-
-            localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(favorites));
-            favNameInput.value = '';
-            updateFavoritesUI();
-            alert('Заказ успешно сохранен в избранное! ⭐');
-        });
-    }
+    if (saveCurrentFavBtn) saveCurrentFavBtn.addEventListener('click', () => saveToFavorites(favNameInput));
 
     if (whatsappBtn) {
         whatsappBtn.addEventListener('click', (e) => {
@@ -663,78 +595,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ============================================
-    // НОВАЯ ЛОГИКА: СОХРАНЕНИЕ ЗАКАЗА В ИЗБРАННОЕ ИЗ КОРЗИНЫ
-    // ============================================
-
-    // Показать/скрыть панель ввода названия
     if (openSaveFavPanelBtn && saveFavInputPanel) {
         openSaveFavPanelBtn.addEventListener('click', () => {
             saveFavInputPanel.classList.toggle('hidden');
-            if (!saveFavInputPanel.classList.contains('hidden')) {
-                saveFavNameInput.focus();
-            }
+            if (!saveFavInputPanel.classList.contains('hidden')) saveFavNameInput.focus();
         });
     }
 
-    // Сохранить текущий заказ в избранное из попапа корзины
     if (confirmSaveFavBtn) {
         confirmSaveFavBtn.addEventListener('click', () => {
-            const cartItems = getCartItems();
-            if (cartItems.length === 0) {
-                alert('Корзина пуста, нечего сохранять!');
-                return;
-            }
-
-            let customName = saveFavNameInput.value.trim();
-            if (!customName) {
-                customName = `Набор #${favorites.length + 1}`;
-            }
-
-            const totalSum = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
-            const summaryArr = cartItems.map(item => `${item.name} — ${formatWeight(item.weight)} x${item.qty}`);
-
-            favorites.push({
-                name: customName,
-                summary: summaryArr.join(', '),
-                total: totalSum,
-                cartData: { ...cart }
-            });
-
-            localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(favorites));
-            saveFavNameInput.value = '';
-            saveFavInputPanel.classList.add('hidden');
-            updateFavoritesUI();
-            alert('Заказ успешно сохранен в избранное! ⭐');
+            saveToFavorites(saveFavNameInput);
+            if (saveFavInputPanel) saveFavInputPanel.classList.add('hidden');
         });
     }
+
+    function updateToTopPosition() {
+        const toTopBtn = document.getElementById("toTopBtn");
+        if (!toTopBtn) return;
+        const isMobile = window.innerWidth <= 767;
+        const isFavActive = favoritesPopup && favoritesPopup.classList.contains('active');
+        const isCartActive = cartPopup && cartPopup.classList.contains('active');
+
+        if (isMobile && (isFavActive || isCartActive)) {
+            toTopBtn.style.bottom = '200px';
+        } else {
+            toTopBtn.style.bottom = '';
+        }
+    }
+
+    window.addEventListener('resize', updateToTopPosition);
+
+    let lightbox = document.getElementById('lightbox');
+    let lightboxImg = document.getElementById('lightbox-img');
+    let closeBtn = document.querySelector('.lightbox-close');
+
+    if (!lightbox) {
+        lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.className = 'lightbox-modal';
+        lightbox.innerHTML = `
+            <span class="lightbox-close">×</span>
+            <img class="lightbox-content" id="lightbox-img" alt="Увеличенное фото">
+        `;
+        document.body.appendChild(lightbox);
+        lightboxImg = lightbox.querySelector('#lightbox-img');
+        closeBtn = lightbox.querySelector('.lightbox-close');
+    }
+
+    document.querySelectorAll('.info-card img').forEach(img => {
+        img.addEventListener('click', () => {
+            lightbox.classList.add('active');
+            lightboxImg.src = img.src;
+        });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) lightbox.classList.remove('active');
+    });
 
     updateUI();
-
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const closeBtn = document.querySelector('.lightbox-close');
-    const images = document.querySelectorAll('.info-card img');
-
-    if (lightbox) {
-        images.forEach(img => {
-            img.addEventListener('click', () => {
-                lightbox.classList.add('active');
-                lightboxImg.src = img.src;
-            });
-        });
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                lightbox.classList.remove('active');
-            });
-        }
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                lightbox.classList.remove('active');
-            }
-        });
-    }
-
 });

@@ -17,7 +17,9 @@
     padding: 0;
 }
 
-html { scroll-behavior: smooth; }
+html { 
+    scroll-behavior: smooth; 
+}
 
 body {
     background-color: var(--bg-color);
@@ -80,7 +82,10 @@ header {
     text-overflow: ellipsis;
 }
 
-.header-right-action { display: flex; flex-shrink: 0; }
+.header-right-action { 
+    display: flex; 
+    flex-shrink: 0; 
+}
 
 .fav-btn-wrapper {
     display: flex;
@@ -136,7 +141,9 @@ header {
     border: 2px solid #fff;
 }
 
-.fav-badge.hidden { display: none; }
+.fav-badge.hidden { 
+    display: none; 
+}
 
 /* ============ NAV ============ */
 
@@ -147,7 +154,9 @@ nav ul {
     width: 100%;
 }
 
-nav li { flex: 1; }
+nav li { 
+    flex: 1; 
+}
 
 nav a {
     display: block;
@@ -333,7 +342,9 @@ nav a.active::after {
     font-weight: 300;
 }
 
-.toggle-description-btn:hover { color: var(--text-dark); }
+.toggle-description-btn:hover { 
+    color: var(--text-dark); 
+}
 
 .toggle-description-btn .arrow {
     display: inline-block;
@@ -399,7 +410,9 @@ nav a.active::after {
 
 /* ============ WEIGHT OPTIONS ============ */
 
-.weight-meta { display: block !important; }
+.weight-meta { 
+    display: block !important; 
+}
 
 .weight-options {
     display: flex;
@@ -458,37 +471,7 @@ nav a.active::after {
     font-size: 12px;
 }
 
-/* ============ CONTACTS GRID ============ */
-
-.contacts-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.contact-info-card {
-    background: var(--bg-card);
-    padding: 30px;
-    border-radius: var(--card-radius);
-    border: 1px solid var(--border-light);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-}
-
-.contact-info-card h2 {
-    color: var(--text-dark);
-    font-size: 22px;
-    margin-bottom: 15px;
-}
-
-.contact-info-card p {
-    color: var(--text-muted);
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-/* ============ CART POPUP ============ */
+/* ============ CART POPUP & MODALS ============ */
 
 .cart-popup {
     position: fixed;
@@ -505,7 +488,7 @@ nav a.active::after {
     padding: 20px;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition);
 }
 
 .cart-popup.active {
@@ -527,8 +510,6 @@ nav a.active::after {
     font-size: 18px;
     color: var(--text-dark);
 }
-
-/* --- Новые стили для кнопки сохранения в избранное из корзины --- */
 
 .cart-header-actions {
     display: flex;
@@ -579,8 +560,6 @@ nav a.active::after {
     background: #ffffff;
 }
 
-/* --- Конец новых стилей --- */
-
 .close-popup-btn {
     background: none;
     border: none;
@@ -590,7 +569,9 @@ nav a.active::after {
     line-height: 1;
 }
 
-.close-popup-btn:hover { color: var(--text-dark); }
+.close-popup-btn:hover { 
+    color: var(--text-dark); 
+}
 
 .cart-popup-items {
     display: flex;
@@ -628,7 +609,9 @@ nav a.active::after {
     transition: var(--transition);
 }
 
-.fav-save-btn:hover { background: #374151; }
+.fav-save-btn:hover { 
+    background: #374151; 
+}
 
 .fav-item-row,
 .popup-item-row {
@@ -661,7 +644,10 @@ nav a.active::after {
     color: var(--text-muted);
 }
 
-.fav-actions { display: flex; gap: 8px; }
+.fav-actions { 
+    display: flex; 
+    gap: 8px; 
+}
 
 .fav-load-btn {
     background: var(--accent-blue);
@@ -674,7 +660,9 @@ nav a.active::after {
     cursor: pointer;
 }
 
-.fav-load-btn:hover { background: #1d4ed8; }
+.fav-load-btn:hover { 
+    background: #1d4ed8; 
+}
 
 .fav-del-btn {
     background: #dc2626;
@@ -687,7 +675,9 @@ nav a.active::after {
     cursor: pointer;
 }
 
-.fav-del-btn:hover { background: #b91c1c; }
+.fav-del-btn:hover { 
+    background: #b91c1c; 
+}
 
 /* ============ ORDER BAR ============ */
 
@@ -704,7 +694,7 @@ nav a.active::after {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     z-index: 999;
     padding: 12px 20px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition);
 }
 
 .order-bar.hidden {
@@ -754,8 +744,15 @@ nav a.active::after {
     letter-spacing: normal;
 }
 
-.order-total { font-size: 15px; color: var(--text-muted); }
-.order-total strong { color: var(--text-dark); font-size: 17px; }
+.order-total { 
+    font-size: 15px; 
+    color: var(--text-muted); 
+}
+
+.order-total strong { 
+    color: var(--text-dark); 
+    font-size: 17px; 
+}
 
 .order-items-preview {
     font-size: 13px;
@@ -806,7 +803,7 @@ nav a.active::after {
 .lightbox-modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 3000;
     top: 0;
     left: 0;
     width: 100%;
@@ -818,7 +815,9 @@ nav a.active::after {
     padding: 20px;
 }
 
-.lightbox-modal.active { display: flex; }
+.lightbox-modal.active { 
+    display: flex; 
+}
 
 .lightbox-content {
     max-width: 90%;
@@ -861,8 +860,15 @@ nav a.active::after {
     z-index: 998;
 }
 
-.to-top-btn.visible { opacity: 1; pointer-events: auto; }
-.to-top-btn:hover { background: #374151; transform: scale(1.1); }
+.to-top-btn.visible { 
+    opacity: 1; 
+    pointer-events: auto; 
+}
+
+.to-top-btn:hover { 
+    background: #374151; 
+    transform: scale(1.1); 
+}
 
 /* ============ FOOTER ============ */
 
@@ -925,7 +931,9 @@ footer {
     padding-left: 6px;
 }
 
-.section-anchor { scroll-margin-top: 30px; }
+.section-anchor { 
+    scroll-margin-top: 30px; 
+}
 
 /* ============ TABLE SELECTION ============ */
 
@@ -992,7 +1000,10 @@ footer {
     box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
 }
 
-.table-btn-icon { font-size: 16px; flex-shrink: 0; }
+.table-btn-icon { 
+    font-size: 16px; 
+    flex-shrink: 0; 
+}
 
 .table-btn-text {
     flex: 1;
@@ -1007,7 +1018,9 @@ footer {
     animation: fadeIn 0.3s ease;
 }
 
-.manual-table-input-container.hidden { display: none; }
+.manual-table-input-container.hidden { 
+    display: none; 
+}
 
 .manual-table-input-container input {
     flex: 1;
@@ -1045,7 +1058,9 @@ footer {
     text-align: center;
 }
 
-.table-error-message.hidden { display: none; }
+.table-error-message.hidden { 
+    display: none; 
+}
 
 /* ============ TABLE DETAILS TOGGLE ============ */
 
@@ -1067,7 +1082,9 @@ footer {
     justify-content: center;
 }
 
-.table-details-toggle:hover { color: #1d4ed8; }
+.table-details-toggle:hover { 
+    color: #1d4ed8; 
+}
 
 .table-details-arrow {
     display: inline-block;
@@ -1113,9 +1130,13 @@ footer {
     margin-bottom: 6px;
 }
 
-.table-details-content p:last-child { margin-bottom: 0; }
+.table-details-content p:last-child { 
+    margin-bottom: 0; 
+}
 
-.table-details-content strong { color: #1e1e1e; }
+.table-details-content strong { 
+    color: #1e1e1e; 
+}
 
 /* ============ CONFIRM MODAL FOOTER ============ */
 
@@ -1151,11 +1172,6 @@ footer {
     border: 1px solid #d1d5db;
 }
 
-/* ============ ШАПКА МОДАЛКИ ПОДТВЕРЖДЕНИЯ ЗАКАЗА ============ */
-/* Отдельный класс для шапки #order-confirm-modal, чтобы на мобиле
-   крестик всегда был справа, а заголовок — слева.
-   Правила для .cart-popup-header h3 на эту шапку НЕ распространяются. */
-
 .confirm-modal-header {
     display: flex;
     justify-content: space-between;
@@ -1170,13 +1186,46 @@ footer {
     margin: 0;
     font-size: 18px;
     color: var(--text-dark);
-    order: 0;
 }
 
 .confirm-modal-header .close-popup-btn {
     flex: 0 0 auto;
-    order: 0;
     margin-left: auto;
+}
+
+/* ============ REVIEWS STATUS MESSAGES ============ */
+
+.reviews-status-message {
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.reviews-status-message.success {
+    background: #ecfdf5;
+    border: 1px solid #10b981;
+    color: #065f46;
+}
+
+.reviews-status-message.error {
+    background: #fffbeb;
+    border: 1px solid #f59e0b;
+    color: #92400e;
+}
+
+.reviews-status-message .close-status-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: inherit;
+    line-height: 1;
 }
 
 /* ============ MOBILE ============ */
@@ -1188,8 +1237,9 @@ footer {
 }
 
 @media (max-width: 768px) {
-
-    body { padding-bottom: 130px; }
+    body { 
+        padding-bottom: 130px; 
+    }
 
     .main-wrapper {
         margin: 0;
@@ -1207,7 +1257,9 @@ footer {
         gap: 20px;
     }
 
-    .site-title { font-size: 20px; }
+    .site-title { 
+        font-size: 20px; 
+    }
 
     nav a {
         font-size: 12px;
@@ -1230,16 +1282,22 @@ footer {
         width: 100%;
     }
 
-    .order-items-preview { max-width: 100%; }
+    .order-items-preview { 
+        max-width: 100%; 
+    }
 
     .weight-option {
         padding: 6px 8px;
         gap: 6px;
     }
 
-    .weight-label { font-size: 12px; }
+    .weight-label { 
+        font-size: 12px; 
+    }
 
-    .map-container { height: 180px; }
+    .map-container { 
+        height: 180px; 
+    }
 
     .cart-popup {
         width: 96%;
@@ -1260,9 +1318,18 @@ footer {
         padding: 5px 0;
     }
 
-    .table-selection-block { padding: 14px; }
-    .table-selection-title { font-size: 13px; }
-    .table-select-btn { font-size: 12.5px; padding: 9px 11px; }
+    .table-selection-block { 
+        padding: 14px; 
+    }
+    
+    .table-selection-title { 
+        font-size: 13px; 
+    }
+    
+    .table-select-btn { 
+        font-size: 12.5px; 
+        padding: 9px 11px; 
+    }
 
     .confirm-modal-footer {
         flex-direction: column;
@@ -1270,11 +1337,21 @@ footer {
         gap: 8px;
     }
 
-    .confirm-modal-footer span { text-align: center; }
-    .confirm-whatsapp-btn { justify-content: center; }
+    .confirm-modal-footer span { 
+        text-align: center; 
+    }
+    
+    .confirm-whatsapp-btn { 
+        justify-content: center; 
+    }
 
-    .table-details-content p { font-size: 12px; }
-    .table-details-inner { padding: 10px 12px; }
+    .table-details-content p { 
+        font-size: 12px; 
+    }
+    
+    .table-details-inner { 
+        padding: 10px 12px; 
+    }
 
     .cluster-plate {
         font-size: 11.5px;
@@ -1290,8 +1367,6 @@ footer {
         font-size: 14px;
     }
 
-    /* --- Мобильная раскладка кнопки «Сохранить в избранное» --- */
-    /* Эти правила применяются ТОЛЬКО к шапке корзины #cart-popup. */
     #cart-popup .cart-popup-header {
         flex-wrap: wrap;
     }
@@ -1329,10 +1404,6 @@ footer {
         width: 100%;
     }
 
-    /* --- конец мобильной раскладки --- */
-
-    /* --- Шапка модалки подтверждения заказа на мобиле --- */
-    /* Жёстко: заголовок слева, крестик справа. Никаких wrap и order:1. */
     .confirm-modal-header {
         flex-wrap: nowrap;
         justify-content: space-between;
@@ -1341,16 +1412,12 @@ footer {
 
     .confirm-modal-header h3 {
         flex: 1 1 auto;
-        order: 0;
         min-width: 0;
-        margin: 0;
-        margin-right: 10px;
+        margin: 0 10px 0 0;
     }
 
     .confirm-modal-header .close-popup-btn {
         flex: 0 0 auto;
-        order: 0;
         margin-left: auto;
     }
-    /* --- конец --- */
 }
