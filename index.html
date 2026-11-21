@@ -6,6 +6,15 @@
     <title>Сайт Шаблон — Главная</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        .honey-grid {
+            align-items: start;
+        }
+        .honey-grid .info-card {
+            height: auto;
+        }
+        .honey-grid .info-card .meta {
+            margin-top: 0;
+        }
         .info-card img { width: 100%; aspect-ratio: 600 / 650; object-fit: cover; }
         .weight-option .desc-hint { font-size: 11px; color: #9ca3af; font-weight: 400; margin-left: 8px; }
         .preorder-info-block { font-size: 14.5px; color: #1e3a8a; background: #eff6ff; padding: 14px 18px; border-radius: 12px; margin-bottom: 22px; border-left: 4px solid #2563eb; line-height: 1.55; }
@@ -46,13 +55,13 @@
         .description-toggle-title {
             font-size: 14.5px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: #111827;
             line-height: 1.3;
         }
         .description-toggle-arrow {
             font-size: 20px;
             line-height: 1;
-            color: var(--text-dark);
+            color: #111827;
             flex-shrink: 0;
             display: inline-block;
             transform: scaleX(1.32);
@@ -64,7 +73,7 @@
         }
         .description-box.open .description-toggle-arrow {
             transform: scaleX(1.32) rotate(180deg);
-            color: var(--text-dark);
+            color: #111827;
         }
         .description-collapse {
             max-height: 0;
@@ -77,11 +86,12 @@
             opacity: 1;
         }
         .description-inner {
-            padding: 10px 14px 13px 14px;
+            padding: 11px 14px 13px 14px;
             border-top: 1px solid var(--border-light);
             font-size: 14px;
+            font-weight: 500;
             line-height: 1.55;
-            color: #374151;
+            color: #111827;
         }
         @media (max-width: 768px) {
             .description-toggle-header {
