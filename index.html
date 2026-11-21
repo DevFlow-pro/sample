@@ -11,6 +11,85 @@
         .preorder-info-block { font-size: 14.5px; color: #1e3a8a; background: #eff6ff; padding: 14px 18px; border-radius: 12px; margin-bottom: 22px; border-left: 4px solid #2563eb; line-height: 1.55; }
         .preorder-info-block .preorder-title { display: block; font-weight: 800; margin-bottom: 4px; }
         .preorder-info-block .preorder-sub { display: block; font-size: 12.5px; color: #475569; font-weight: 600; }
+
+        /* Компактная плашка описания с треугольником */
+        .description-box {
+            margin-top: 10px;
+            background: var(--bg-hover);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .description-box:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+        .description-box.open {
+            background: #ffffff;
+            border-color: #9ca3af;
+        }
+        .description-toggle-header {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 9px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            color: var(--text-dark);
+        }
+        .description-toggle-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+        .description-toggle-arrow {
+            font-size: 13px;
+            line-height: 1;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+        }
+        .description-box.open .description-toggle-arrow {
+            transform: rotate(180deg);
+            color: var(--text-dark);
+        }
+        .description-collapse {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease;
+        }
+        .description-box.open .description-collapse {
+            max-height: 900px;
+            opacity: 1;
+        }
+        .description-inner {
+            padding: 0 12px 11px 12px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 9px;
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: var(--text-muted);
+        }
+        @media (max-width: 768px) {
+            .description-toggle-header {
+                padding: 8px 10px;
+            }
+            .description-toggle-title {
+                font-size: 12.5px;
+            }
+            .description-inner {
+                padding: 8px 10px 10px 10px;
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -79,19 +158,21 @@
                         </div>
                     </div>
                     <div class="cluster-plate">«+» / «−» — добавьте товар в корзину</div>
-                    <div class="description-wrapper">
-                        <p class="description-content">
-                            Здесь вы можете разместить полноценное описание вашего товара, услуги или категории.
-                            Например, если вы продаёте цветы — расскажите о сортах, свежести, составе букета и сроках доставки.
-                            Если это меню ресторана — опишите блюдо, его состав, порцию, калорийность и особенности подачи.
-                            Если это услуги — укажите, что входит в работу, сколько времени она занимает и какие гарантии вы даёте.
-                            Чем подробнее и понятнее описание, тем проще клиенту принять решение о заказе.
-                        </p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
+                    <div class="description-box">
+                        <button class="description-toggle-header" type="button" aria-expanded="false" aria-label="Развернуть описание товара">
+                            <span class="description-toggle-title">Описание товара</span>
+                            <span class="description-toggle-arrow">▾</span>
                         </button>
+                        <div class="description-collapse">
+                            <div class="description-inner">
+                                Здесь вы можете разместить полноценное описание вашего товара, услуги или категории.
+                                Например, если вы продаёте цветы — расскажите о сортах, свежести, составе букета и сроках доставки.
+                                Если это меню ресторана — опишите блюдо, его состав, порцию, калорийность и особенности подачи.
+                                Если это услуги — укажите, что входит в работу, сколько времени она занимает и какие гарантии вы даёте.
+                                Чем подробнее и понятнее описание, тем проще клиенту принять решение о заказе.
+                            </div>
+                        </div>
                     </div>
-                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
                 </article>
                 <article class="info-card section-anchor" id="product2" data-id="2" data-name="Ваш товар #2">
                     <h3>Ваш товар #2</h3>
@@ -118,18 +199,20 @@
                         </div>
                     </div>
                     <div class="cluster-plate">«+» / «−» — добавьте товар в корзину</div>
-                    <div class="description-wrapper">
-                        <p class="description-content">
-                            Адаптируйте эту карточку под свой бизнес: букеты, блюда из меню, услуги мастерской или авторские наборы.
-                            Опишите, чем ваш товар отличается от других — качеством, свежестью, составом или особенным подходом.
-                            Можно указать размеры, вес, сроки изготовления и рекомендации по использованию.
-                            Чем больше деталей, тем больше доверия у клиента и тем выше вероятность заказа.
-                        </p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
+                    <div class="description-box">
+                        <button class="description-toggle-header" type="button" aria-expanded="false" aria-label="Развернуть описание товара">
+                            <span class="description-toggle-title">Описание товара</span>
+                            <span class="description-toggle-arrow">▾</span>
                         </button>
+                        <div class="description-collapse">
+                            <div class="description-inner">
+                                Адаптируйте эту карточку под свой бизнес: букеты, блюда из меню, услуги мастерской или авторские наборы.
+                                Опишите, чем ваш товар отличается от других — качеством, свежестью, составом или особенным подходом.
+                                Можно указать размеры, вес, сроки изготовления и рекомендации по использованию.
+                                Чем больше деталей, тем больше доверия у клиента и тем выше вероятность заказа.
+                            </div>
+                        </div>
                     </div>
-                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
                 </article>
                 <article class="info-card section-anchor" id="product3" data-id="3" data-name="Ваш товар #3">
                     <h3>Ваш товар #3</h3>
@@ -156,18 +239,20 @@
                         </div>
                     </div>
                     <div class="cluster-plate">«+» / «−» — добавьте товар в корзину</div>
-                    <div class="description-wrapper">
-                        <p class="description-content">
-                            Универсальный шаблон под любой тип товаров или услуг — от еды и напитков до одежды и техники.
-                            Расскажите клиенту главное: что это, для кого, почему стоит выбрать именно вас и что входит в стоимость.
-                            Здесь же можно указать акции, скидки, условия доставки или самовывоза.
-                            Хорошее описание экономит время и клиенту, и вам — меньше вопросов, больше заказов.
-                        </p>
-                        <button class="toggle-description-btn" aria-label="Развернуть описание">
-                            <span class="arrow">▾</span>
+                    <div class="description-box">
+                        <button class="description-toggle-header" type="button" aria-expanded="false" aria-label="Развернуть описание товара">
+                            <span class="description-toggle-title">Описание товара</span>
+                            <span class="description-toggle-arrow">▾</span>
                         </button>
+                        <div class="description-collapse">
+                            <div class="description-inner">
+                                Универсальный шаблон под любой тип товаров или услуг — от еды и напитков до одежды и техники.
+                                Расскажите клиенту главное: что это, для кого, почему стоит выбрать именно вас и что входит в стоимость.
+                                Здесь же можно указать акции, скидки, условия доставки или самовывоза.
+                                Хорошее описание экономит время и клиенту, и вам — меньше вопросов, больше заказов.
+                            </div>
+                        </div>
                     </div>
-                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
                 </article>
             </div>
         </main>
@@ -236,17 +321,14 @@
             });
             toTopBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
-            const toggleButtons = document.querySelectorAll('.toggle-description-btn');
+            const toggleButtons = document.querySelectorAll('.description-toggle-header');
             toggleButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    const wrapper = this.closest('.description-wrapper');
-                    const content = wrapper.querySelector('.description-content');
-                    const arrow = this.querySelector('.arrow');
-                    const isExpanded = content.classList.toggle('expanded');
-                    arrow.classList.toggle('expanded', isExpanded);
-                    arrow.textContent = isExpanded ? '▴' : '▾';
-                    this.setAttribute('aria-label', isExpanded ? 'Свернуть описание' : 'Развернуть описание');
+                    const box = this.closest('.description-box');
+                    const isOpen = box.classList.toggle('open');
+                    this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    this.setAttribute('aria-label', isOpen ? 'Свернуть описание товара' : 'Развернуть описание товара');
                 });
             });
         });
