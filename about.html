@@ -8,103 +8,66 @@
     <style>
         .honey-grid {
             align-items: start;
+            gap: 18px;
         }
         .honey-grid .info-card {
+            padding: 14px;
             height: auto;
         }
+        .honey-grid .info-card h3 {
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+        .honey-grid .info-card .cluster-plate {
+            margin-top: 6px;
+            margin-bottom: 6px;
+            padding: 6px 10px;
+            font-size: 12px;
+        }
         .info-card .counter-box { display: none !important; }
-        .info-card img { width: 100%; aspect-ratio: 600 / 650; object-fit: cover; }
+        .info-card img { width: 100%; aspect-ratio: 600 / 650; object-fit: cover; border-radius: 10px; }
 
-        /* Компактная плашка описания с треугольником */
-        .description-box {
-            margin-top: 10px;
-            background: var(--bg-hover);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
+        .description-wrapper {
+            margin-top: 6px;
+        }
+        .description-content {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.5;
+            color: #111827;
+        }
+        .description-content:not(.expanded) {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
-            transition: var(--transition);
         }
-        .description-box:hover {
-            background: #e5e7eb;
-            border-color: #9ca3af;
-        }
-        .description-box.open {
-            background: #ffffff;
-            border-color: #9ca3af;
-        }
-        .description-toggle-header {
+        .toggle-description-btn {
             width: 100%;
-            background: none;
+            margin-top: 4px;
+            padding: 4px 8px;
+            background: transparent;
             border: none;
-            padding: 12px 14px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 12px;
+            justify-content: center;
             cursor: pointer;
-            text-align: left;
-            font-family: inherit;
-            color: var(--text-dark);
         }
-        .description-toggle-title {
-            font-size: 14.5px;
-            font-weight: 700;
-            color: #111827;
-            line-height: 1.3;
-        }
-        .description-toggle-arrow {
+        .toggle-description-btn .arrow {
             font-size: 20px;
             line-height: 1;
             color: #111827;
-            flex-shrink: 0;
             display: inline-block;
             transform: scaleX(1.32);
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+            transition: transform 0.25s ease, color 0.2s ease;
         }
-        .description-toggle-header:hover .description-toggle-arrow {
+        .toggle-description-btn:hover .arrow {
             color: #000000;
         }
-        .description-box.open .description-toggle-arrow {
-            transform: scaleX(1.32) rotate(180deg);
-            color: #111827;
-        }
-        .description-collapse {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease;
-        }
-        .description-box.open .description-collapse {
-            max-height: 900px;
-            opacity: 1;
-        }
-        .description-inner {
-            padding: 11px 14px 13px 14px;
-            border-top: 1px solid var(--border-light);
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 1.55;
-            color: #111827;
-        }
-        @media (max-width: 768px) {
-            .description-toggle-header {
-                padding: 11px 12px;
-            }
-            .description-toggle-title {
-                font-size: 14px;
-            }
-            .description-toggle-arrow {
-                font-size: 19px;
-                transform: scaleX(1.35);
-            }
-            .description-box.open .description-toggle-arrow {
-                transform: scaleX(1.35) rotate(180deg);
-            }
-            .description-inner {
-                padding: 10px 12px 12px 12px;
-                font-size: 13.5px;
-            }
+        .toggle-description-btn .arrow.expanded {
+            transform: scaleX(1.32);
         }
     </style>
 </head>
@@ -150,96 +113,86 @@
                     <h3>Карточка 1</h3>
                     <img src="tochka.jpeg" alt="Точка">
                     <div class="cluster-plate">Фото вашей точки или услуги</div>
-                    <div class="description-box">
-                        <button class="description-toggle-header" type="button" aria-expanded="false" aria-label="Развернуть описание">
-                            <span class="description-toggle-title">Описание</span>
-                            <span class="description-toggle-arrow">▾</span>
+                    <div class="description-wrapper">
+                        <p class="description-content">
+                            Расскажите о своём бизнесе подробнее: когда открылись, чем занимаетесь, что для вас важно.
+                            Здесь можно упомянуть историю, миссию, ценности и то, чем вы гордитесь.
+                            Опишите вашу команду, подход к работе и то, что отличает вас от других.
+                            Такой текст помогает клиенту почувствовать доверие и понять, что вы — надёжный партнёр.
+                        </p>
+                        <button class="toggle-description-btn" aria-label="Развернуть описание">
+                            <span class="arrow">▾</span>
                         </button>
-                        <div class="description-collapse">
-                            <div class="description-inner">
-                                Расскажите о своём бизнесе подробнее: когда открылись, чем занимаетесь, что для вас важно.
-                                Здесь можно упомянуть историю, миссию, ценности и то, чем вы гордитесь.
-                                Опишите вашу команду, подход к работе и то, что отличает вас от других.
-                                Такой текст помогает клиенту почувствовать доверие и понять, что вы — надёжный партнёр.
-                            </div>
-                        </div>
                     </div>
+                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
                 </article>
                 <article class="info-card section-anchor" id="card2">
                     <h3>Карточка 2</h3>
                     <img src="tochka.jpeg" alt="Точка">
                     <div class="cluster-plate">Фото вашей точки или услуги</div>
-                    <div class="description-box">
-                        <button class="description-toggle-header" type="button" aria-expanded="false" aria-label="Развернуть описание">
-                            <span class="description-toggle-title">Описание</span>
-                            <span class="description-toggle-arrow">▾</span>
+                    <div class="description-wrapper">
+                        <p class="description-content">
+                            Расскажите о своих услугах: что именно вы предлагаете клиентам, как это работает и какие цены.
+                            Опишите категории товаров или услуг, укажите акции и специальные предложения.
+                            Можно добавить условия доставки, самовывоза или бронирования.
+                            Чем конкретнее и понятнее, тем легче клиенту принять решение и сделать заказ.
+                        </p>
+                        <button class="toggle-description-btn" aria-label="Развернуть описание">
+                            <span class="arrow">▾</span>
                         </button>
-                        <div class="description-collapse">
-                            <div class="description-inner">
-                                Расскажите о своих услугах: что именно вы предлагаете клиентам, как это работает и какие цены.
-                                Опишите категории товаров или услуг, укажите акции и специальные предложения.
-                                Можно добавить условия доставки, самовывоза или бронирования.
-                                Чем конкретнее и понятнее, тем легче клиенту принять решение и сделать заказ.
-                            </div>
-                        </div>
                     </div>
+                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
                 </article>
                 <article class="info-card section-anchor" id="card3">
                     <h3>Карточка 3</h3>
                     <img src="tochka.jpeg" alt="Точка">
                     <div class="cluster-plate">Фото вашей точки или услуги</div>
-                    <div class="description-box">
-                        <button class="description-toggle-header" type="button" aria-expanded="false" aria-label="Развернуть описание">
-                            <span class="description-toggle-title">Описание</span>
-                            <span class="description-toggle-arrow">▾</span>
+                    <div class="description-wrapper">
+                        <p class="description-content">
+                            Преимущества вашей компании: почему клиенты выбирают именно вас, а не конкурентов.
+                            Это может быть уникальная технология, качество ингредиентов, скорость работы, гарантия или сервис.
+                            Перечислите главные причины, по которым вам можно доверять.
+                            Хорошо работают конкретные факты: «готовим за 15 минут», «только свежие продукты», «бесплатная доставка от суммы».
+                        </p>
+                        <button class="toggle-description-btn" aria-label="Развернуть описание">
+                            <span class="arrow">▾</span>
                         </button>
-                        <div class="description-collapse">
-                            <div class="description-inner">
-                                Преимущества вашей компании: почему клиенты выбирают именно вас, а не конкурентов.
-                                Это может быть уникальная технология, качество ингредиентов, скорость работы, гарантия или сервис.
-                                Перечислите главные причины, по которым вам можно доверять.
-                                Хорошо работают конкретные факты: «готовим за 15 минут», «только свежие продукты», «бесплатная доставка от суммы».
-                            </div>
-                        </div>
                     </div>
+                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
                 </article>
                 <article class="info-card section-anchor" id="card4">
                     <h3>Карточка 4</h3>
                     <img src="tochka.jpeg" alt="Точка">
                     <div class="cluster-plate">Фото вашей точки или услуги</div>
-                    <div class="description-box">
-                        <button class="description-toggle-header" type="button" aria-expanded="false" aria-label="Развернуть описание">
-                            <span class="description-toggle-title">Описание</span>
-                            <span class="description-toggle-arrow">▾</span>
+                    <div class="description-wrapper">
+                        <p class="description-content">
+                            Контактная информация и местоположение вашей точки: адрес, телефон, email, график работы.
+                            Укажите, как удобнее всего с вами связаться — звонком, в WhatsApp или через форму на сайте.
+                            Можно добавить ориентиры рядом со входом, чтобы клиенту было проще вас найти.
+                            Чем проще с вами связаться — тем больше клиентов дойдёт до заказа.
+                        </p>
+                        <button class="toggle-description-btn" aria-label="Развернуть описание">
+                            <span class="arrow">▾</span>
                         </button>
-                        <div class="description-collapse">
-                            <div class="description-inner">
-                                Контактная информация и местоположение вашей точки: адрес, телефон, email, график работы.
-                                Укажите, как удобнее всего с вами связаться — звонком, в WhatsApp или через форму на сайте.
-                                Можно добавить ориентиры рядом со входом, чтобы клиенту было проще вас найти.
-                                Чем проще с вами связаться — тем больше клиентов дойдёт до заказа.
-                            </div>
-                        </div>
                     </div>
+                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
                 </article>
                 <article class="info-card section-anchor" id="card5">
                     <h3>Карточка 5</h3>
                     <img src="tochka.jpeg" alt="Точка">
                     <div class="cluster-plate">Фото вашей точки или услуги</div>
-                    <div class="description-box">
-                        <button class="description-toggle-header" type="button" aria-expanded="false" aria-label="Развернуть описание">
-                            <span class="description-toggle-title">Описание</span>
-                            <span class="description-toggle-arrow">▾</span>
+                    <div class="description-wrapper">
+                        <p class="description-content">
+                            Отзывы клиентов и рейтинг — лучшая реклама для вашего бизнеса.
+                            Здесь можно поделиться успехами, привести примеры реальных отзывов или показать средний рейтинг.
+                            Расскажите, что клиенты чаще всего хвалят: скорость, качество, атмосферу или сервис.
+                            Хорошие отзывы создают доверие и помогают новым клиентам решиться на первый заказ.
+                        </p>
+                        <button class="toggle-description-btn" aria-label="Развернуть описание">
+                            <span class="arrow">▾</span>
                         </button>
-                        <div class="description-collapse">
-                            <div class="description-inner">
-                                Отзывы клиентов и рейтинг — лучшая реклама для вашего бизнеса.
-                                Здесь можно поделиться успехами, привести примеры реальных отзывов или показать средний рейтинг.
-                                Расскажите, что клиенты чаще всего хвалят: скорость, качество, атмосферу или сервис.
-                                Хорошие отзывы создают доверие и помогают новым клиентам решиться на первый заказ.
-                            </div>
-                        </div>
                     </div>
+                    <div class="cluster-plate">Нажмите треугольник, чтобы развернуть описание</div>
                 </article>
             </div>
         </main>
@@ -309,14 +262,17 @@
             });
             toTopBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
-            const toggleButtons = document.querySelectorAll('.description-toggle-header');
+            const toggleButtons = document.querySelectorAll('.toggle-description-btn');
             toggleButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    const box = this.closest('.description-box');
-                    const isOpen = box.classList.toggle('open');
-                    this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-                    this.setAttribute('aria-label', isOpen ? 'Свернуть описание' : 'Развернуть описание');
+                    const wrapper = this.closest('.description-wrapper');
+                    const content = wrapper.querySelector('.description-content');
+                    const arrow = this.querySelector('.arrow');
+                    const isExpanded = content.classList.toggle('expanded');
+                    arrow.classList.toggle('expanded', isExpanded);
+                    arrow.textContent = isExpanded ? '▴' : '▾';
+                    this.setAttribute('aria-label', isExpanded ? 'Свернуть описание' : 'Развернуть описание');
                 });
             });
         });
